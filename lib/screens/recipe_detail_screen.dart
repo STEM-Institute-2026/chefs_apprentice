@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 import 'interactive_cooking_screen.dart';
 import 'recipe_complete_screen.dart';
+import '../services/history_service.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -14,13 +15,6 @@ class RecipeDetailScreen extends StatefulWidget {
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   late bool isFavorite;
-
-  @override
-  void initState() {
-    super.initState();
-    // Grab the initial value from the recipe model
-    isFavorite = widget.recipe.isFavorite;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,22 +39,27 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         actions: [
           IconButton(
             icon: Icon(
-              isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: isFavorite ? AppColors.terracottaAccent : null,
+              HistoryService.isRecipeFavorite(widget.recipe.recipeId)
+                  ? Icons.favorite
+                  : Icons.favorite_border,
+              color: HistoryService.isRecipeFavorite(widget.recipe.recipeId)
+                  ? Colors.red
+                  : Colors.white,
             ),
             onPressed: () {
               setState(() {
-                isFavorite = !isFavorite;
+                HistoryService.toggleFavorite(widget.recipe.recipeId);
               });
             },
-          ),
+          )
         ],
       
         backgroundColor: AppColors.oliveSecondary,
         foregroundColor: AppColors.creamBackground,
       ),
       
-      body: SingleChildScrollView(
+     body: SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Image.network( // image of recipe at the top of the screen 
@@ -123,7 +122,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ),
             ),
             
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
 
             NutritionCard(nutrition: widget.recipe.nutritionStats),
             
@@ -132,17 +131,17 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             // 2. The 2-Column Ingredients List Widget
             IngredientListSection(ingredients: widget.recipe.ingredients),
           
-            
-            SizedBox(height: 15.0),
+            const SizedBox(height: 5.0),
             // 3. The Instruction List Widget
             HeaderWidget(headerText: "Instructions"),
             
             InstructionListSection(instructions: widget.recipe.steps),
             
-
+            const SizedBox(height: 20),
           ],
         ),      
       ),
+    ),
     
     bottomNavigationBar: RecipeBottomActionBar(
         onStartGuidedCooking: () {
@@ -186,7 +185,7 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 8.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
       child: Text(
         headerText,
         style: kHeaderTextStyle.copyWith(color: AppColors.oliveSecondary),

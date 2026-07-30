@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // 1. Import your mock data file
 import 'mock_data.dart'; 
 // 2. Import your screen file
-import 'custom_widgets/recipe_catalog_screen.dart'; 
+import 'screens/recipe_catalog_screen.dart'; 
 
 void main() {
   runApp(const MyApp());

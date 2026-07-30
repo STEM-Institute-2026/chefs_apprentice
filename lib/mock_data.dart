@@ -37,9 +37,6 @@ final List<RecipeModel> mockRecipes = [
     costPerServing: 1.75,
     estimatedRestaurantCost: 7.00,
     startCookingButtonLabel: 'Start Cooking',
-    isFavorite: true,
-    isCompleted: false,
-    isMastered: false,
     nutritionStats: NutritionModel(
       calories: 404,
       proteinGrams: 11,
@@ -99,9 +96,6 @@ final List<RecipeModel> mockRecipes = [
     costPerServing: 2.40,
     estimatedRestaurantCost: 16.00,
     startCookingButtonLabel: 'Start Cooking',
-    isFavorite: true,
-    isCompleted: true,
-    isMastered: false,
     nutritionStats: const NutritionModel(
       calories: 1070,
       proteinGrams: 26,
@@ -152,9 +146,6 @@ final List<RecipeModel> mockRecipes = [
     costPerServing: 2.50,
     estimatedRestaurantCost: 18.50,
     startCookingButtonLabel: 'Start Cooking',
-    isFavorite: false,
-    isCompleted: false,
-    isMastered: false,
     nutritionStats: const NutritionModel(
       calories: 250,
       proteinGrams: 36,

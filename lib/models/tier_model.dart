@@ -1,23 +1,22 @@
-class TierModel {
-  final int tierNumber;
-  final String tierTitle;
-  final String tierSubtitle;
-  final double progress;
-  final bool isLocked;
-  final int totalLessons;
-  final int completedLessons;
-  final int totalRecipes;
-  final int completedRecipes;
+import 'skill_model.dart';
+import 'recipe_model.dart';
 
-  TierModel({
+class TierModel {
+  final String id;
+  final int tierNumber;
+  final String title;
+  final String description;
+  final String coverImageUrl;
+  final List<SkillModel> skills;
+  final List<RecipeModel> recipes;
+
+  const TierModel({
+    required this.id,
     required this.tierNumber,
-    required this.tierTitle,
-    required this.tierSubtitle,
-    required this.progress,
-    required this.isLocked,
-    required this.totalLessons,
-    required this.completedLessons,
-    required this.totalRecipes,
-    required this.completedRecipes,
+    required this.title,
+    required this.description,
+    required this.coverImageUrl,
+    required this.skills,
+    required this.recipes,
   });
 }

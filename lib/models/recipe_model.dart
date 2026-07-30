@@ -18,14 +18,10 @@ class RecipeModel {
   final double costPerServing;
   final double estimatedRestaurantCost;
   final String startCookingButtonLabel;
-  final bool isFavorite;
-  final bool isCompleted;
-  final bool isMastered;
   final NutritionModel nutritionStats;
   final List<CookingStepModel> steps;
-  
 
-  RecipeModel({
+  const RecipeModel({
     required this.recipeId,
     required this.title,
     required this.description,
@@ -42,10 +38,7 @@ class RecipeModel {
     required this.costPerServing,
     required this.estimatedRestaurantCost,
     required this.startCookingButtonLabel,
-    this.isFavorite = false,
-    this.isCompleted = false,
-    this.isMastered = false,
     required this.steps,
-    required this.nutritionStats
+    required this.nutritionStats,
   });
 }

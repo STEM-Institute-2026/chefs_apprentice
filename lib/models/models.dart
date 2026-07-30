@@ -1,5 +1,4 @@
 export 'user_profile_model.dart';
-export 'tier_model.dart';
 export 'lesson_model.dart';
 export 'step_check_in_model.dart';
 export 'cooking_step_model.dart';
@@ -8,3 +7,5 @@ export 'cooked_history_model.dart';
 export "../constants/app_styles.dart";
 export '../constants/app_colors.dart';
 export 'nutrition_model.dart';
+export 'tier_model.dart';
+export 'skill_model.dart';
