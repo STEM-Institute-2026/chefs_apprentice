@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:charles_flutter_app_main/models/models.dart';
 import '../services/history_service.dart';
 import './widgets/recipe_card.dart';
+import '../screens/widgets/header_widget.dart';
+import 'skill_detail_screen.dart';
 
 class TierDetailScreen extends StatefulWidget {
   final TierModel tier;
@@ -40,7 +42,7 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // ===================================================================
             // 1. TIER BANNER CARD
@@ -48,7 +50,7 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.oliveSecondary,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -104,8 +106,9 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
                       widget.tier.description,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey.shade800,
+                        color: Colors.white,
                         height: 1.3,
+                        fontWeight: FontWeight.w500
                       ),
                     ),
                   ),
@@ -113,20 +116,13 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
               ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
 
             // ===================================================================
             // 2. TIER LESSONS SECTION
             // ===================================================================
-            Text(
-              'Tier Lessons',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.oliveSecondary,
-              ),
-            ),
-            const SizedBox(height: 8),
+            HeaderWidget(headerText: "Tier Lessons"),
+            
 
             ListView.builder(
               shrinkWrap: true,
@@ -137,21 +133,15 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
               },
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 8),
 
             // ===================================================================
             // 3. PRACTICE RECIPES SECTION
             // ===================================================================
-            Text(
-              'Practice Recipes',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.oliveSecondary,
-              ),
-            ),
-            const SizedBox(height: 12),
+            
+            HeaderWidget(headerText: "Practice Recipes"),
 
+            const SizedBox(height:6),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -200,16 +190,22 @@ class LessonCard extends StatelessWidget {
           ),
           title: Text(
             skill.name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.oliveSecondary),
           ),
           subtitle: Text(
             skill.shortDescription,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
+            style: const TextStyle(color: AppColors.terracottaAccent, fontWeight: FontWeight.w900)
           ),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
-            // TODO: Navigate to LessonDetailScreen
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SkillDetailScreen(skill: skill), // Or LessonDetailScreen if that wraps this body
+              ),
+            );
           },
         ),
       ),

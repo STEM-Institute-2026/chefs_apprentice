@@ -3,6 +3,7 @@ import 'package:charles_flutter_app_main/models/models.dart';
 import '../../services/history_service.dart';
 import '../recipe_detail_screen.dart';
 
+
 class RecipeCatalogCard extends StatefulWidget {
   final RecipeModel recipe;
 

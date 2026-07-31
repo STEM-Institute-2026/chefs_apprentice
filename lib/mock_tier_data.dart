@@ -5,16 +5,28 @@ import "package:flutter/material.dart";
 // 1. SEPARATE SKILLS LIST
 // ==========================================
 final List<SkillModel> allSkills = [
-  const SkillModel(
+  SkillModel(
     id: 'skill_knife_safety',
     name: 'Knife Safety & Control',
     shortDescription: 'Master the claw grip and essential knife handling to chop safely. Good knife skills save prep time and prevent kitchen accidents.',
     icon: Icons.flatware,
-    videoUrl: 'assets/videos/knife_basics.mp4',
-    coreSteps: [
-      'Claw Grip: Curl fingertips inward to protect fingers.',
-      'Pinch Grip: Pinch the base of the blade with thumb and index finger for control.',
-      'Rocking Motion: Keep the knife tip down and rock the blade smoothly.',
+    videoUrl: 'assets/videos/skill_knife_cutting.mp4',
+    coreSteps: const [
+      SkillStepModel(
+        title: 'Claw Grip',
+        description: 'Curl fingertips inward to protect fingers while steadying food.',
+        imagePath: 'assets/images/knife_skills/claw_grip.webp', // Optional asset path
+      ),
+      SkillStepModel(
+        title: 'Pinch Grip',
+        description: 'Pinch the base of the blade with thumb and index finger for maximum control.',
+        imagePath: 'assets/images/knife_skills/pinch_grip.jpg', // Optional asset path
+      ),
+      SkillStepModel(
+        title: 'Rocking Motion',
+        description: 'Keep the knife tip down and rock the blade smoothly forward and down.',
+        // imagePath is omitted here to show it remains optional
+      ),
     ],
     keyTypesOrCuts: [
       'Rough Chop: Large, casual cuts for stocks or stews.',
@@ -27,16 +39,28 @@ final List<SkillModel> allSkills = [
     ],
     whereItsUsed: 'Virtually every recipe requiring vegetables, herbs, or meats.',
   ),
-  const SkillModel(
+  SkillModel(
     id: 'skill_boiling',
     name: 'Boiling & Simmering Control',
     shortDescription: 'Understand water heat levels for pasta, eggs, and stock control. Proper liquid temperatures prevent overcooking and preserve texture.',
     icon: Icons.soup_kitchen,
     videoUrl: 'assets/videos/boiling.mp4',
-    coreSteps: [
-      'Rolling Boil: Wait until large, vigorous bubbles break rapidly on the surface.',
-      'Simmer: Drop heat to medium-low so small, slow bubbles rise gently.',
-      'Salting: Salt boiling water generously until it tastes lightly like seawater.',
+    coreSteps: const [
+      SkillStepModel(
+        title: 'Rolling Boil',
+        description: 'Wait until large, vigorous bubbles break rapidly on the surface.',
+        imagePath: '', // Optional asset path
+      ),
+      SkillStepModel(
+        title: 'Simmer',
+        description: 'Drop heat to medium-low so small, slow bubbles rise gently.',
+        imagePath: '', // Optional asset path
+      ),
+      SkillStepModel(
+        title: 'Salting',
+        description: 'Salt boiling water generously until it tastes lightly like seawater.',
+        // imagePath is omitted here as an example
+      ),
     ],
     keyTypesOrCuts: [
       'Rolling Boil: Best for pasta and blanching green veggies.',
@@ -48,16 +72,28 @@ final List<SkillModel> allSkills = [
     ],
     whereItsUsed: 'Pasta, soups, boiled eggs, and stocks.',
   ),
-  const SkillModel(
+  SkillModel(
     id: 'skill_searing',
     name: 'Pan Searing & High Heat',
     shortDescription: 'Develop rich flavor and golden crusts using proper heat and oil. Searing locks in moisture and creates a flavorful browned crust.',
     icon: Icons.local_fire_department,
     videoUrl: 'assets/videos/searing.mp4',
-    coreSteps: [
-      'Preheat the pan on medium-high heat before adding oil.',
-      'Pat food completely dry with paper towels to ensure browning.',
-      'Lay food in the pan away from you to prevent hot oil splatters.',
+    coreSteps: const [
+      SkillStepModel(
+        title: 'Claw Grip',
+        description: 'Curl fingertips inward to protect fingers while steadying food.',
+        imagePath: '',
+      ),
+      SkillStepModel(
+        title: 'Pinch Grip',
+        description: 'Pinch the base of the blade with thumb and index finger for control.',
+        imagePath: '',
+      ),
+      SkillStepModel(
+        title: 'Rocking Motion',
+        description: 'Keep the knife tip down and rock the blade smoothly.',
+        imagePath: '',
+      ),
     ],
     keyTypesOrCuts: [
       'Hard Sear: High heat for quick browning on steak or tuna.',

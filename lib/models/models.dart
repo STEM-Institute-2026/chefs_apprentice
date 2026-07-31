@@ -9,3 +9,4 @@ export '../constants/app_colors.dart';
 export 'nutrition_model.dart';
 export 'tier_model.dart';
 export 'skill_model.dart';
+export 'skill_step_model.dart';

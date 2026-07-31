@@ -3,6 +3,7 @@ import '../models/models.dart';
 import 'interactive_cooking_screen.dart';
 import 'recipe_complete_screen.dart';
 import '../services/history_service.dart';
+import '../screens/widgets/header_widget.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -170,29 +171,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 // ─────────────────────────────────────────────────────────────────────────────
 // EXTRACTED WIDGET CLASSES
 // ─────────────────────────────────────────────────────────────────────────────
-
-class HeaderWidget extends StatelessWidget {
-  // 1. Declare any parameters passed into this widget
-  final String headerText;
-
-  // 2. Constructor with super key
-  const HeaderWidget({
-    super.key,
-    required this.headerText,
-  });
-
-  // 3. The build method that returns your UI
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-      child: Text(
-        headerText,
-        style: kHeaderTextStyle.copyWith(color: AppColors.oliveSecondary),
-      ),
-    );
-  }
-}
 
 class StatItemWidget extends StatelessWidget {
   final IconData icon;
