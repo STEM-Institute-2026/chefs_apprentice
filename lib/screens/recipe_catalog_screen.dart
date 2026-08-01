@@ -4,7 +4,7 @@ import '../models/models.dart';
 import 'package:charles_flutter_app_main/mock_data.dart';
 import './widgets/recipe_card.dart';
 import 'tier_selection_screen.dart';
-
+import 'widgets/header_and_app_bar.dart';
 
 class RecipeCatalogScreen extends StatelessWidget {
   final List<RecipeModel> recipes;
@@ -18,15 +18,7 @@ class RecipeCatalogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground, // Use your defined cream background color
-      appBar: AppBar(
-        title: const Text(
-          'Recipe Catalog',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: AppColors.oliveSecondary,
-        foregroundColor: AppColors.creamBackground,
+      appBar: CustomAppBar(title: "Recipe Catalog",
 
         // Replace TextButton with an IconButton!
         leading: IconButton(
@@ -41,6 +33,7 @@ class RecipeCatalogScreen extends StatelessWidget {
           },
         ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: GridView.builder(

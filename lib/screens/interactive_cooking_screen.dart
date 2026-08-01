@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "../models/models.dart";
 import 'recipe_complete_screen.dart';
+import 'widgets/header_and_app_bar.dart';
 
 class InteractiveCookingScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -19,24 +20,7 @@ class _InteractiveCookingScreenState extends State<InteractiveCookingScreen> {
     final currentStep = widget.recipe.steps[currentStepIndex];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.recipe.title,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: AppColors.oliveSecondary,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.close,
-            color: AppColors.creamBackground, // 👈 Cream X stands out sharply on Olive!
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: CustomAppBar(title: widget.recipe.title),
       body: Column(
         children: [
           // ---------------- TOP HALF (CREAM) ----------------

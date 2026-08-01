@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../models/models.dart';
-
+import 'widgets/header_and_app_bar.dart';
 class SkillDetailScreen extends StatefulWidget {
   final SkillModel skill;
 
@@ -63,45 +63,46 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.creamBackground,
-        elevation: 0,
-        title: Text(
-          widget.skill.name,
-          style: const TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        iconTheme: const IconThemeData(color: Colors.black87),
-      ),
+      appBar: CustomAppBar(title: widget.skill.name),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 1. HERO VIDEO & SHORT DESCRIPTION
             _buildHeroVideoSection(),
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
 
             // 2. CORE STEPS SECTION
-            _buildSectionHeader('Core Steps', Icons.list_alt_rounded),
+            HeaderWidget(
+              headerText: 'Core Steps',
+              icon: Icons.restaurant_rounded,
+              iconColor: AppColors.terracottaAccent,
+            ),
             const SizedBox(height: 12),
             _buildStepsList(),
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
 
             // 3. KEY CUTS & TYPES
             if (widget.skill.keyTypesOrCuts.isNotEmpty) ...[
-              _buildSectionHeader('Cuts & Techniques', Icons.restaurant_rounded),
+              HeaderWidget(
+                headerText: 'Key Cuts & Types',
+                icon: Icons.cut_rounded,
+                iconColor: AppColors.terracottaAccent,
+              ),
               const SizedBox(height: 12),
               _buildKeyCutsCard(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
             ],
 
             // 4. SAFETY & PRO TIPS
             if (widget.skill.safetyOrProTips.isNotEmpty) ...[
-              _buildSectionHeader('Pro Tips & Safety', Icons.lightbulb_outline_rounded),
+              HeaderWidget(
+                headerText: 'Pro Tips & Safety',
+                icon: Icons.lightbulb_outline_rounded,
+                iconColor: AppColors.terracottaAccent,
+              ),
               const SizedBox(height: 12),
               _buildProTipsCard(),
               const SizedBox(height: 24),
@@ -122,27 +123,10 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
   // WIDGET BUILDERS
   // ==========================================
 
-  Widget _buildSectionHeader(String title, IconData icon) {
-    return Row(
-      children: [
-        Icon(icon, color: AppColors.terracottaAccent, size: 22),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildHeroVideoSection() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.oliveSecondary,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -190,7 +174,7 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
               style: const TextStyle(
                 fontSize: 15,
                 height: 1.4,
-                color: Colors.black87,
+                color: AppColors.creamBackground,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -251,7 +235,7 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: AppColors.oliveSecondary,
                       ),
                     ),
                   ),

@@ -3,7 +3,7 @@ import '../models/models.dart';
 import 'interactive_cooking_screen.dart';
 import 'recipe_complete_screen.dart';
 import '../services/history_service.dart';
-import '../screens/widgets/header_widget.dart';
+import 'widgets/header_and_app_bar.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -19,45 +19,25 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.creamBackground, // Use your defined cream background color
-      
-      appBar: AppBar(
-        // 1. FAR LEFT
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+  final isFavorite = HistoryService.isRecipeFavorite(widget.recipe.recipeId);
 
-        // 2. CENTER
-        centerTitle: true,
-        title: Text(
-          widget.recipe.title, 
-          style: kHeaderTextStyle.copyWith(color: AppColors.creamBackground),
+  return Scaffold(
+    backgroundColor: AppColors.creamBackground,
+    appBar: CustomAppBar(title: widget.recipe.title,
+      actions: [
+        IconButton(
+          icon: Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            color: isFavorite ? Colors.red : AppColors.creamBackground,
+          ),
+          onPressed: () {
+            setState(() {
+              HistoryService.toggleFavorite(widget.recipe.recipeId);
+            });
+          },
         ),
-
-        // 3. FAR RIGHT
-        actions: [
-          IconButton(
-            icon: Icon(
-              HistoryService.isRecipeFavorite(widget.recipe.recipeId)
-                  ? Icons.favorite
-                  : Icons.favorite_border,
-              color: HistoryService.isRecipeFavorite(widget.recipe.recipeId)
-                  ? Colors.red
-                  : Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                HistoryService.toggleFavorite(widget.recipe.recipeId);
-              });
-            },
-          )
-        ],
-      
-        backgroundColor: AppColors.oliveSecondary,
-        foregroundColor: AppColors.creamBackground,
-      ),
+      ],
+    ),
       
      body: SafeArea(
       child: SingleChildScrollView(

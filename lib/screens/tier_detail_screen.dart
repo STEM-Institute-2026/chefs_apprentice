@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:charles_flutter_app_main/models/models.dart';
 import '../services/history_service.dart';
 import './widgets/recipe_card.dart';
-import '../screens/widgets/header_widget.dart';
+import 'widgets/header_and_app_bar.dart';
 import 'skill_detail_screen.dart';
 
 class TierDetailScreen extends StatefulWidget {
@@ -27,16 +27,7 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
 
     return Scaffold(
       
-      appBar: AppBar(
-        title:  Text(
-          // ignore: unnecessary_string_interpolations
-          '${widget.tier.title}',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: AppColors.oliveSecondary,
-        foregroundColor: AppColors.creamBackground),
+      appBar: CustomAppBar(title: widget.tier.title),
 
       backgroundColor: AppColors.creamBackground,
       body: SingleChildScrollView(

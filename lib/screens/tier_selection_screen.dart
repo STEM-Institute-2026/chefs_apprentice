@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 import '../mock_tier_data.dart';
 import '../services/history_service.dart';
+import 'widgets/header_and_app_bar.dart';
 
 class TierSelectionScreen extends StatefulWidget {
   const TierSelectionScreen({super.key});
@@ -44,20 +45,7 @@ class _TierSelectionScreenState extends State<TierSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.oliveSecondary,
-        foregroundColor: AppColors.creamBackground,
-        elevation: 0,
-        title: Text(
-          'Cooking Tiers',
-          style: TextStyle(
-            color: AppColors.creamBackground,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true
-
-      ),
+      appBar: CustomAppBar(title: "Cooking Tiers"),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         itemCount: mockTiers.length,

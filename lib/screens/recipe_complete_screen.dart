@@ -5,6 +5,7 @@ import 'photo_upload_box.dart'; //
 import 'package:image_picker/image_picker.dart';
 import '../services/history_service.dart';
 import 'profile_screen.dart';
+import 'widgets/header_and_app_bar.dart';
 
 class RecipeCompleteScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -42,22 +43,7 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
     
-      appBar: AppBar(
-        title: const Text('Meal Complete!'),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.close,
-            color: AppColors.creamBackground, // 👈 Makes the X icon terracotta
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        elevation: 0,
-        backgroundColor: AppColors.oliveSecondary,
-        foregroundColor: AppColors.creamBackground,
-      ),
+      appBar: CustomAppBar(title: "Meal Complete!"),
       
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),

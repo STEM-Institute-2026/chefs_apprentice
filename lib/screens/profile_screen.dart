@@ -19,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
           children: const [
             Text('Cooked History'),
             SizedBox(height: 2),
-            Text('Click on a entry to view details', style: TextStyle(fontSize: 12, color: Colors.grey)),
+            Text('Click on a entry to view details', style: TextStyle(fontSize: 12, color: AppColors.creamBackground, fontWeight: FontWeight.w100)),
           ],
         ),
         centerTitle: true,
@@ -148,18 +148,41 @@ class CookedMealCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        meal.rating != null ? '⭐ ${meal.rating}' : '⭐ Unrated',
-                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                      // 🌟 STAR RATING (Subtle Amber Pill)
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.withValues(alpha: 0.12), // Subtle amber glow
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.star_rounded,
+                              size: 14,
+                              color: Colors.amber.shade800.withValues(alpha: 0.85), // Warm amber star
+                            ),
+                            const SizedBox(width: 3),
+                            Text(
+                              meal.rating != null ? '${meal.rating}' : 'Unrated',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black.withValues(alpha: 0.75), // Muted black for readability
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      
-                      const SizedBox(width: 8), // 👈 Gives a little breathing room between rating and savings
 
-                      // 🟢 Wrap with Expanded so Flutter forces it to fit inside the Row!
+                      const SizedBox(width: 8), // Breathing room
+
+                      // 💰 SAVINGS / COST BADGE (Your existing badge)
                       Expanded(
                         child: Align(
-                          alignment: Alignment.centerRight, // 👈 Keeps it pushed to the right side
-                          child: _buildSavingsText(meal.costSaved),
+                          alignment: Alignment.centerRight,
+                          child: _buildSavingsBadge(meal.costSaved),
                         ),
                       ),
                     ],
@@ -230,36 +253,37 @@ class MealDetailScreen extends StatelessWidget {
             const SizedBox(height: 12),
 
             // RATING & MONEY SAVED ROW
-            Row(
-              children: [
-                Chip(
-                  avatar: const Text('⭐'),
-                  label: Text(
-                    meal.rating != null ? '${meal.rating}' : 'Unrated',
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-                  )
+           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // 1. STAR RATING BADGE
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.amber.withValues(alpha: 0.12), // Warm soft glow
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(width: 10),
-                Chip(
-                  avatar: Icon(
-                    meal.costSaved == null
-                        ? Icons.restaurant
-                        : (meal.costSaved! >= 0 ? Icons.savings : Icons.trending_down),
-                    color: meal.costSaved == null
-                        ? Colors.grey
-                        : (meal.costSaved! >= 0 ? Colors.green : Colors.red),
-                    size: 18,
-                  ),
-                  
-                  // 🔁 Reused here as the label!
-                  label: _buildSavingsText(meal.costSaved),
-                  
-                  backgroundColor: meal.costSaved == null
-                      ? Colors.grey.shade100
-                      : (meal.costSaved! >= 0 ? Colors.green.shade50 : Colors.red.shade50),
-                )
-              ],
-            ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('⭐', style: TextStyle(fontSize: 12)),
+                    const SizedBox(width: 4),
+                    Text(
+                      meal.rating != null ? '${meal.rating}' : 'Unrated',
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.bold,
+                        color: meal.rating != null ? Colors.amber.shade900 : Colors.grey.shade600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // 2. SAVINGS / COST BADGE (Passes data cleanly)
+              _buildSavingsBadge(meal.costSaved),
+            ],
+          )
           ],
         ),
       ),
@@ -267,41 +291,69 @@ class MealDetailScreen extends StatelessWidget {
   }
 }
 
-Widget _buildSavingsText(double? savings) {
+Widget _buildSavingsBadge(double? savings) {
   if (savings == null) {
-    return const Text(
-      'No Cost Inputted',
-      style: TextStyle(fontSize: 12, color: Colors.grey),
-      overflow: TextOverflow.ellipsis,
-      maxLines: 1,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        'No Cost Entered',
+        style: TextStyle(
+          fontSize: 11, 
+          color: Colors.grey.shade600,
+          fontWeight: FontWeight.w500,
+        ),
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 
   if (savings == 0) {
-    return const Text(
-      'Broke Even',
-      style: TextStyle(
-        fontSize: 12, 
-        color: Colors.orange, 
-        fontWeight: FontWeight.bold,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+      decoration: BoxDecoration(
+        color: AppColors.creamBackground,
+        borderRadius: BorderRadius.circular(6),
       ),
-      overflow: TextOverflow.ellipsis,
-      maxLines: 1,
+      child: const Text(
+        'Broke Even',
+        style: TextStyle(
+          fontSize: 11, 
+          color: Color(0xFF2C3523),
+          fontWeight: FontWeight.bold,
+        ),
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 
   final bool isSaved = savings > 0;
 
-  return Text(
-    isSaved
-        ? 'Saved \$${savings.toStringAsFixed(2)}'
-        : 'Spent \$${savings.abs().toStringAsFixed(2)} extra',
-    style: TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.bold,
-      color: isSaved ? Colors.green : Colors.red,
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+    decoration: BoxDecoration(
+      // 🟢 Olive tint for saved, 🟠 Terracotta tint for spent (No harsh bright red/green!)
+      color: isSaved 
+          ? AppColors.oliveSecondary.withValues(alpha: 0.25)
+          : AppColors.terracottaAccent.withValues(alpha: 0.30),
+      borderRadius: BorderRadius.circular(6),
     ),
-    overflow: TextOverflow.ellipsis, // 👈 Truncates with ... if too long
-    maxLines: 1,                     // 👈 Prevents wrapping onto line 2
+    child: Text(
+      isSaved
+          ? 'Saved \$${savings.toStringAsFixed(2)}'
+          : 'Spent \$${savings.abs().toStringAsFixed(2)}',
+      style: TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.bold,
+        // Deep muted tones for text readability
+        color: isSaved 
+            ? AppColors.oliveSecondary 
+            : AppColors.terracottaAccent,
+      ),
+      overflow: TextOverflow.ellipsis,
+    ),
   );
 }
