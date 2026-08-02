@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-// 1. Import your mock data file
-import 'mock_data.dart'; 
-// 2. Import your screen file
-import 'screens/recipe_catalog_screen.dart'; 
+import 'screens/main_shell_screen.dart';
+import 'mock_data.dart'; // Import where your recipe mock data lives
+import './models/models.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,13 +14,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Cooking App',
+      title: "Chef's Apprentice",
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        fontFamily: 'Poppins',
         useMaterial3: true,
+        scaffoldBackgroundColor: AppColors.creamBackground,
       ),
-      // 3. Set home to your detail screen and pass in mockRecipe!
-      home: RecipeCatalogScreen(recipes: mockRecipes),
+      // 👈 Pointing home to MainShellScreen!
+      home: MainShellScreen(recipes: mockRecipes), 
     );
   }
 }

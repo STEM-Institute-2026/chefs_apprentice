@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'photo_upload_box.dart'; // 
 import 'package:image_picker/image_picker.dart';
 import '../services/history_service.dart';
-import 'profile_screen.dart';
 import 'widgets/header_and_app_bar.dart';
 
 class RecipeCompleteScreen extends StatefulWidget {
@@ -81,33 +80,29 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
             // 3. SAVING THE COOKED HISTORY MODEL
             // -------------------------------------------------------------
            ElevatedButton(
-              onPressed: () {
-                final newHistoryItem = CookedHistoryModel(
-                  entryId: DateTime.now().millisecondsSinceEpoch.toString(),
-                  recipeId: widget.recipe.recipeId, // Pass recipe ID here
-                  recipeTitle: widget.recipe.title,
-                  imagePath: _userPhotoPath ?? '', // 👈 Fits your model parameter perfectly!
-                  completedAt: DateTime.now(),
-                  costSaved: _calculatedSavings,
-                  rating: _userRating,
-                );
+            onPressed: () {
+              final newHistoryItem = CookedHistoryModel(
+                entryId: DateTime.now().millisecondsSinceEpoch.toString(),
+                recipeId: widget.recipe.recipeId,
+                recipeTitle: widget.recipe.title,
+                imagePath: _userPhotoPath ?? '',
+                completedAt: DateTime.now(),
+                costSaved: _calculatedSavings,
+                rating: _userRating,
+              );
 
-                // Add the new history item to the global list
-                HistoryService.addMeal(newHistoryItem);
+              // 1. Add the new history item to global state
+              HistoryService.addMeal(newHistoryItem);
 
-                Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProfileScreen(),
-            ),
-          );
-              },
-              style: ElevatedButton.styleFrom(
+              // 2. Pop all screens until you get back to RecipeDetailScreen!
+              Navigator.popUntil(context, (route) => route.isFirst || route.settings.name == '/recipeDetail');
+            },
+            style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.oliveSecondary,
               foregroundColor: AppColors.creamBackground,
-              ),
-              child: const Text('Save to Cooked History'),
-            )
+            ),
+            child: const Text('Save to Cooked History'),
+          )
 
             ],
         ),

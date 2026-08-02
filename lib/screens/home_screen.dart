@@ -1,0 +1,275 @@
+import 'package:flutter/material.dart';
+import 'package:charles_flutter_app_main/models/models.dart';
+import '../../services/history_service.dart';
+import './widgets/header_and_app_bar.dart';
+import './widgets/recipe_card.dart';
+import './widgets/home_app_bar.dart'; // Import the new app bar widget
+import '../mock_tier_data.dart';
+import './tier_detail_screen.dart';
+import '../constants/app_transitions.dart'; // Import your custom transitions
+
+// Import your custom widgets here!
+// import '../widgets/header_widget.dart';
+// import '../widgets/custom_app_bar.dart';
+// import '../widgets/recipe_catalog_card.dart';
+
+class HomeScreen extends StatefulWidget {
+  final List<RecipeModel> recipes;
+
+  const HomeScreen({
+    super.key,
+    required this.recipes,
+  });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    // Filter favorites dynamically using your HistoryService
+    final favoriteRecipes = widget.recipes
+        .where((r) => HistoryService.isRecipeFavorite(r.recipeId))
+        .toList();
+
+    final currentTier = HistoryService.getActiveTier(mockTiers);
+    
+    return Scaffold(
+      backgroundColor: AppColors.creamBackground,
+
+      // ─────────────────────────────────────────────────────────────
+      // 1. YOUR CUSTOM APP BAR
+      // ─────────────────────────────────────────────────────────────
+     appBar: MainHomeScreenAppBar(
+    ),
+
+      // ─────────────────────────────────────────────────────────────
+      // 2. MAIN BODY
+      // ─────────────────────────────────────────────────────────────
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // NEXT TIER HERO BANNER
+            ContinueTierProgressCard(tier: currentTier, 
+              onTierUpdated: () {
+              setState(() {}); // Forces HomeScreen to rebuild with the updated tier!
+            },),
+
+            const SizedBox(height: 12),
+
+            // SECTION 1: QUICK RECIPES
+            HeaderWidget(
+              headerText: 'Quick Recipes',
+              icon: Icons.bolt_rounded,
+            ),
+            _buildHorizontalRecipeList(widget.recipes),
+
+            const SizedBox(height: 12),
+
+            // SECTION 2: MY FAVORITES
+            HeaderWidget(
+              headerText: 'My Favorites',
+              icon: Icons.favorite_rounded,
+              iconColor: Colors.redAccent,
+            ),
+            favoriteRecipes.isEmpty
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Text(
+                      'No favorites added yet! Tap the heart on any recipe.',
+                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    ),
+                  )
+                : _buildHorizontalRecipeList(favoriteRecipes),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  Widget _buildHorizontalRecipeList(List<RecipeModel> recipeList) {
+    return SizedBox(
+      height: 210, // Height bound required for RecipeCatalogCard Column/Expanded
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        itemCount: recipeList.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: SizedBox(
+              width: 165, // Fixed card width for horizontal scrolling
+              child: RecipeCatalogCard(recipe: recipeList[index], onFavoriteToggle: () {
+                  setState(() {});
+                },),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+// Adjust path to your models
+
+class ContinueTierProgressCard extends StatelessWidget {
+  final TierModel tier;
+  final VoidCallback? onTierUpdated;
+
+  const ContinueTierProgressCard({
+    super.key,
+    required this.tier,
+    this.onTierUpdated,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        width: double.infinity,
+        height: 190,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.12),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            // 1. DYNAMIC BACKGROUND IMAGE FROM LESSON INPUT
+            Positioned.fill(
+              child: Image.network(
+                tier.coverImageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  color: AppColors.oliveSecondary,
+                ),
+              ),
+            ),
+
+            // 2. GRADIENT OVERLAY
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.black.withValues(alpha: 0.85),
+                      AppColors.oliveSecondary.withValues(alpha: 0.6),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // 3. DYNAMIC TEXT & BUTTON CONTENT
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.school,
+                            color: AppColors.terracottaAccent,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            'NEXT LESSON • TIER ${tier.tierNumber}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white.withValues(alpha: 0.85),
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        tier.title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.creamBackground,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        tier.description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.creamBackground.withValues(alpha: 0.9),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () async { // 👈 1. Added async here
+                      // 👈 2. Added await so we wait until user returns from TierDetailScreen
+                      await Navigator.push(
+                        context,
+                        StandardDetailRoute(
+                          page: TierDetailScreen(tier: tier),
+                        ),
+                      );
+
+                      // 👈 3. Triggers HomeScreen refresh when user comes back!
+                      onTierUpdated?.call();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.terracottaAccent,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      elevation: 0,
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Continue Learning!',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                        Icon(Icons.arrow_forward_rounded, size: 14),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

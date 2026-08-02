@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 import 'package:charles_flutter_app_main/mock_data.dart';
 import './widgets/recipe_card.dart';
-import 'tier_selection_screen.dart';
 import 'widgets/header_and_app_bar.dart';
 
 class RecipeCatalogScreen extends StatelessWidget {
@@ -18,21 +17,7 @@ class RecipeCatalogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground, // Use your defined cream background color
-      appBar: CustomAppBar(title: "Recipe Catalog",
-
-        // Replace TextButton with an IconButton!
-        leading: IconButton(
-          icon: Icon(Icons.alt_route_rounded, color: const Color.fromARGB(255, 99, 130, 197)),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const TierSelectionScreen(),
-              ),
-            );
-          },
-        ),
-      ),
+      appBar: CustomAppBar(title: "Recipe Catalog"),
 
       body: Padding(
         padding: const EdgeInsets.all(12.0),

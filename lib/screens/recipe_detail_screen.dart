@@ -4,6 +4,7 @@ import 'interactive_cooking_screen.dart';
 import 'recipe_complete_screen.dart';
 import '../services/history_service.dart';
 import 'widgets/header_and_app_bar.dart';
+import '../constants/app_transitions.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -128,18 +129,16 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         onStartGuidedCooking: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => InteractiveCookingScreen(
-                recipe: widget.recipe
-              ),
+            ModalSlideUpRoute(
+              page: InteractiveCookingScreen(recipe: widget.recipe),
             ),
           );
         },
         onFinishedCooking: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => RecipeCompleteScreen(recipe: widget.recipe),
+            ScalePopRoute(
+              page: RecipeCompleteScreen(recipe: widget.recipe),
             ),
           );
         },

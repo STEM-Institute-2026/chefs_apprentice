@@ -4,6 +4,7 @@ import '../services/history_service.dart';
 import './widgets/recipe_card.dart';
 import 'widgets/header_and_app_bar.dart';
 import 'skill_detail_screen.dart';
+import '../constants/app_transitions.dart'; // Import your custom transitions
 
 class TierDetailScreen extends StatefulWidget {
   final TierModel tier;
@@ -193,8 +194,8 @@ class LessonCard extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => SkillDetailScreen(skill: skill), // Or LessonDetailScreen if that wraps this body
+              StandardDetailRoute(
+                page: SkillDetailScreen(skill: skill),
               ),
             );
           },

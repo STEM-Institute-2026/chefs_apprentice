@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "../models/models.dart";
 import 'recipe_complete_screen.dart';
 import 'widgets/header_and_app_bar.dart';
+import '../constants/app_transitions.dart'; // Import your custom transitions
 
 class InteractiveCookingScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -98,8 +99,8 @@ class _InteractiveCookingScreenState extends State<InteractiveCookingScreen> {
                   } else {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => RecipeCompleteScreen(recipe: widget.recipe),
+                      ScalePopRoute(
+                        page: RecipeCompleteScreen(recipe: widget.recipe),
                       ),
                     );
                   }

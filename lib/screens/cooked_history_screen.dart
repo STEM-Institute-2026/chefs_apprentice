@@ -3,9 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../services/history_service.dart';
 import '../models/models.dart';
+import '../constants/app_transitions.dart'; // Adjust path if needed
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class CookedHistoryScreen extends StatelessWidget {
+  const CookedHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,14 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(Icons.restaurant_menu, size: 64, color: Colors.grey),
-                  SizedBox(height: 16),
+                  Icon(Icons.restaurant_menu, size: 64, color: AppColors.terracottaAccent),
+                  SizedBox(height: 8),
                   Text(
                     'No meals cooked yet!',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: AppColors.oliveSecondary,
                     ),
                   ),
                   SizedBox(height: 8),
@@ -82,17 +83,17 @@ class CookedMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(16),
-      onTap: () {
-        // Push to your new detail widget when tapped!
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MealDetailScreen(meal: meal),
-          ),
-        );
-      },
+  return InkWell(
+    borderRadius: BorderRadius.circular(16),
+    onTap: () {
+      // Push to your detail widget when tapped!
+      Navigator.push(
+        context,
+        StandardDetailRoute(
+          page: MealDetailScreen(meal: meal), 
+        ),
+      );
+    },
       child: Card(
         clipBehavior: Clip.antiAlias,
         elevation: 2,
@@ -122,7 +123,7 @@ class CookedMealCard extends StatelessWidget {
                         child: Icon(
                           Icons.restaurant,
                           size: 40,
-                          color: Colors.grey,
+                          color: AppColors.oliveSecondary,
                         ),
                       ),
               ),

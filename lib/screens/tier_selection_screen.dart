@@ -4,6 +4,7 @@ import '../models/models.dart';
 import '../mock_tier_data.dart';
 import '../services/history_service.dart';
 import 'widgets/header_and_app_bar.dart';
+import '../constants/app_transitions.dart';
 
 class TierSelectionScreen extends StatefulWidget {
   const TierSelectionScreen({super.key});
@@ -16,31 +17,6 @@ class _TierSelectionScreenState extends State<TierSelectionScreen> {
   // 1. APP STATE: Track completed recipe IDs
   Set<String> get completedRecipeIds => HistoryService.completedRecipeIds;
 
-  // 2. HELPER: Determines if a given tier is unlocked
-  bool isTierUnlocked(int tierNumber) {
-    if (tierNumber == 1) return true;
-
-    List<RecipeModel> previousTierRecipes = switch (tierNumber) {
-      2 => tier1Recipes,
-      3 => tier2Recipes,
-      4 => tier3Recipes,
-      _ => [],
-    };
-
-    int completedCount = previousTierRecipes
-        .where((recipe) => completedRecipeIds.contains(recipe.recipeId))
-        .length;
-
-    return completedCount >= 2;
-  }
-
-  // 3. HELPER: Counts completed recipes for a recipe list
-  int getCompletedCount(List<RecipeModel> recipes) {
-    return recipes
-        .where((recipe) => completedRecipeIds.contains(recipe.recipeId))
-        .length;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,13 +27,13 @@ class _TierSelectionScreenState extends State<TierSelectionScreen> {
         itemCount: mockTiers.length,
         itemBuilder: (context, index) {
           final tier = mockTiers[index];
-          final unlocked = isTierUnlocked(tier.tierNumber);
-          final completed = getCompletedCount(tier.recipes);
+          final unlocked = HistoryService.isTierUnlocked(tier.tierNumber);
+          final completed = HistoryService.getCompletedCount(tier.recipes);
 
           int prevCompleted = 0;
             if (index > 0) {
               final previousTier = mockTiers[index - 1];
-              prevCompleted = getCompletedCount(previousTier.recipes);
+              prevCompleted = HistoryService.getCompletedCount(previousTier.recipes);
             }
           
           return TierCard(
@@ -68,10 +44,8 @@ class _TierSelectionScreenState extends State<TierSelectionScreen> {
             onTap: () {
                 Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => TierDetailScreen(
-                  tier: tier
-                ),
+              StandardDetailRoute(
+                page: TierDetailScreen(tier: tier),
               ),
             );
             },

@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:charles_flutter_app_main/models/models.dart';
 import '../../services/history_service.dart';
 import '../recipe_detail_screen.dart';
+import '../../constants/app_transitions.dart'; // Import your custom transitions
+
 
 
 class RecipeCatalogCard extends StatefulWidget {
   final RecipeModel recipe;
+  final VoidCallback? onFavoriteToggle;
 
   const RecipeCatalogCard({
     super.key,
     required this.recipe,
+    this.onFavoriteToggle,
   });
 
   @override
@@ -24,8 +28,8 @@ class _RecipeCatalogCardState extends State<RecipeCatalogCard> {
         // Navigate to detail screen and rebuild when returning to keep favorites synced
         await Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => RecipeDetailScreen(recipe: widget.recipe),
+          StandardDetailRoute(
+            page: RecipeDetailScreen(recipe: widget.recipe),
           ),
         );
         setState(() {});
@@ -115,6 +119,7 @@ class _RecipeCatalogCardState extends State<RecipeCatalogCard> {
                           setState(() {
                             HistoryService.toggleFavorite(widget.recipe.recipeId);
                           });
+                          widget.onFavoriteToggle?.call();
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
