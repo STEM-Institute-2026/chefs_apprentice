@@ -10,9 +10,13 @@ class RecipeModel {
   final int activePrepTimeMinutes;
   final int servings;
   final String difficultyTier;
-  final String mealType;
-  final List<String> tags;
-  final List<String> equipment;
+  
+  // Filtering fields
+  final String mealType;            // e.g. "Breakfast", "Lunch", "Dinner"
+  final String cuisine;             // e.g. "Italian", "Mexican", "American" (Default to "" if none)
+  final List<String> dietary;       // e.g. ["Vegetarian", "Vegan", "Gluten-Free"]
+  final List<String> tags;          // General keywords like ["Quick", "Budget", "Spicy"]
+
   final Map<String, String> ingredients;
   final double estimatedCost;
   final double costPerServing;
@@ -31,8 +35,9 @@ class RecipeModel {
     required this.servings,
     required this.difficultyTier,
     required this.mealType,
-    required this.tags,
-    required this.equipment,
+    this.cuisine = '',               // Optional with default empty string
+    this.dietary = const [],          // Default to empty list if no dietary tags
+    this.tags = const [],             // Default to empty list if no extra tags
     required this.ingredients,
     required this.estimatedCost,
     required this.costPerServing,

@@ -25,8 +25,9 @@ final List<RecipeModel> mockRecipes = [
     servings: 2,
     difficultyTier: 'Tier 1',
     mealType: 'Breakfast',
-    tags: ['Easy', 'Baking', 'Breakfast'],
-    equipment: ['Baking Sheet', 'Mixing Bowl'],
+    cuisine: 'American',
+    dietary: const ['Vegetarian'],
+    tags: const ['Beginner Friendly', 'Budget'],
     ingredients: {
       'Flour': '2 cups',
       'Yeast': '1 tbsp',
@@ -37,7 +38,7 @@ final List<RecipeModel> mockRecipes = [
     costPerServing: 1.75,
     estimatedRestaurantCost: 7.00,
     startCookingButtonLabel: 'Start Cooking',
-    nutritionStats: NutritionModel(
+    nutritionStats: const NutritionModel(
       calories: 404,
       proteinGrams: 11,
       carbsGrams: 77,
@@ -83,8 +84,9 @@ final List<RecipeModel> mockRecipes = [
     servings: 2,
     difficultyTier: 'Tier 1',
     mealType: 'Dinner',
-    tags: ['Italian', 'Pasta', 'Quick'],
-    equipment: ['Large Pot', 'Skillet'],
+    cuisine: 'Italian',
+    dietary: const ['Vegetarian'],
+    tags: const ['Quick & Easy'],
     ingredients: {
       'Fettuccine': '8 oz',
       'Heavy Cream': '1 cup',
@@ -133,8 +135,9 @@ final List<RecipeModel> mockRecipes = [
     servings: 3,
     difficultyTier: 'Tier 2',
     mealType: 'Dinner',
-    tags: ['High Protein', 'Healthy', 'Asian'],
-    equipment: ['Wok or Large Skillet', 'Cutting Board'],
+    cuisine: 'Asian',
+    dietary: const ['Gluten-Free'],
+    tags: const ['Quick & Easy', 'Beginner Friendly'],
     ingredients: {
       'Chicken Breast': '1 lb',
       'Broccoli Florets': '2 cups',
@@ -171,5 +174,5 @@ final List<RecipeModel> mockRecipes = [
   ),
 ];
 
-// Single recipe fallback (points to first item in mock list)
+// Single recipe fallback
 final mockRecipe = mockRecipes.first;
