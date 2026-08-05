@@ -26,7 +26,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
     final List<Widget> screens = [
       HomeScreen(recipes: widget.recipes),
       const TierSelectionScreen(),
-      RecipeCatalogScreen(recipes: widget.recipes),
+      RecipeCatalogScreen(initialRecipes: widget.recipes),
       CookedHistoryScreen(key: ValueKey(_selectedIndex)),
     ];
 
