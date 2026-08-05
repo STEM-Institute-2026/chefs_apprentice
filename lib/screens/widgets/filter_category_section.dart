@@ -49,7 +49,7 @@ class FilterCategorySection extends StatelessWidget {
                 checkmarkColor: AppColors.terracottaAccent,
                 
                 // 🎨 Background Colors
-                backgroundColor: Colors.transparent,
+                backgroundColor: AppColors.creamBackground, // Cream background when unclicked
                 selectedColor: AppColors.oliveSecondary,
                 
                 // 🔲 Olive Border when unclicked
