@@ -108,5 +108,6 @@ flutter_launcher_icons:
     image_path: "assets/images/app_logo_full.PNG" 
 
 flutter_native_splash:
+  android: true
   color: "7c795d"
   image: "assets/images/app_logo_full.PNG"
