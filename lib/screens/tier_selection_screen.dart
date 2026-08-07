@@ -41,13 +41,19 @@ class _TierSelectionScreenState extends State<TierSelectionScreen> {
             isUnlocked: unlocked,
             completedCount: completed,
             previousTierCompleted: prevCompleted,
-            onTap: () {
-                Navigator.push(
-              context,
-              StandardDetailRoute(
-                page: TierDetailScreen(tier: tier),
-              ),
-            );
+            onTap: () async {
+              // 1. Await the navigation so code execution pauses until the user returns
+              await Navigator.push(
+                context,
+                StandardDetailRoute(
+                  page: TierDetailScreen(tier: tier),
+                ),
+              );
+
+              // 2. Refresh state when returning to recalculate completed counts
+              if (mounted) {
+                setState(() {});
+              }
             },
           );
         },

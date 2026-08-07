@@ -18,7 +18,7 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
   double? _calculatedSavings;
   String? _userPhotoPath;
   int? _userRating;
-  
+
   @override
   void initState() {
     super.initState();
@@ -41,70 +41,81 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
-    
       appBar: CustomAppBar(title: "Meal Complete!"),
-      
+
+      // --- SCROLLABLE CONTENT AREA ---
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            BudgetInputSection(restaurantAverage: widget.recipe.estimatedRestaurantCost, onSavingsCalculated: (savings) {
-              setState(() {
-            _calculatedSavings = savings;
-          });
-            }), // Pass the restaurant price from your Recipe model here!
+            BudgetInputSection(
+              restaurantAverage: widget.recipe.estimatedRestaurantCost,
+              onSavingsCalculated: (savings) {
+                setState(() {
+                  _calculatedSavings = savings;
+                });
+              },
+            ),
             const SizedBox(height: 20),
             RatingSection(
               onRatingChanged: (rating) {
                 setState(() {
-                  _userRating = rating; // Will be null until a star is tapped
+                  _userRating = rating;
                 });
               },
             ),
-            
             const SizedBox(height: 20),
-
             PhotoUploadBox(
               onImageSelected: (XFile? image) {
                 setState(() {
-                  // If image is picked, image?.path holds the file path string.
-                  // If image is deleted (X pressed), image?.path becomes null.
                   _userPhotoPath = image?.path;
                 });
               },
             ),
+            const SizedBox(height: 16), // Padding bottom so content doesn't get cut off
+          ],
+        ),
+      ),
 
-            const SizedBox(height: 10),
+      // --- STICKY BOTTOM BUTTON ---
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                final newHistoryItem = CookedHistoryModel(
+                  entryId: DateTime.now().millisecondsSinceEpoch.toString(),
+                  recipeId: widget.recipe.recipeId,
+                  recipeTitle: widget.recipe.title,
+                  imagePath: _userPhotoPath ?? '',
+                  completedAt: DateTime.now(),
+                  costSaved: _calculatedSavings,
+                  rating: _userRating,
+                );
 
-            // -------------------------------------------------------------
-            // 3. SAVING THE COOKED HISTORY MODEL
-            // -------------------------------------------------------------
-           ElevatedButton(
-            onPressed: () {
-              final newHistoryItem = CookedHistoryModel(
-                entryId: DateTime.now().millisecondsSinceEpoch.toString(),
-                recipeId: widget.recipe.recipeId,
-                recipeTitle: widget.recipe.title,
-                imagePath: _userPhotoPath ?? '',
-                completedAt: DateTime.now(),
-                costSaved: _calculatedSavings,
-                rating: _userRating,
-              );
+                // 1. Add the new history item to global state
+                HistoryService.addMeal(newHistoryItem);
 
-              // 1. Add the new history item to global state
-              HistoryService.addMeal(newHistoryItem);
-
-              // 2. Pop all screens until you get back to RecipeDetailScreen!
-              Navigator.popUntil(context, (route) => route.isFirst || route.settings.name == '/recipeDetail');
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.oliveSecondary,
-              foregroundColor: AppColors.creamBackground,
+                // 2. Pop all screens until back to RecipeDetailScreen or root
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.oliveSecondary,
+                foregroundColor: AppColors.creamBackground,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 2,
+              ),
+              child: const Text(
+                'Save to Cooked History',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
-            child: const Text('Save to Cooked History'),
-          )
-
-            ],
+          ),
         ),
       ),
     );
