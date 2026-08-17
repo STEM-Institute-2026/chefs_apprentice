@@ -4,9 +4,9 @@ import '../services/history_service.dart';
 import './widgets/recipe_card.dart';
 import 'widgets/header_and_app_bar.dart';
 import 'skill_detail_screen.dart';
-import '../constants/app_transitions.dart'; // Import your custom transitions
+import '../constants/app_transitions.dart';
 
-class TierDetailScreen extends StatefulWidget {
+class TierDetailScreen extends StatelessWidget {
   final TierModel tier;
 
   const TierDetailScreen({
@@ -15,21 +15,9 @@ class TierDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<TierDetailScreen> createState() => _TierDetailScreenState();
-}
-
-class _TierDetailScreenState extends State<TierDetailScreen> {
-  @override
   Widget build(BuildContext context) {
-    // 💡 Calculate completed recipes for this specific tier
-    final int completedCount = widget.tier.recipes
-        .where((recipe) => HistoryService.isRecipeCompleted(recipe.recipeId))
-        .length;
-
     return Scaffold(
-      
-      appBar: CustomAppBar(title: widget.tier.title),
-
+      appBar: CustomAppBar(title: tier.title),
       backgroundColor: AppColors.creamBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -60,33 +48,44 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
                   Stack(
                     children: [
                       Image.network(
-                        widget.tier.coverImageUrl,
+                        tier.coverImageUrl,
                         height: 160,
                         width: double.infinity,
                         fit: BoxFit.cover,
                         errorBuilder: (_, _, _) => Container(
                           height: 160,
                           color: AppColors.oliveSecondary,
-                          child: const Icon(Icons.restaurant, size: 40, color: Colors.white),
+                          child: const Icon(Icons.restaurant,
+                              size: 40, color: Colors.white),
                         ),
                       ),
                       Positioned(
                         top: 12,
                         right: 12,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: AppColors.terracottaAccent,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            '$completedCount / ${widget.tier.recipes.length} Recipes Done',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
+                        // Reactive count badge updating directly from savedMealsNotifier
+                        child: ValueListenableBuilder<List<CookedHistoryModel>>(
+                          valueListenable: HistoryService.savedMealsNotifier,
+                          builder: (context, savedMeals, child) {
+                            final int completedCount =
+                                HistoryService.getCompletedCount(tier.recipes);
+
+                            return Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: AppColors.terracottaAccent,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                '$completedCount / ${tier.recipes.length} Recipes Done',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -95,13 +94,12 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      widget.tier.description,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        height: 1.3,
-                        fontWeight: FontWeight.w500
-                      ),
+                      tier.description,
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                          height: 1.3,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ],
@@ -113,15 +111,14 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
             // ===================================================================
             // 2. TIER LESSONS SECTION
             // ===================================================================
-            HeaderWidget(headerText: "Tier Lessons"),
-            
+            const HeaderWidget(headerText: "Tier Lessons"),
 
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: widget.tier.skills.length,
+              itemCount: tier.skills.length,
               itemBuilder: (context, index) {
-                return LessonCard(skill: widget.tier.skills[index]);
+                return LessonCard(skill: tier.skills[index]);
               },
             ),
 
@@ -130,14 +127,13 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
             // ===================================================================
             // 3. PRACTICE RECIPES SECTION
             // ===================================================================
-            
-            HeaderWidget(headerText: "Practice Recipes"),
+            const HeaderWidget(headerText: "Practice Recipes"),
 
-            const SizedBox(height:6),
+            const SizedBox(height: 6),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: widget.tier.recipes.length,
+              itemCount: tier.recipes.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 12.0,
@@ -145,7 +141,7 @@ class _TierDetailScreenState extends State<TierDetailScreen> {
                 childAspectRatio: 0.82,
               ),
               itemBuilder: (context, index) {
-                return RecipeCatalogCard(recipe: widget.tier.recipes[index]);
+                return RecipeCatalogCard(recipe: tier.recipes[index]);
               },
             ),
 
@@ -182,13 +178,15 @@ class LessonCard extends StatelessWidget {
           ),
           title: Text(
             skill.name,
-            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.oliveSecondary),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: AppColors.oliveSecondary),
           ),
           subtitle: Text(
             skill.shortDescription,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: AppColors.terracottaAccent, fontWeight: FontWeight.w900)
+            style: const TextStyle(
+                color: AppColors.terracottaAccent, fontWeight: FontWeight.w900),
           ),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {

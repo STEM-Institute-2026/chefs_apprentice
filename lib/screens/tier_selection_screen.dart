@@ -6,54 +6,48 @@ import '../services/history_service.dart';
 import 'widgets/header_and_app_bar.dart';
 import '../constants/app_transitions.dart';
 
-class TierSelectionScreen extends StatefulWidget {
+class TierSelectionScreen extends StatelessWidget {
   const TierSelectionScreen({super.key});
-
-  @override
-  State<TierSelectionScreen> createState() => _TierSelectionScreenState();
-}
-
-class _TierSelectionScreenState extends State<TierSelectionScreen> {
-  // 1. APP STATE: Track completed recipe IDs
-  Set<String> get completedRecipeIds => HistoryService.completedRecipeIds;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
-      appBar: CustomAppBar(title: "Cooking Tiers"),
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        itemCount: mockTiers.length,
-        itemBuilder: (context, index) {
-          final tier = mockTiers[index];
-          final unlocked = HistoryService.isTierUnlocked(tier.tierNumber);
-          final completed = HistoryService.getCompletedCount(tier.recipes);
+      appBar: const CustomAppBar(title: "Cooking Tiers"),
+      // Reactively listens to saved meals updates across the whole app
+      body: ValueListenableBuilder<List<CookedHistoryModel>>(
+        valueListenable: HistoryService.savedMealsNotifier,
+        builder: (context, savedMeals, child) {
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            itemCount: mockTiers.length,
+            itemBuilder: (context, index) {
+              final tier = mockTiers[index];
+              final unlocked = HistoryService.isTierUnlocked(tier.tierNumber);
+              final completed = HistoryService.getCompletedCount(tier.recipes);
 
-          int prevCompleted = 0;
-            if (index > 0) {
-              final previousTier = mockTiers[index - 1];
-              prevCompleted = HistoryService.getCompletedCount(previousTier.recipes);
-            }
-          
-          return TierCard(
-            tier: tier,
-            isUnlocked: unlocked,
-            completedCount: completed,
-            previousTierCompleted: prevCompleted,
-            onTap: () async {
-              // 1. Await the navigation so code execution pauses until the user returns
-              await Navigator.push(
-                context,
-                StandardDetailRoute(
-                  page: TierDetailScreen(tier: tier),
-                ),
-              );
-
-              // 2. Refresh state when returning to recalculate completed counts
-              if (mounted) {
-                setState(() {});
+              int prevCompleted = 0;
+              if (index > 0) {
+                final previousTier = mockTiers[index - 1];
+                prevCompleted =
+                    HistoryService.getCompletedCount(previousTier.recipes);
               }
+
+              return TierCard(
+                tier: tier,
+                isUnlocked: unlocked,
+                completedCount: completed,
+                previousTierCompleted: prevCompleted,
+                onTap: () {
+                  // Standard navigation without await / manual refresh
+                  Navigator.push(
+                    context,
+                    StandardDetailRoute(
+                      page: TierDetailScreen(tier: tier),
+                    ),
+                  );
+                },
+              );
             },
           );
         },
@@ -111,7 +105,8 @@ class TierCard extends StatelessWidget {
                   height: 180,
                   width: double.infinity,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => _buildImagePlaceholder(),
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildImagePlaceholder(),
                 ),
               ),
 
@@ -124,7 +119,8 @@ class TierCard extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withValues(alpha: isUnlocked ? 0.75 : 0.90),
+                      Colors.black
+                          .withValues(alpha: isUnlocked ? 0.75 : 0.90),
                     ],
                   ),
                 ),
@@ -176,7 +172,9 @@ class TierCard extends StatelessWidget {
                     Text(
                       tier.title,
                       style: TextStyle(
-                        color: isUnlocked ? AppColors.creamBackground : Colors.grey.shade400,
+                        color: isUnlocked
+                            ? AppColors.creamBackground
+                            : Colors.grey.shade400,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -189,7 +187,8 @@ class TierCard extends StatelessWidget {
                           ? '$completedCount / ${tier.recipes.length} Completed'
                           : 'Complete $totalRequired recipes in Tier ${tier.tierNumber - 1} to unlock',
                       style: TextStyle(
-                        color: AppColors.creamBackground.withValues(alpha: 0.85),
+                        color: AppColors.creamBackground
+                            .withValues(alpha: 0.85),
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -202,7 +201,8 @@ class TierCard extends StatelessWidget {
                       child: LinearProgressIndicator(
                         value: isUnlocked
                             ? (completedCount / tier.recipes.length)
-                            : (previousTierCompleted / totalRequired).clamp(0.0, 1.0),
+                            : (previousTierCompleted / totalRequired)
+                                .clamp(0.0, 1.0),
                         backgroundColor: Colors.white24,
                         valueColor: AlwaysStoppedAnimation<Color>(
                           isUnlocked
@@ -222,13 +222,13 @@ class TierCard extends StatelessWidget {
     );
   }
 
-  // Helper method to keep image placeholder dry and consistent
+  // Helper method for image placeholder
   Widget _buildImagePlaceholder() {
     return Container(
       height: 180,
       width: double.infinity,
       color: AppColors.oliveSecondary.withValues(alpha: 0.15),
-      child: Icon(
+      child: const Icon(
         Icons.restaurant,
         size: 48,
         color: AppColors.oliveSecondary,

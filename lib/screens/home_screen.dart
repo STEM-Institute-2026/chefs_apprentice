@@ -3,15 +3,10 @@ import 'package:charles_flutter_app_main/models/models.dart';
 import '../../services/history_service.dart';
 import './widgets/header_and_app_bar.dart';
 import './widgets/recipe_card.dart';
-import './widgets/home_app_bar.dart'; // Import the new app bar widget
+import './widgets/home_app_bar.dart';
 import '../mock_tier_data.dart';
 import './tier_detail_screen.dart';
-import '../constants/app_transitions.dart'; // Import your custom transitions
-
-// Import your custom widgets here!
-// import '../widgets/header_widget.dart';
-// import '../widgets/custom_app_bar.dart';
-// import '../widgets/recipe_catalog_card.dart';
+import '../constants/app_transitions.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<RecipeModel> recipes;
@@ -28,40 +23,28 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    // Filter favorites dynamically using your HistoryService
-    final favoriteRecipes = widget.recipes
-        .where((r) => HistoryService.isRecipeFavorite(r.recipeId))
-        .toList();
-
     final currentTier = HistoryService.getActiveTier(mockTiers);
-    
+
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
-
-      // ─────────────────────────────────────────────────────────────
-      // 1. YOUR CUSTOM APP BAR
-      // ─────────────────────────────────────────────────────────────
-     appBar: MainHomeScreenAppBar(
-    ),
-
-      // ─────────────────────────────────────────────────────────────
-      // 2. MAIN BODY
-      // ─────────────────────────────────────────────────────────────
+      appBar: const MainHomeScreenAppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // NEXT TIER HERO BANNER
-            ContinueTierProgressCard(tier: currentTier, 
+            ContinueTierProgressCard(
+              tier: currentTier,
               onTierUpdated: () {
-              setState(() {}); // Forces HomeScreen to rebuild with the updated tier!
-            },),
+                setState(() {}); // Forces HomeScreen to rebuild with the updated tier!
+              },
+            ),
 
             const SizedBox(height: 12),
 
             // SECTION 1: QUICK RECIPES
-            HeaderWidget(
+            const HeaderWidget(
               headerText: 'Quick Recipes',
               icon: Icons.bolt_rounded,
             ),
@@ -70,30 +53,42 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 12),
 
             // SECTION 2: MY FAVORITES
-            HeaderWidget(
+            const HeaderWidget(
               headerText: 'My Favorites',
               icon: Icons.favorite_rounded,
               iconColor: Colors.redAccent,
             ),
-            favoriteRecipes.isEmpty
-                ? const Padding(
+
+            // Dynamically listen to favorite changes using ValueListenableBuilder
+            ValueListenableBuilder<Set<String>>(
+              valueListenable: HistoryService.favoriteRecipeIdsNotifier,
+              builder: (context, favoriteIds, child) {
+                final favoriteRecipes = widget.recipes
+                    .where((r) => favoriteIds.contains(r.recipeId))
+                    .toList();
+
+                if (favoriteRecipes.isEmpty) {
+                  return const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     child: Text(
                       'No favorites added yet! Tap the heart on any recipe.',
                       style: TextStyle(color: Colors.grey, fontSize: 13),
                     ),
-                  )
-                : _buildHorizontalRecipeList(favoriteRecipes),
+                  );
+                }
+
+                return _buildHorizontalRecipeList(favoriteRecipes);
+              },
+            ),
           ],
         ),
       ),
     );
   }
 
-  // ─────────────────────────────────────────────────────────────
   Widget _buildHorizontalRecipeList(List<RecipeModel> recipeList) {
     return SizedBox(
-      height: 210, // Height bound required for RecipeCatalogCard Column/Expanded
+      height: 210,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -102,10 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
           return Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: SizedBox(
-              width: 165, // Fixed card width for horizontal scrolling
-              child: RecipeCatalogCard(recipe: recipeList[index], onFavoriteToggle: () {
-                  setState(() {});
-                },),
+              width: 165,
+              child: RecipeCatalogCard(recipe: recipeList[index]),
             ),
           );
         },
@@ -113,9 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-// Adjust path to your models
 
 class ContinueTierProgressCard extends StatelessWidget {
   final TierModel tier;
@@ -147,7 +137,6 @@ class ContinueTierProgressCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // 1. DYNAMIC BACKGROUND IMAGE FROM LESSON INPUT
             Positioned.fill(
               child: Image.network(
                 tier.coverImageUrl,
@@ -157,8 +146,6 @@ class ContinueTierProgressCard extends StatelessWidget {
                 ),
               ),
             ),
-
-            // 2. GRADIENT OVERLAY
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
@@ -173,8 +160,6 @@ class ContinueTierProgressCard extends StatelessWidget {
                 ),
               ),
             ),
-
-            // 3. DYNAMIC TEXT & BUTTON CONTENT
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -225,8 +210,7 @@ class ContinueTierProgressCard extends StatelessWidget {
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: () async { // 👈 1. Added async here
-                      // 👈 2. Added await so we wait until user returns from TierDetailScreen
+                    onPressed: () async {
                       await Navigator.push(
                         context,
                         StandardDetailRoute(
@@ -234,7 +218,6 @@ class ContinueTierProgressCard extends StatelessWidget {
                         ),
                       );
 
-                      // 👈 3. Triggers HomeScreen refresh when user comes back!
                       onTierUpdated?.call();
                     },
                     style: ElevatedButton.styleFrom(

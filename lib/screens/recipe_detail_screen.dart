@@ -6,131 +6,107 @@ import '../services/history_service.dart';
 import 'widgets/header_and_app_bar.dart';
 import '../constants/app_transitions.dart';
 
-class RecipeDetailScreen extends StatefulWidget {
+class RecipeDetailScreen extends StatelessWidget {
   final RecipeModel recipe;
 
   const RecipeDetailScreen({super.key, required this.recipe});
 
   @override
-  State<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
-}
-
-class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  late bool isFavorite;
-
-  @override
   Widget build(BuildContext context) {
-  final isFavorite = HistoryService.isRecipeFavorite(widget.recipe.recipeId);
-
-  return Scaffold(
-    backgroundColor: AppColors.creamBackground,
-    appBar: CustomAppBar(title: widget.recipe.title,
-      actions: [
-        IconButton(
-          icon: Icon(
-            isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite ? Colors.red : AppColors.creamBackground,
+    return Scaffold(
+      backgroundColor: AppColors.creamBackground,
+      appBar: CustomAppBar(
+        title: recipe.title,
+        actions: [
+          // Reactive favorite heart button
+          ValueListenableBuilder<Set<String>>(
+            valueListenable: HistoryService.favoriteRecipeIdsNotifier,
+            builder: (context, favoriteIds, child) {
+              final isFavorite = favoriteIds.contains(recipe.recipeId);
+              return IconButton(
+                icon: Icon(
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorite ? Colors.red : AppColors.creamBackground,
+                ),
+                onPressed: () {
+                  HistoryService.toggleFavorite(recipe.recipeId);
+                },
+              );
+            },
           ),
-          onPressed: () {
-            setState(() {
-              HistoryService.toggleFavorite(widget.recipe.recipeId);
-            });
-          },
-        ),
-      ],
-    ),
-      
-     body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.network( // image of recipe at the top of the screen 
-              widget.recipe.imageUrl,
-              height: 220,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // 1. Just the Badge (aligned to the left)
-                  Chip(
-                    label: Text(
-                      "${widget.recipe.difficultyTier} Difficulty",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    backgroundColor: AppColors.terracottaAccent,
-                  ),
-                  const SizedBox(height: 12),
-
-                  // 2. Recipe Description
-                  Text(
-                    widget.recipe.description,
-                    style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
-                  ),
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  // 1. Cook Time
-                  StatItemWidget(
-                    icon: Icons.timer_outlined,
-                    label: '${widget.recipe.cookTimeMinutes} mins',
-                  ),
-
-                  // 2. Servings / Yield
-                  StatItemWidget(
-                    icon: Icons.people_outline,
-                    label: '${widget.recipe.servings} Servings',
-                  ),
-
-                  // 3. Cost
-                  StatItemWidget(
-                    icon: Icons.attach_money,
-                    label: '\$${widget.recipe.estimatedCost.toStringAsFixed(2)}',
-                  ),
-                ],
-              ),
-            ),
-            
-            const SizedBox(height: 5.0),
-
-            NutritionCard(nutrition: widget.recipe.nutritionStats),
-            
-            HeaderWidget(headerText: "Ingredients"),
-
-            // 2. The 2-Column Ingredients List Widget
-            IngredientListSection(ingredients: widget.recipe.ingredients),
-          
-            const SizedBox(height: 5.0),
-            // 3. The Instruction List Widget
-            HeaderWidget(headerText: "Instructions"),
-            
-            InstructionListSection(instructions: widget.recipe.steps),
-            
-            const SizedBox(height: 20),
-          ],
-        ),      
+        ],
       ),
-    ),
-    
-    bottomNavigationBar: RecipeBottomActionBar(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Image.network(
+                recipe.imageUrl,
+                height: 220,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Chip(
+                      label: Text(
+                        "${recipe.difficultyTier} Difficulty",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      backgroundColor: AppColors.terracottaAccent,
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      recipe.description,
+                      style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    StatItemWidget(
+                      icon: Icons.timer_outlined,
+                      label: '${recipe.cookTimeMinutes} mins',
+                    ),
+                    StatItemWidget(
+                      icon: Icons.people_outline,
+                      label: '${recipe.servings} Servings',
+                    ),
+                    StatItemWidget(
+                      icon: Icons.attach_money,
+                      label: '\$${recipe.estimatedCost.toStringAsFixed(2)}',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 5.0),
+              NutritionCard(nutrition: recipe.nutritionStats),
+              HeaderWidget(headerText: "Ingredients"),
+              IngredientListSection(ingredients: recipe.ingredients),
+              const SizedBox(height: 5.0),
+              HeaderWidget(headerText: "Instructions"),
+              InstructionListSection(instructions: recipe.steps),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: RecipeBottomActionBar(
         onStartGuidedCooking: () {
           Navigator.push(
             context,
             ModalSlideUpRoute(
-              page: InteractiveCookingScreen(recipe: widget.recipe),
+              page: InteractiveCookingScreen(recipe: recipe),
             ),
           );
         },
@@ -138,11 +114,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           Navigator.push(
             context,
             ScalePopRoute(
-              page: RecipeCompleteScreen(recipe: widget.recipe),
+              page: RecipeCompleteScreen(recipe: recipe),
             ),
           );
         },
-    ) 
+      ),
     );
   }
 }
@@ -203,22 +179,17 @@ class IngredientListSection extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // 👈 Calls the Ingredient Name (e.g., "Flour")
                       Text(
-                        entry.key, 
+                        entry.key,
                         style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
                       ),
-                  
-                      // 👈 Calls the Amount (e.g., "2 cups")
                       Text(
-                        entry.value, 
+                        entry.value,
                         style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
                       ),
                     ],
                   ),
-                
                   const SizedBox(height: 5),
-                  
                   const Divider(
                     height: 1,
                     thickness: 2,
@@ -253,14 +224,11 @@ class InstructionListSection extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Instruction Number
                   Text(
                     "${entry.value.stepNumber}.",
                     style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
                   ),
-                  
                   const SizedBox(width: 8),
-                  
                   Expanded(
                     child: Text(
                       entry.value.instructionText,
@@ -305,7 +273,6 @@ class RecipeBottomActionBar extends StatelessWidget {
           height: 48,
           child: Row(
             children: [
-              // 1. Start Guided Cooking Button
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -327,10 +294,7 @@ class RecipeBottomActionBar extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(width: 12),
-
-              // 2. Finished Cooking Button
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(

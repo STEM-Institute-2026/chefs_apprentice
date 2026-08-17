@@ -3,11 +3,13 @@ import 'models/models.dart';
 // Sample User Profile Data
 final mockUserProfile = UserProfileModel(
   userId: 'user_001',
-  userName: 'Chef Alex',
-  avatarUrl: 'https://via.placeholder.com/150',
-  currentTier: 1,
-  tierProgress: 0.35,
-  currentStreak: 4,
+  userName: 'Alex',
+  avatarUrl: null,
+  currentLevel: 3,
+  currentXp: 650,
+  maxXp: 1000,
+  recipesTried: 14,
+  totalTimesCooked: 32,
   favoriteRecipeIds: ['rec_001', 'rec_002'],
 );
 

@@ -213,11 +213,13 @@ class _RecipeCatalogScreenState extends State<RecipeCatalogScreen> {
                               });
                             },
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 8),
                         ],
                       ),
                     ),
                   ),
+
+                  const Divider(height: 5, color: Colors.black),
 
                   // --- 3. STICKY FOOTER WITH SAFE AREA ---
                   SafeArea(

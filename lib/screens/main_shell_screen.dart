@@ -3,14 +3,16 @@ import '../models/models.dart';
 import 'home_screen.dart';
 import 'tier_selection_screen.dart';
 import 'recipe_catalog_screen.dart';
-import 'cooked_history_screen.dart';
+import 'profile_screen.dart';
 
 class MainShellScreen extends StatefulWidget {
   final List<RecipeModel> recipes;
+  final UserProfileModel userProfile;
 
   const MainShellScreen({
     super.key,
     required this.recipes,
+    required this.userProfile,
   });
 
   @override
@@ -27,7 +29,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
       HomeScreen(recipes: widget.recipes),
       const TierSelectionScreen(),
       RecipeCatalogScreen(initialRecipes: widget.recipes),
-      CookedHistoryScreen(key: ValueKey(_selectedIndex)),
+      ProfileScreen(profile: widget.userProfile)
     ];
 
     return Scaffold(
@@ -85,9 +87,9 @@ class _MainShellScreenState extends State<MainShellScreen> {
               label: 'Catalog',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.history_outlined),
-              activeIcon: Icon(Icons.history_rounded, color: AppColors.terracottaAccent,),
-              label: 'History',
+              icon: Icon(Icons.person),
+              activeIcon: Icon(Icons.person_rounded, color: AppColors.terracottaAccent,),
+              label: 'Profile',
             ),
           ],
         ),

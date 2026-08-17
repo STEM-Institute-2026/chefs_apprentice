@@ -3,24 +3,29 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../services/history_service.dart';
 import '../models/models.dart';
-import '../constants/app_transitions.dart'; // Adjust path if needed
+import '../constants/app_transitions.dart';
 
 class CookedHistoryScreen extends StatelessWidget {
   const CookedHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final savedMeals = HistoryService.savedMeals;
-
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
       appBar: AppBar(
-        title: Column (
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
             Text('Cooked History'),
             SizedBox(height: 2),
-            Text('Click on a entry to view details', style: TextStyle(fontSize: 12, color: AppColors.creamBackground, fontWeight: FontWeight.w100)),
+            Text(
+              'Click on an entry to view details',
+              style: TextStyle(
+                fontSize: 12,
+                color: AppColors.creamBackground,
+                fontWeight: FontWeight.w100,
+              ),
+            ),
           ],
         ),
         centerTitle: true,
@@ -28,12 +33,19 @@ class CookedHistoryScreen extends StatelessWidget {
         backgroundColor: AppColors.oliveSecondary,
         foregroundColor: AppColors.creamBackground,
       ),
-      body: savedMeals.isEmpty
-          ? Center(
+      body: ValueListenableBuilder<List<CookedHistoryModel>>(
+        valueListenable: HistoryService.savedMealsNotifier,
+        builder: (context, savedMeals, child) {
+          if (savedMeals.isEmpty) {
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(Icons.restaurant_menu, size: 64, color: AppColors.terracottaAccent),
+                  Icon(
+                    Icons.restaurant_menu,
+                    size: 64,
+                    color: AppColors.terracottaAccent,
+                  ),
                   SizedBox(height: 8),
                   Text(
                     'No meals cooked yet!',
@@ -50,22 +62,25 @@ class CookedHistoryScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
-          : GridView.builder(
-              padding: const EdgeInsets.all(16.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.60,
-              ),
-              itemCount: savedMeals.length,
-              itemBuilder: (context, index) {
-                final meal = savedMeals[index];
-                // Clean and simple widget call!
-                return CookedMealCard(meal: meal);
-              },
+            );
+          }
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(16.0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 0.60,
             ),
+            itemCount: savedMeals.length,
+            itemBuilder: (context, index) {
+              final meal = savedMeals[index];
+              return CookedMealCard(meal: meal);
+            },
+          );
+        },
+      ),
     );
   }
 }
@@ -83,21 +98,20 @@ class CookedMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  return InkWell(
-    borderRadius: BorderRadius.circular(16),
-    onTap: () {
-      // Push to your detail widget when tapped!
-      Navigator.push(
-        context,
-        StandardDetailRoute(
-          page: MealDetailScreen(meal: meal), 
-        ),
-      );
-    },
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () {
+        Navigator.push(
+          context,
+          StandardDetailRoute(
+            page: MealDetailScreen(meal: meal),
+          ),
+        );
+      },
       child: Card(
         clipBehavior: Clip.antiAlias,
         elevation: 2,
-        color: Colors.white, 
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -145,15 +159,15 @@ class CookedMealCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  // Inside CookedMealCard details area:
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // 🌟 STAR RATING (Subtle Amber Pill)
+                      // STAR RATING BADGE
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 3),
                         decoration: BoxDecoration(
-                          color: Colors.amber.withValues(alpha: 0.12), // Subtle amber glow
+                          color: Colors.amber.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Row(
@@ -162,24 +176,25 @@ class CookedMealCard extends StatelessWidget {
                             Icon(
                               Icons.star_rounded,
                               size: 14,
-                              color: Colors.amber.shade800.withValues(alpha: 0.85), // Warm amber star
+                              color: Colors.amber.shade800
+                                  .withValues(alpha: 0.85),
                             ),
                             const SizedBox(width: 3),
                             Text(
-                              meal.rating != null ? '${meal.rating}' : 'Unrated',
+                              meal.rating != null
+                                  ? '${meal.rating}'
+                                  : 'Unrated',
                               style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black.withValues(alpha: 0.75), // Muted black for readability
+                                color: Colors.black.withValues(alpha: 0.75),
                               ),
                             ),
                           ],
                         ),
                       ),
-
-                      const SizedBox(width: 8), // Breathing room
-
-                      // 💰 SAVINGS / COST BADGE (Your existing badge)
+                      const SizedBox(width: 8),
+                      // SAVINGS / COST BADGE
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
@@ -187,7 +202,7 @@ class CookedMealCard extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -208,8 +223,18 @@ class MealDetailScreen extends StatelessWidget {
 
   String _formatDate(DateTime date) {
     final months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
     ];
     return '${months[date.month - 1]} ${date.day}';
   }
@@ -219,7 +244,7 @@ class MealDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
       appBar: AppBar(
-        title: Text('Cooked on ${_formatDate(meal.completedAt)}'),
+        title: Text('Cooked on ${_formatDate(meal.dateCooked)}'),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.oliveSecondary,
@@ -241,7 +266,8 @@ class MealDetailScreen extends StatelessWidget {
                     ? (kIsWeb
                         ? Image.network(meal.imagePath, fit: BoxFit.cover)
                         : Image.file(File(meal.imagePath), fit: BoxFit.cover))
-                    : const Icon(Icons.restaurant, size: 80, color: Colors.grey),
+                    : const Icon(Icons.restaurant,
+                        size: 80, color: Colors.grey),
               ),
             ),
             const SizedBox(height: 20),
@@ -249,42 +275,46 @@ class MealDetailScreen extends StatelessWidget {
             // TITLE
             Text(
               meal.recipeTitle,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
 
             // RATING & MONEY SAVED ROW
-           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // 1. STAR RATING BADGE
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.amber.withValues(alpha: 0.12), // Warm soft glow
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('⭐', style: TextStyle(fontSize: 12)),
-                    const SizedBox(width: 4),
-                    Text(
-                      meal.rating != null ? '${meal.rating}' : 'Unrated',
-                      style: TextStyle(
-                        fontSize: 11.5,
-                        fontWeight: FontWeight.bold,
-                        color: meal.rating != null ? Colors.amber.shade900 : Colors.grey.shade600,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // STAR RATING BADGE
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('⭐', style: TextStyle(fontSize: 12)),
+                      const SizedBox(width: 4),
+                      Text(
+                        meal.rating != null ? '${meal.rating}' : 'Unrated',
+                        style: TextStyle(
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.bold,
+                          color: meal.rating != null
+                              ? Colors.amber.shade900
+                              : Colors.grey.shade600,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              // 2. SAVINGS / COST BADGE (Passes data cleanly)
-              _buildSavingsBadge(meal.costSaved),
-            ],
-          )
+                // SAVINGS / COST BADGE
+                _buildSavingsBadge(meal.costSaved),
+              ],
+            ),
           ],
         ),
       ),
@@ -303,7 +333,7 @@ Widget _buildSavingsBadge(double? savings) {
       child: Text(
         'No Cost Entered',
         style: TextStyle(
-          fontSize: 11, 
+          fontSize: 11,
           color: Colors.grey.shade600,
           fontWeight: FontWeight.w500,
         ),
@@ -322,7 +352,7 @@ Widget _buildSavingsBadge(double? savings) {
       child: const Text(
         'Broke Even',
         style: TextStyle(
-          fontSize: 11, 
+          fontSize: 11,
           color: Color(0xFF2C3523),
           fontWeight: FontWeight.bold,
         ),
@@ -336,8 +366,7 @@ Widget _buildSavingsBadge(double? savings) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
     decoration: BoxDecoration(
-      // 🟢 Olive tint for saved, 🟠 Terracotta tint for spent (No harsh bright red/green!)
-      color: isSaved 
+      color: isSaved
           ? AppColors.oliveSecondary.withValues(alpha: 0.25)
           : AppColors.terracottaAccent.withValues(alpha: 0.30),
       borderRadius: BorderRadius.circular(6),
@@ -349,9 +378,8 @@ Widget _buildSavingsBadge(double? savings) {
       style: TextStyle(
         fontSize: 11,
         fontWeight: FontWeight.bold,
-        // Deep muted tones for text readability
-        color: isSaved 
-            ? AppColors.oliveSecondary 
+        color: isSaved
+            ? AppColors.oliveSecondary
             : AppColors.terracottaAccent,
       ),
       overflow: TextOverflow.ellipsis,

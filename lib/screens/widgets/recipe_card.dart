@@ -2,37 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:charles_flutter_app_main/models/models.dart';
 import '../../services/history_service.dart';
 import '../recipe_detail_screen.dart';
-import '../../constants/app_transitions.dart'; // Import your custom transitions
+import '../../constants/app_transitions.dart';
 
-
-
-class RecipeCatalogCard extends StatefulWidget {
+class RecipeCatalogCard extends StatelessWidget {
   final RecipeModel recipe;
-  final VoidCallback? onFavoriteToggle;
 
   const RecipeCatalogCard({
     super.key,
     required this.recipe,
-    this.onFavoriteToggle,
   });
 
   @override
-  State<RecipeCatalogCard> createState() => _RecipeCatalogCardState();
-}
-
-class _RecipeCatalogCardState extends State<RecipeCatalogCard> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        // Navigate to detail screen and rebuild when returning to keep favorites synced
-        await Navigator.push(
+      onTap: () {
+        Navigator.push(
           context,
           StandardDetailRoute(
-            page: RecipeDetailScreen(recipe: widget.recipe),
+            page: RecipeDetailScreen(recipe: recipe),
           ),
         );
-        setState(() {});
       },
       child: Container(
         decoration: BoxDecoration(
@@ -50,14 +39,14 @@ class _RecipeCatalogCardState extends State<RecipeCatalogCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Image + Favorite Button Overlay
+            // 1. Image + Overlays
             Expanded(
               child: Stack(
                 children: [
                   // Recipe Image
                   Positioned.fill(
                     child: Image.network(
-                      widget.recipe.imageUrl,
+                      recipe.imageUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
@@ -72,68 +61,85 @@ class _RecipeCatalogCardState extends State<RecipeCatalogCard> {
                     ),
                   ),
 
-                  if (HistoryService.isRecipeCompleted(widget.recipe.recipeId))
-                    Positioned(
-                      top: 8,
-                      left: 8,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: AppColors.terracottaAccent,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.2),
-                              blurRadius: 4,
-                            ),
-                          ],
-                        ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.check, color: AppColors.creamBackground, size: 14),
-                            SizedBox(width: 4),
-                            Text(
-                              'Made',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                  // Reactive "Made" / Completed Badge Overlay
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: ValueListenableBuilder<List<CookedHistoryModel>>(
+                      valueListenable: HistoryService.savedMealsNotifier,
+                      builder: (context, savedMeals, child) {
+                        final isCompleted =
+                            HistoryService.isRecipeCompleted(recipe.recipeId);
+
+                        if (!isCompleted) return const SizedBox.shrink();
+
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.terracottaAccent,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: 4,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
+                            ],
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.check,
+                                color: AppColors.creamBackground,
+                                size: 14,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                'Made',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  
-                  // Favorite Button Overlay
+                  ),
+
+                  // Reactive Favorite Button Overlay
                   Positioned(
                     top: 8,
                     right: 8,
-                    child: Material(
-                      color: Colors.black.withValues(alpha: 0.3),
-                      shape: const CircleBorder(),
-                      clipBehavior: Clip.antiAlias,
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            HistoryService.toggleFavorite(widget.recipe.recipeId);
-                          });
-                          widget.onFavoriteToggle?.call();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Icon(
-                            HistoryService.isRecipeFavorite(widget.recipe.recipeId)
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: HistoryService.isRecipeFavorite(widget.recipe.recipeId)
-                                ? Colors.red
-                                : Colors.white,
-                            size: 20,
+                    child: ValueListenableBuilder<Set<String>>(
+                      valueListenable: HistoryService.favoriteRecipeIdsNotifier,
+                      builder: (context, favoriteIds, child) {
+                        final isFav = favoriteIds.contains(recipe.recipeId);
+
+                        return Material(
+                          color: Colors.black.withValues(alpha: 0.3),
+                          shape: const CircleBorder(),
+                          clipBehavior: Clip.antiAlias,
+                          child: InkWell(
+                            onTap: () {
+                              HistoryService.toggleFavorite(recipe.recipeId);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Icon(
+                                isFav ? Icons.favorite : Icons.favorite_border,
+                                color: isFav ? Colors.red : Colors.white,
+                                size: 20,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -144,7 +150,7 @@ class _RecipeCatalogCardState extends State<RecipeCatalogCard> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(
-                widget.recipe.title,
+                recipe.title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(

@@ -90,7 +90,7 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
                   recipeId: widget.recipe.recipeId,
                   recipeTitle: widget.recipe.title,
                   imagePath: _userPhotoPath ?? '',
-                  completedAt: DateTime.now(),
+                  dateCooked: DateTime.now(),
                   costSaved: _calculatedSavings,
                   rating: _userRating,
                 );

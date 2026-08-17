@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.creamBackground,
       ),
       // 👈 Pointing home to MainShellScreen!
-      home: MainShellScreen(recipes: mockRecipes), 
+      home: MainShellScreen(recipes: mockRecipes, userProfile: mockUserProfile), 
     );
   }
 }
