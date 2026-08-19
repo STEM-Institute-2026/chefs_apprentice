@@ -21,18 +21,26 @@ class HistoryService {
 
   static List<CookedHistoryModel> get savedMeals => savedMealsNotifier.value;
 
-  static void addMeal(CookedHistoryModel meal) {
-    // Check if new recipe BEFORE adding it to saved list
-    final bool isNewRecipe = !completedRecipeIds.contains(meal.recipeId);
-
-    // Add meal to history list
-    savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
-
-    // Automatically update streak & profile stats
-    _updateStreakAndStats(meal.recipeId, isNewRecipe: isNewRecipe);
+  /// Helper to calculate Max XP for any level dynamically.
+  /// Formula: Level 1 = 1000 XP. Every level after adds 750 XP.
+  static int getXpForLevel(int level) {
+    return 1000 + ((level - 1) * 750);
   }
 
-  static void _updateStreakAndStats(String recipeId, {required bool isNewRecipe}) {
+  /// 1. SEPARATE MEAL SAVING (No XP added here)
+  /// Call this when the user taps "Save to Cook History".
+  static void addMeal(CookedHistoryModel meal) {
+    final bool isNewRecipe = !completedRecipeIds.contains(meal.recipeId);
+
+    // Save meal to history list
+    savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
+
+    // Update streak and cooking stats (without modifying XP)
+    _updateStreakAndMealStats(meal.recipeId, isNewRecipe: isNewRecipe);
+  }
+
+  /// Private helper for updating streaks and cook counts
+  static void _updateStreakAndMealStats(String recipeId, {required bool isNewRecipe}) {
     final profile = currentProfile;
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -40,7 +48,6 @@ class HistoryService {
     int newStreak = profile.currentStreak;
 
     if (profile.lastCookedDate == null) {
-      // First meal ever logged
       newStreak = 1;
     } else {
       final lastCooked = DateTime(
@@ -51,24 +58,71 @@ class HistoryService {
       final differenceInDays = today.difference(lastCooked).inDays;
 
       if (differenceInDays == 1) {
-        // Cooked yesterday: increment streak by 1
         newStreak += 1;
       } else if (differenceInDays > 1) {
-        // Missed one or more days: reset streak to 1
         newStreak = 1;
       }
-      // If differenceInDays == 0 (already cooked today), streak remains unchanged
     }
 
-    // Update profile and notify all listening screens automatically
+    // Derive unique recipes tried directly from all saved meals
+    final uniqueRecipesCount = completedRecipeIds.length;
+
     userProfileNotifier.value = profile.copyWith(
       currentStreak: newStreak,
       lastCookedDate: today,
       totalTimesCooked: profile.totalTimesCooked + 1,
-      recipesTried: isNewRecipe ? profile.recipesTried + 1 : profile.recipesTried,
+      recipesTried: uniqueRecipesCount,
     );
   }
 
+  // --- 3. STANDALONE XP ENGINE ---
+
+  /// Direct method to award XP immediately (e.g., when the reward dialog opens)
+  static XpRewardSnapshot addXp(int amountEarned) {
+    final profile = currentProfile;
+    final int startXp = profile.currentXp;
+    final int startLevel = profile.currentLevel;
+    final int newTotalXp = profile.totalXp + amountEarned;
+
+    final stats = _calculateLevelStats(newTotalXp);
+
+    userProfileNotifier.value = profile.copyWith(
+      totalXp: newTotalXp,
+      currentLevel: stats.level,
+      currentXp: stats.xpInLevel,
+      maxXp: stats.maxXpForLevel,
+    );
+
+    return XpRewardSnapshot(
+      startXp: startXp,
+      startLevel: startLevel,
+      xpEarned: amountEarned,
+      finalXp: stats.xpInLevel,
+      finalLevel: stats.level,
+      didLevelUp: stats.level > startLevel,
+    );
+  }
+
+  /// Math Engine: Calculates level and progress using total XP as source of truth
+  static ({int level, int xpInLevel, int maxXpForLevel}) _calculateLevelStats(int totalXp) {
+    int level = 1;
+    int remainingXp = totalXp;
+    int currentMax = getXpForLevel(level);
+
+    while (remainingXp >= currentMax) {
+      remainingXp -= currentMax;
+      level++;
+      currentMax = getXpForLevel(level);
+    }
+
+    return (
+      level: level,
+      xpInLevel: remainingXp,
+      maxXpForLevel: currentMax,
+    );
+  }
+
+  // --- 4. RECIPE STATUS HELPERS ---
   static Set<String> get completedRecipeIds {
     return savedMeals.map((meal) => meal.recipeId).toSet();
   }
@@ -83,7 +137,7 @@ class HistoryService {
         .length;
   }
 
-  // --- 3. TIER UNLOCK LOGIC ---
+  // --- 5. TIER UNLOCK LOGIC ---
   static bool isTierUnlocked(int tierNumber) {
     if (tierNumber <= 1) return true;
 
@@ -107,7 +161,7 @@ class HistoryService {
     return allTiers.first;
   }
 
-  // --- 4. FAVORITES STORAGE (REACTIVE) ---
+  // --- 6. FAVORITES STORAGE (REACTIVE) ---
   static final ValueNotifier<Set<String>> favoriteRecipeIdsNotifier =
       ValueNotifier<Set<String>>({});
 
@@ -122,7 +176,6 @@ class HistoryService {
       updatedFavorites.add(recipeId);
     }
 
-    // Reassigning triggers ValueListenableBuilder rebuilds
     favoriteRecipeIdsNotifier.value = updatedFavorites;
   }
 

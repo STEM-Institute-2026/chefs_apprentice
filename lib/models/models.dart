@@ -10,3 +10,4 @@ export 'nutrition_model.dart';
 export 'tier_model.dart';
 export 'skill_model.dart';
 export 'skill_step_model.dart';
+export 'xp_reward_snapshot_model.dart';

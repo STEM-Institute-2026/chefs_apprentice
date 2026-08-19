@@ -1,6 +1,7 @@
 class UserProfileModel {
   final String userId;
   final String userName;
+  final int totalXp; // Added totalXp as source of truth
   final int currentLevel;
   final int currentXp;
   final int maxXp;
@@ -10,13 +11,14 @@ class UserProfileModel {
   final int? avatarColorHex;
   final List<String> favoriteRecipeIds;
   
-  // Add these two new streak fields:
+  // Streak fields
   final int currentStreak;
   final DateTime? lastCookedDate;
 
   UserProfileModel({
     required this.userId,
     required this.userName,
+    this.totalXp = 0, // Default to 0 XP for new profiles
     required this.currentLevel,
     required this.currentXp,
     required this.maxXp,
@@ -29,10 +31,10 @@ class UserProfileModel {
     required this.favoriteRecipeIds,
   });
 
-  // Include copyWith so you can easily update the streak state
   UserProfileModel copyWith({
     String? userId,
     String? userName,
+    int? totalXp,
     int? currentLevel,
     int? currentXp,
     int? maxXp,
@@ -47,6 +49,7 @@ class UserProfileModel {
     return UserProfileModel(
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
+      totalXp: totalXp ?? this.totalXp,
       currentLevel: currentLevel ?? this.currentLevel,
       currentXp: currentXp ?? this.currentXp,
       maxXp: maxXp ?? this.maxXp,

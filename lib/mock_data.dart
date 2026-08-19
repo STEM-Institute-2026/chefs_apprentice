@@ -5,11 +5,11 @@ final mockUserProfile = UserProfileModel(
   userId: 'user_001',
   userName: 'Alex',
   avatarUrl: null,
-  currentLevel: 3,
-  currentXp: 650,
+  currentLevel: 1,
+  currentXp: 0,
   maxXp: 1000,
-  recipesTried: 14,
-  totalTimesCooked: 32,
+  recipesTried: 0,
+  totalTimesCooked: 0,
   favoriteRecipeIds: ['rec_001', 'rec_002'],
 );
 

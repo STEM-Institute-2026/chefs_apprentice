@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import "../models/models.dart"; 
 import 'package:flutter/services.dart';
-import 'photo_upload_box.dart'; // 
+import 'photo_upload_box.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/history_service.dart';
 import 'widgets/header_and_app_bar.dart';
+import 'package:confetti/confetti.dart';
 
 class RecipeCompleteScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -22,16 +23,19 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
   @override
   void initState() {
     super.initState();
-    // Triggers the XP Popup as soon as the screen loads
+    // Triggers the XP Popup after the first frame renders
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      const int xpEarned = 500; // controls xp addition
+      final snapshot = HistoryService.addXp(xpEarned);
+
       showDialog(
         context: context,
         barrierDismissible: false, // User must tap "Awesome!" to close
-        builder: (context) => const XpRewardDialog(
-          earnedXp: 150,
-          currentXp: 400,
-          xpPerLevel: 600,
-          startLevel: 3,
+        builder: (context) => XpRewardDialog(
+          earnedXp: snapshot.xpEarned,
+          startXp: snapshot.startXp,
+          startLevel: snapshot.startLevel,
+          getXpForLevel: HistoryService.getXpForLevel,
         ),
       );
     });
@@ -72,7 +76,7 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
                 });
               },
             ),
-            const SizedBox(height: 16), // Padding bottom so content doesn't get cut off
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -98,7 +102,7 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
                 // 1. Add the new history item to global state
                 HistoryService.addMeal(newHistoryItem);
 
-                // 2. Pop all screens until back to RecipeDetailScreen or root
+                // 2. Pop screens until back to root or detail
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
               style: ElevatedButton.styleFrom(
@@ -125,18 +129,20 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
 // ============================================================================
 // 2. XP REWARD POPUP DIALOG WIDGET
 // ============================================================================
+
+
 class XpRewardDialog extends StatefulWidget {
-  final int earnedXp;
-  final int currentXp;
-  final int xpPerLevel;
   final int startLevel;
+  final int startXp;
+  final int earnedXp;
+  final int Function(int level) getXpForLevel;
 
   const XpRewardDialog({
     super.key,
-    required this.earnedXp,
-    required this.currentXp,
-    required this.xpPerLevel,
     required this.startLevel,
+    required this.startXp,
+    required this.earnedXp,
+    required this.getXpForLevel,
   });
 
   @override
@@ -147,74 +153,114 @@ class _XpRewardDialogState extends State<XpRewardDialog>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _progressAnimation;
+  late ConfettiController _confettiController;
 
   late int _displayLevel;
+  late int _currentMaxXp;
   bool _didLevelUp = false;
-  double _textOpacity = 0.0; // Starts hidden for smooth fade-in
+  double _textOpacity = 0.0;
 
   @override
   void initState() {
     super.initState();
     _displayLevel = widget.startLevel;
+    _currentMaxXp = widget.getXpForLevel(widget.startLevel);
+
+    // Initialize Confetti Controller
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 2));
+
+    // Initial progress bar baseline
+    final double initialProgress =
+        _currentMaxXp > 0 ? (widget.startXp / _currentMaxXp).clamp(0.0, 1.0) : 0.0;
+    _progressAnimation = AlwaysStoppedAnimation<double>(initialProgress);
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1000),
     );
 
     _runXpSequence();
   }
 
   void _runXpSequence() async {
-    double startProgress = widget.currentXp / widget.xpPerLevel;
-    int totalXp = widget.currentXp + widget.earnedXp;
+    int currentLevel = widget.startLevel;
+    int currentXp = widget.startXp;
+    int remainingXpToEarn = widget.earnedXp;
 
-    if (totalXp >= widget.xpPerLevel) {
-      // 1. Animate bar fill up to 100%
-      _progressAnimation = Tween<double>(begin: startProgress, end: 1.0).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-      );
-      await _controller.forward();
+    while (remainingXpToEarn > 0) {
+      if (!mounted) return;
 
-      // 2. Pause briefly at 100%
-      await Future.delayed(const Duration(milliseconds: 250));
-
-      // 3. Reset bar to 0% and animate leftover XP
-      _controller.reset();
-      double leftoverProgress = (totalXp - widget.xpPerLevel) / widget.xpPerLevel;
-
-      _progressAnimation = Tween<double>(begin: 0.0, end: leftoverProgress).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-      );
-      await _controller.forward();
-
-      // 4. Update level & trigger fade-in text
-      if (mounted) {
-        setState(() {
-          _displayLevel = widget.startLevel + 1;
-          _didLevelUp = true;
-          _textOpacity = 1.0;
-        });
-      }
-    } else {
-      // Normal XP gain without level up
-      double endProgress = totalXp / widget.xpPerLevel;
-      _progressAnimation = Tween<double>(begin: startProgress, end: endProgress).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-      );
-      await _controller.forward();
+      int maxForCurrentLevel = widget.getXpForLevel(currentLevel);
 
       if (mounted) {
         setState(() {
-          _textOpacity = 1.0;
+          _displayLevel = currentLevel;
+          _currentMaxXp = maxForCurrentLevel;
         });
       }
+
+      int xpNeededToFill = maxForCurrentLevel - currentXp;
+
+      if (remainingXpToEarn >= xpNeededToFill) {
+        // 1. Animate progress bar to 100%
+        double startProgress = (currentXp / maxForCurrentLevel).clamp(0.0, 1.0);
+        _progressAnimation = Tween<double>(begin: startProgress, end: 1.0).animate(
+          CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+        );
+        await _controller.forward();
+
+        // 2. Short pause at full bar
+        await Future.delayed(const Duration(milliseconds: 250));
+
+        // 3. Advance level and recalculate remaining XP
+        remainingXpToEarn -= xpNeededToFill;
+        currentLevel++;
+        currentXp = 0;
+
+        _controller.reset();
+
+        if (mounted) {
+          setState(() {
+            _displayLevel = currentLevel;
+            _currentMaxXp = widget.getXpForLevel(currentLevel);
+            _didLevelUp = true;
+            _progressAnimation = const AlwaysStoppedAnimation<double>(0.0);
+          });
+
+          // Trigger Confetti blast on Level Up!
+          _confettiController.play();
+        }
+
+        await Future.delayed(const Duration(milliseconds: 100));
+      } else {
+        // 4. Animate partial bar fill with remaining XP
+        double startProgress = (currentXp / maxForCurrentLevel).clamp(0.0, 1.0);
+        double endProgress =
+            ((currentXp + remainingXpToEarn) / maxForCurrentLevel).clamp(0.0, 1.0);
+
+        _progressAnimation = Tween<double>(begin: startProgress, end: endProgress).animate(
+          CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+        );
+        await _controller.forward();
+
+        currentXp += remainingXpToEarn;
+        remainingXpToEarn = 0;
+      }
+    }
+
+    // 5. Fade in status text at the end
+    if (mounted) {
+      setState(() {
+        _textOpacity = 1.0;
+      });
     }
   }
 
   @override
   void dispose() {
-    _controller.dispose(); // Prevents memory leaks
+    _controller.dispose();
+    _confettiController.dispose();
     super.dispose();
   }
 
@@ -222,127 +268,149 @@ class _XpRewardDialogState extends State<XpRewardDialog>
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Container(
-        padding: const EdgeInsets.all(28.0),
-        decoration: BoxDecoration(
-          color: AppColors.creamBackground,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: const Color(0xFFFFE082), width: 1.5),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Gold Star Badge (Changed to Terracotta)
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: const BoxDecoration(
-                color: AppColors.terracottaAccent, // 👈 Swapped to Terracotta
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.star_rounded, size: 48, color: Colors.white),
+      child: Stack(
+        alignment: Alignment.topCenter,
+        clipBehavior: Clip.none,
+        children: [
+          // Main Dialog Body
+          Container(
+            padding: const EdgeInsets.all(28.0),
+            decoration: BoxDecoration(
+              color: AppColors.creamBackground,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: const Color(0xFFFFE082), width: 1.5),
             ),
-            const SizedBox(height: 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Gold Star Badge
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(
+                    color: AppColors.terracottaAccent,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.star_rounded, size: 48, color: Colors.white),
+                ),
+                const SizedBox(height: 12),
 
-            // XP Text Header
-            Text(
-              '+${widget.earnedXp} XP EARNED!',
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
-            const SizedBox(height: 20),
+                // XP Text Header
+                Text(
+                  '+${widget.earnedXp} XP EARNED!',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 20),
 
-            // Animated Progress Bar with 0 and Max Labels
-            AnimatedBuilder(
-              animation: _controller,
-              builder: (context, child) {
-                return Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: LinearProgressIndicator(
-                        value: _progressAnimation.value,
-                        minHeight: 14,
-                        backgroundColor: Colors.amber.shade100,
-                        color: AppColors.terracottaAccent, // 👈 Swapped to Terracotta
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Dynamic Progress Bar & Labels
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    return Column(
                       children: [
-                        const Text(
-                          '0 xp',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.terracottaAccent, // 👈 Swapped to Terracotta
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: LinearProgressIndicator(
+                            value: _progressAnimation.value,
+                            minHeight: 14,
+                            backgroundColor: Colors.amber.shade100,
+                            color: AppColors.terracottaAccent,
                           ),
                         ),
-                        Text(
-                          '${widget.xpPerLevel} xp',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.terracottaAccent, // 👈 Swapped to Terracotta
-                          ),
+                        const SizedBox(height: 6),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              '0 xp',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.terracottaAccent,
+                              ),
+                            ),
+                            Text(
+                              '$_currentMaxXp xp',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.terracottaAccent,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 12),
+
+                // Status Text
+                AnimatedOpacity(
+                  opacity: _textOpacity,
+                  duration: const Duration(milliseconds: 500),
+                  child: Text(
+                    _didLevelUp
+                        ? '🎉 LEVEL UP! You are now Level $_displayLevel!'
+                        : 'Current Level: $_displayLevel',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.oliveSecondary,
                     ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 12),
-
-            // Delayed Fade-in Level Text Underneath
-            AnimatedOpacity(
-              opacity: _textOpacity,
-              duration: const Duration(milliseconds: 500),
-              child: Text(
-                _didLevelUp
-                    ? '🎉 LEVEL UP! You are now Level $_displayLevel!'
-                    : 'Current Level: $_displayLevel',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.oliveSecondary, // 👈 Changed to Olive for high contrast
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Dismiss Button (Changed to Terracotta)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.terracottaAccent, // 👈 Swapped to Terracotta
-                  foregroundColor: AppColors.creamBackground,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
-                onPressed: () => Navigator.of(context).pop(), // Closes popup
-                child: const Text(
-                  'Awesome!',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                const SizedBox(height: 24),
+
+                // Dismiss Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.terracottaAccent,
+                      foregroundColor: AppColors.creamBackground,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text(
+                      'Awesome!',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+
+          // Confetti Widget Overlay (Shoots down from top center)
+          Positioned(
+            top: -10,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              colors: const [
+                AppColors.terracottaAccent,
+                AppColors.oliveSecondary,
+                Colors.amber,
+                Colors.orange,
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class BudgetInputSection extends StatefulWidget {
-  // Pass the restaurant price from your Recipe model here!
   final double restaurantAverage; 
   final ValueChanged<double> onSavingsCalculated;
 
@@ -363,28 +431,23 @@ class _BudgetInputSectionState extends State<BudgetInputSection> {
   double _savings = 0.0; 
   
   void _onCalculate() {
-    // 1. Remove extra whitespaces
     String rawText = _spentController.text.trim();
 
-    // 2. FAILSAFE: Check if empty
     if (rawText.isEmpty) {
       _showErrorSnackBar('Please enter the amount you spent.');
       return;
     }
 
-    // 3. FAILSAFE: Try converting to double
     double? spentAmount = double.tryParse(rawText);
 
-    // 4. FAILSAFE: Check for invalid input or negative numbers
     if (spentAmount == null || spentAmount < 0) {
       _showErrorSnackBar('Please enter a valid dollar amount.');
       return;
     }
 
-    // 5. If everything is valid, proceed!
     setState(() {
       _savings = widget.restaurantAverage - spentAmount;
-      _isSubmitted = true; // Locks field and shows results
+      _isSubmitted = true;
     });
 
     widget.onSavingsCalculated(_savings);
@@ -403,7 +466,7 @@ class _BudgetInputSectionState extends State<BudgetInputSection> {
 
   void _onEdit() {
     setState(() {
-      _isSubmitted = false; // Unlocks field to allow edits
+      _isSubmitted = false;
     });
   }
 
@@ -444,29 +507,27 @@ class _BudgetInputSectionState extends State<BudgetInputSection> {
           ),
           const SizedBox(height: 12),
 
-          // --- TEXTFIELD WITH FAILSAFE FORMATTERS ---
           TextField(
             style: const TextStyle(
-              color: AppColors.terracottaAccent, // Or any color you want for user input
+              color: AppColors.terracottaAccent,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
             controller: _spentController,
             enabled: !_isSubmitted,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            // 🛡️ FAILSAFE: Prevents non-numeric characters and limits to 2 decimal places
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
             ],
             decoration: InputDecoration(
               prefixText: '\$ ',
               prefixStyle: const TextStyle(
-                color: AppColors.terracottaAccent, // Style the "0.00" hint here
+                color: AppColors.terracottaAccent,
                 fontSize: 18,
               ),
               hintText: '0.00',
               hintStyle: const TextStyle(
-                color: AppColors.terracottaAccent, // Style the "0.00" hint here
+                color: AppColors.terracottaAccent,
                 fontSize: 18,
               ),
               filled: true,
@@ -481,7 +542,6 @@ class _BudgetInputSectionState extends State<BudgetInputSection> {
           ),
           const SizedBox(height: 16),
 
-          // --- CALCULATE BUTTON ---
           if (!_isSubmitted)
             SizedBox(
               width: double.infinity,
@@ -502,29 +562,26 @@ class _BudgetInputSectionState extends State<BudgetInputSection> {
               ),
             ),
 
-          // --- RESULTS + EDIT BUTTON ---
           if (_isSubmitted) ...[
             const Divider(),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // 1. Wrapped in Expanded so long strings wrap cleanly onto new lines!
                 Expanded(
                   child: Text(
                     savedMoney
                         ? '🎉 You saved \$${_savings.abs().toStringAsFixed(2)} vs. eating out!'
                         : '💸 You spent \$${_savings.abs().toStringAsFixed(2)} more than eating out!',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: AppColors.creamBackground,
                     ),
                   ),
                 ),
-                const SizedBox(width: 8), // Keeps a slight gap before the button
+                const SizedBox(width: 8),
 
-                // 2. The Edit Button
                 OutlinedButton.icon(
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.black87,
@@ -547,7 +604,6 @@ class _BudgetInputSectionState extends State<BudgetInputSection> {
 }
 
 class RatingSection extends StatefulWidget {
-  // Callback accepts int? so it can pass null if unselected
   final ValueChanged<int?> onRatingChanged;
 
   const RatingSection({
@@ -560,7 +616,6 @@ class RatingSection extends StatefulWidget {
 }
 
 class _RatingSectionState extends State<RatingSection> {
-  // Starts as null (no stars selected!)
   int? _selectedRating;
 
   @override
@@ -586,12 +641,10 @@ class _RatingSectionState extends State<RatingSection> {
           ),
           const SizedBox(height: 12),
 
-          // --- 5-STAR RATING ROW ---
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(5, (index) {
               int starNumber = index + 1;
-              // Check if selected (if _selectedRating is null, this is false for all stars)
               bool isSelected = _selectedRating != null && starNumber <= _selectedRating!;
 
               return IconButton(
@@ -599,17 +652,15 @@ class _RatingSectionState extends State<RatingSection> {
                   setState(() {
                     _selectedRating = starNumber;
                   });
-                  // Pass the chosen rating to parent
                   widget.onRatingChanged(_selectedRating);
                 },
                 icon: Icon(
                   isSelected ? Icons.star_rounded : Icons.star_outline_rounded,
-                  // 1. Terracotta pop when selected, soft cream outline when unselected
                   color: isSelected 
                       ? AppColors.terracottaAccent 
                       : AppColors.creamBackground.withValues(alpha: 0.4),
                   size: 36,
-                )
+                ),
               );
             }),
           ),
