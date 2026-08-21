@@ -53,15 +53,7 @@ final List<RecipeModel> mockRecipes = [
         instructionText:
             'Prep the dough by mixing the flour and yeast in a bowl with warm water.',
         timerSeconds: 300,
-        checkIn: StepCheckInModel(
-          question: 'Is your dough sticky or smooth?',
-          options: ['Sticky', 'Smooth', 'Too Dry'],
-          tipResponses: {
-            'Sticky': 'Add a tablespoon of flour.',
-            'Smooth': 'Perfect! Keep going.',
-            'Too Dry': 'Add a teaspoon of water.',
-          },
-        ),
+        importantTip: "Make sure your dough ends up smooth and elastic. If it's too sticky, add a bit more flour. If it's too dry, add some water.", 
       ),
       CookingStepModel(
         stepNumber: 2,

@@ -1,6 +1,5 @@
 export 'user_profile_model.dart';
 export 'lesson_model.dart';
-export 'step_check_in_model.dart';
 export 'cooking_step_model.dart';
 export 'recipe_model.dart';
 export 'cooked_history_model.dart';
