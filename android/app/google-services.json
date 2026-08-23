@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "22999958509",
+    "project_id": "chef-s-apprentice",
+    "storage_bucket": "chef-s-apprentice.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22999958509:android:f66b2fad9e2ef45dc9dde4",
+        "android_client_info": {
+          "package_name": "com.example.charles_flutter_app_main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22999958509-qclp5b9b4iaabrgi9qfh7b4nfg62u4oc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.charles_flutter_app_main",
+            "certificate_hash": "352c279b52ebaa3191a27d222832ab51e8f74332"
+          }
+        },
+        {
+          "client_id": "22999958509-st45kjamh1jvkr3gcnbk7c9p1idfct9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkj0he90Rkz1zT1WjU177HaRTOm7WrCmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22999958509-st45kjamh1jvkr3gcnbk7c9p1idfct9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

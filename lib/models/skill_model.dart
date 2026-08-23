@@ -6,11 +6,11 @@ class SkillModel {
   final String name;
   final String shortDescription;
   final IconData icon; 
-  final String? videoUrl; // Short demonstration video/GIF
-  final List<SkillStepModel> coreSteps; // Step-by-step instructions or key techniques
-  final List<String> keyTypesOrCuts; // e.g. types of cuts, types of heat, or variations
-  final List<String> safetyOrProTips; // Safety rules or expert advice
-  final String whereItsUsed; // Practical context (e.g. "Onions, garlic, stews")
+  final String? videoUrl;
+  final List<SkillStepModel> coreSteps;
+  final List<String> keyTypesOrCuts;
+  final List<String> safetyOrProTips;
+  final String whereItsUsed;
 
   const SkillModel({
     required this.id,
@@ -23,4 +23,35 @@ class SkillModel {
     required this.safetyOrProTips,
     required this.whereItsUsed,
   });
+
+  factory SkillModel.fromMap(Map<String, dynamic> map) {
+    return SkillModel(
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      shortDescription: map['shortDescription'] ?? '',
+      icon: _getIconFromName(map['icon'] as String?),
+      videoUrl: map['videoUrl'] as String?,
+      coreSteps: (map['coreSteps'] as List<dynamic>?)
+              ?.map((step) => SkillStepModel.fromMap(step))
+              .toList() ??
+          [],
+      keyTypesOrCuts: List<String>.from(map['keyTypesOrCuts'] ?? []),
+      safetyOrProTips: List<String>.from(map['safetyOrProTips'] ?? []),
+      whereItsUsed: map['whereItsUsed'] ?? '',
+    );
+  }
+
+  /// Maps JSON string keys to Material Icons safely
+  static IconData _getIconFromName(String? iconName) {
+    switch (iconName) {
+      case 'flatware':
+        return Icons.flatware;
+      case 'soup_kitchen':
+        return Icons.soup_kitchen;
+      case 'local_fire_department':
+        return Icons.local_fire_department;
+      default:
+        return Icons.restaurant;
+    }
+  }
 }

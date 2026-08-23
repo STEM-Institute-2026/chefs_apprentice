@@ -10,7 +10,6 @@ final mockUserProfile = UserProfileModel(
   maxXp: 1000,
   recipesTried: 0,
   totalTimesCooked: 0,
-  favoriteRecipeIds: ['rec_001', 'rec_002'],
 );
 
 // Sample Recipe List for Catalog Simulation

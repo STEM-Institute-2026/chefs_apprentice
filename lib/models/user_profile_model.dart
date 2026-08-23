@@ -9,7 +9,6 @@ class UserProfileModel {
   final int totalTimesCooked;
   final String? avatarUrl;
   final int? avatarColorHex;
-  final List<String> favoriteRecipeIds;
   
   // Streak fields
   final int currentStreak;
@@ -28,8 +27,45 @@ class UserProfileModel {
     this.avatarColorHex,
     this.currentStreak = 0,
     this.lastCookedDate,
-    required this.favoriteRecipeIds,
   });
+
+  /// Factory constructor to parse JSON Map into UserProfileModel
+  factory UserProfileModel.fromMap(Map<String, dynamic> map) {
+    return UserProfileModel(
+      userId: map['userId'] ?? '',
+      userName: map['userName'] ?? '',
+      totalXp: map['totalXp'] ?? 0,
+      currentLevel: map['currentLevel'] ?? 1,
+      currentXp: map['currentXp'] ?? 0,
+      maxXp: map['maxXp'] ?? 100,
+      recipesTried: map['recipesTried'] ?? 0,
+      totalTimesCooked: map['totalTimesCooked'] ?? 0,
+      avatarUrl: map['avatarUrl'] as String?,
+      avatarColorHex: map['avatarColorHex'] as int?,
+      currentStreak: map['currentStreak'] ?? 0,
+      lastCookedDate: map['lastCookedDate'] != null
+          ? DateTime.parse(map['lastCookedDate'] as String)
+          : null,
+    );
+  }
+
+  /// Converts UserProfileModel into a Map for local storage or Firestore
+  Map<String, dynamic> toMap() {
+    return {
+      'userId': userId,
+      'userName': userName,
+      'totalXp': totalXp,
+      'currentLevel': currentLevel,
+      'currentXp': currentXp,
+      'maxXp': maxXp,
+      'recipesTried': recipesTried,
+      'totalTimesCooked': totalTimesCooked,
+      'avatarUrl': avatarUrl,
+      'avatarColorHex': avatarColorHex,
+      'currentStreak': currentStreak,
+      'lastCookedDate': lastCookedDate?.toIso8601String(),
+    };
+  }
 
   UserProfileModel copyWith({
     String? userId,
@@ -44,7 +80,6 @@ class UserProfileModel {
     int? avatarColorHex,
     int? currentStreak,
     DateTime? lastCookedDate,
-    List<String>? favoriteRecipeIds,
   }) {
     return UserProfileModel(
       userId: userId ?? this.userId,
@@ -59,7 +94,6 @@ class UserProfileModel {
       avatarColorHex: avatarColorHex ?? this.avatarColorHex,
       currentStreak: currentStreak ?? this.currentStreak,
       lastCookedDate: lastCookedDate ?? this.lastCookedDate,
-      favoriteRecipeIds: favoriteRecipeIds ?? this.favoriteRecipeIds,
     );
   }
 }

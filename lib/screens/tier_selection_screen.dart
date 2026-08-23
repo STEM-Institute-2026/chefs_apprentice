@@ -1,50 +1,81 @@
 import 'package:charles_flutter_app_main/screens/tier_detail_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/models.dart';
-import '../mock_tier_data.dart';
+import '../services/data_loader_service.dart';
 import '../services/history_service.dart';
 import 'widgets/header_and_app_bar.dart';
 import '../constants/app_transitions.dart';
 
-class TierSelectionScreen extends StatelessWidget {
+class TierSelectionScreen extends StatefulWidget {
   const TierSelectionScreen({super.key});
+
+  @override
+  State<TierSelectionScreen> createState() => _TierSelectionScreenState();
+}
+
+class _TierSelectionScreenState extends State<TierSelectionScreen> {
+  late Future<AppData> _appDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _appDataFuture = DataLoaderService.loadInitialData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
       appBar: const CustomAppBar(title: "Cooking Tiers"),
-      // Reactively listens to saved meals updates across the whole app
-      body: ValueListenableBuilder<List<CookedHistoryModel>>(
-        valueListenable: HistoryService.savedMealsNotifier,
-        builder: (context, savedMeals, child) {
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            itemCount: mockTiers.length,
-            itemBuilder: (context, index) {
-              final tier = mockTiers[index];
-              final unlocked = HistoryService.isTierUnlocked(tier.tierNumber);
-              final completed = HistoryService.getCompletedCount(tier.recipes);
+      body: FutureBuilder<AppData>(
+        future: _appDataFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.terracottaAccent,
+              ),
+            );
+          }
 
-              int prevCompleted = 0;
-              if (index > 0) {
-                final previousTier = mockTiers[index - 1];
-                prevCompleted =
-                    HistoryService.getCompletedCount(previousTier.recipes);
-              }
+          if (snapshot.hasError || !snapshot.hasData) {
+            return const Center(
+              child: Text("Error loading tiers data."),
+            );
+          }
 
-              return TierCard(
-                tier: tier,
-                isUnlocked: unlocked,
-                completedCount: completed,
-                previousTierCompleted: prevCompleted,
-                onTap: () {
-                  // Standard navigation without await / manual refresh
-                  Navigator.push(
-                    context,
-                    StandardDetailRoute(
-                      page: TierDetailScreen(tier: tier),
-                    ),
+          final allTiers = snapshot.data!.tiers;
+
+          return ValueListenableBuilder<List<CookedHistoryModel>>(
+            valueListenable: HistoryService.savedMealsNotifier,
+            builder: (context, savedMeals, child) {
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                itemCount: allTiers.length,
+                itemBuilder: (context, index) {
+                  final tier = allTiers[index];
+                  final unlocked = HistoryService.isTierUnlocked(tier, allTiers);
+                  final completed = HistoryService.getCompletedCount(tier.recipes);
+
+                  int prevCompleted = 0;
+                  if (index > 0) {
+                    final previousTier = allTiers[index - 1];
+                    prevCompleted = HistoryService.getCompletedCount(previousTier.recipes);
+                  }
+
+                  return TierCard(
+                    tier: tier,
+                    isUnlocked: unlocked,
+                    completedCount: completed,
+                    previousTierCompleted: prevCompleted,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        StandardDetailRoute(
+                          page: TierDetailScreen(tier: tier),
+                        ),
+                      );
+                    },
                   );
                 },
               );

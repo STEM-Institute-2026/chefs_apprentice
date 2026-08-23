@@ -1,0 +1,92 @@
+[
+  {
+    "id": "tier_1",
+    "tierNumber": 1,
+    "title": "Kitchen Fundamentals",
+    "description": "Master essential knife cuts, boiling techniques, and kitchen safety basics.",
+    "coverImageUrl": "https://images.unsplash.com/photo-1604543456734-4559dd906a0c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a25pZmUlMjBjaG9wcGluZyUyMGZvb2R8ZW58MHx8MHx8fDA%3D",
+    "skills": [
+      {
+        "id": "skill_knife_safety",
+        "name": "Knife Safety & Control",
+        "shortDescription": "Master the claw grip and essential knife handling to chop safely. Good knife skills save prep time and prevent kitchen accidents.",
+        "icon": "flatware",
+        "videoUrl": "assets/videos/skill_knife_cutting.mp4",
+        "coreSteps": [
+          {
+            "title": "Claw Grip",
+            "description": "Curl fingertips inward to protect fingers while steadying food.",
+            "imagePath": "assets/images/knife_skills/claw_grip.webp"
+          },
+          {
+            "title": "Pinch Grip",
+            "description": "Pinch the base of the blade with thumb and index finger for maximum control.",
+            "imagePath": "assets/images/knife_skills/pinch_grip.jpg"
+          },
+          {
+            "title": "Rocking Motion",
+            "description": "Keep the knife tip down and rock the blade smoothly forward and down."
+          }
+        ],
+        "keyTypesOrCuts": [
+          "Rough Chop: Large, casual cuts for stocks or stews.",
+          "Dice: Even, square cubes for onions and peppers.",
+          "Mince: Fine, tiny pieces for garlic and ginger."
+        ],
+        "safetyOrProTips": [
+          "Place a damp paper towel under your cutting board so it doesn’t slide.",
+          "Keep your knife sharp—dull knives slip much more easily."
+        ],
+        "whereItsUsed": "Virtually every recipe requiring vegetables, herbs, or meats."
+      }
+    ],
+    "recipeIds": [
+      "rec_001",
+      "rec_002"
+    ]
+  },
+  {
+    "id": "tier_2",
+    "tierNumber": 2,
+    "title": "Heat & Pan Control",
+    "description": "Learn how to sear, sauté, and manage pan temperatures like a pro.",
+    "coverImageUrl": "https://images.unsplash.com/flagged/photo-1571902241554-82ec31087fe3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym9pbGluZyUyMGZvb2RzfGVufDB8fDB8fHww",
+    "skills": [
+      {
+        "id": "skill_boiling",
+        "name": "Boiling & Simmering Control",
+        "shortDescription": "Understand water heat levels for pasta, eggs, and stock control. Proper liquid temperatures prevent overcooking and preserve texture.",
+        "icon": "soup_kitchen",
+        "videoUrl": "assets/videos/boiling.mp4",
+        "coreSteps": [
+          {
+            "title": "Rolling Boil",
+            "description": "Wait until large, vigorous bubbles break rapidly on the surface.",
+            "imagePath": ""
+          },
+          {
+            "title": "Simmer",
+            "description": "Drop heat to medium-low so small, slow bubbles rise gently.",
+            "imagePath": ""
+          },
+          {
+            "title": "Salting",
+            "description": "Salt boiling water generously until it tastes lightly like seawater."
+          }
+        ],
+        "keyTypesOrCuts": [
+          "Rolling Boil: Best for pasta and blanching green veggies.",
+          "Gentle Simmer: Best for soups, stews, and delicate poached eggs."
+        ],
+        "safetyOrProTips": [
+          "Cover the pot with a lid to bring water to a boil much faster.",
+          "Never drop pasta into cold water; wait for a full boil."
+        ],
+        "whereItsUsed": "Pasta, soups, boiled eggs, and stocks."
+      }
+    ],
+    "recipeIds": [
+      "rec_003"
+    ]
+  }
+]

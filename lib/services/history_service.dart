@@ -1,15 +1,22 @@
 import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../models/models.dart';
-import '../mock_tier_data.dart'; // Adjust path if needed
-import '../mock_data.dart'; // Adjust path if needed
 
 class HistoryService {
+  static final FirebaseFirestore _db = FirebaseFirestore.instance;
+
   // --- 1. USER PROFILE STORAGE ---
   static final ValueNotifier<UserProfileModel> userProfileNotifier =
       ValueNotifier<UserProfileModel>(
-    mockUserProfile.copyWith(
-      currentStreak: mockUserProfile.currentStreak,
-      lastCookedDate: mockUserProfile.lastCookedDate,
+    UserProfileModel(
+      userId: '',
+      userName: 'Chef',
+      currentLevel: 1,
+      currentXp: 0,
+      maxXp: 1000,
+      recipesTried: 0,
+      totalTimesCooked: 0,
     ),
   );
 
@@ -21,25 +28,163 @@ class HistoryService {
 
   static List<CookedHistoryModel> get savedMeals => savedMealsNotifier.value;
 
-  /// Helper to calculate Max XP for any level dynamically.
-  /// Formula: Level 1 = 1000 XP. Every level after adds 750 XP.
+  // --- 3. FAVORITES STORAGE (REACTIVE) ---
+  static final ValueNotifier<Set<String>> favoriteRecipeIdsNotifier =
+      ValueNotifier<Set<String>>({});
+
+  static Set<String> get favoriteRecipeIds => favoriteRecipeIdsNotifier.value;
+
+  // --- 4. FIRESTORE INITIAL SYNC ---
+
+  /// Load user profile, saved meals, and favorites from Firestore on sign-in
+  static Future<void> loadUserProfile() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+
+      final userDocRef = _db.collection('users').doc(user.uid);
+      final docSnapshot = await userDocRef.get();
+
+      if (docSnapshot.exists && docSnapshot.data() != null) {
+        final data = docSnapshot.data()!;
+
+        // Restore Profile Model
+        userProfileNotifier.value = UserProfileModel.fromMap(data);
+
+        // Restore Favorited Recipe IDs
+        if (data['favoriteRecipeIds'] != null) {
+          final List<dynamic> favs = data['favoriteRecipeIds'];
+          favoriteRecipeIdsNotifier.value = favs.cast<String>().toSet();
+        }
+
+        // Restore Cooked Meals History List
+        if (data['savedMeals'] != null) {
+          final List<dynamic> mealsRaw = data['savedMeals'];
+          savedMealsNotifier.value = mealsRaw
+              .map((m) => CookedHistoryModel.fromMap(Map<String, dynamic>.from(m)))
+              .toList();
+        }
+      } else {
+        // New user profile creation
+        final newProfile = UserProfileModel(
+          userId: user.uid,
+          userName: user.displayName ?? user.email?.split('@').first ?? 'Chef',
+          totalXp: 0,
+          currentLevel: 1,
+          currentXp: 0,
+          maxXp: getXpForLevel(1),
+          recipesTried: 0,
+          totalTimesCooked: 0,
+          currentStreak: 0,
+        );
+
+        // Write initial user document to Firestore
+        await userDocRef.set({
+          ...newProfile.toMap(),
+          'favoriteRecipeIds': <String>[],
+          'savedMeals': <Map<String, dynamic>>[],
+        });
+
+        userProfileNotifier.value = newProfile;
+      }
+    } catch (e) {
+      debugPrint('Error loading user profile from Firestore: $e');
+    }
+  }
+
+  /// Helper to safely update profile fields in Firestore
+  static Future<void> _saveProfileToFirestore() async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) return;
+
+      await _db.collection('users').doc(uid).set(
+        currentProfile.toMap(),
+        SetOptions(merge: true),
+      );
+    } catch (e) {
+      debugPrint('Error saving profile to Firestore: $e');
+    }
+  }
+
+  // --- 5. XP ENGINE & LEVEL CALCULATIONS ---
+
   static int getXpForLevel(int level) {
     return 1000 + ((level - 1) * 750);
   }
 
-  /// 1. SEPARATE MEAL SAVING (No XP added here)
-  /// Call this when the user taps "Save to Cook History".
-  static void addMeal(CookedHistoryModel meal) {
-    final bool isNewRecipe = !completedRecipeIds.contains(meal.recipeId);
+  static XpRewardSnapshot addXp(int amountEarned) {
+    final profile = currentProfile;
+    final int startXp = profile.currentXp;
+    final int startLevel = profile.currentLevel;
+    final int newTotalXp = profile.totalXp + amountEarned;
 
-    // Save meal to history list
-    savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
+    final stats = _calculateLevelStats(newTotalXp);
 
-    // Update streak and cooking stats (without modifying XP)
-    _updateStreakAndMealStats(meal.recipeId, isNewRecipe: isNewRecipe);
+    // 1. Update local reactive state
+    userProfileNotifier.value = profile.copyWith(
+      totalXp: newTotalXp,
+      currentLevel: stats.level,
+      currentXp: stats.xpInLevel,
+      maxXp: stats.maxXpForLevel,
+    );
+
+    // 2. Auto-save profile update to Firestore
+    _saveProfileToFirestore();
+
+    return XpRewardSnapshot(
+      startXp: startXp,
+      startLevel: startLevel,
+      xpEarned: amountEarned,
+      finalXp: stats.xpInLevel,
+      finalLevel: stats.level,
+      didLevelUp: stats.level > startLevel,
+    );
   }
 
-  /// Private helper for updating streaks and cook counts
+  static ({int level, int xpInLevel, int maxXpForLevel}) _calculateLevelStats(int totalXp) {
+    int level = 1;
+    int remainingXp = totalXp;
+    int currentMax = getXpForLevel(level);
+
+    while (remainingXp >= currentMax) {
+      remainingXp -= currentMax;
+      level++;
+      currentMax = getXpForLevel(level);
+    }
+
+    return (
+      level: level,
+      xpInLevel: remainingXp,
+      maxXpForLevel: currentMax,
+    );
+  }
+
+  // --- 6. MEAL SAVING & STREAKS ---
+
+  static Future<void> addMeal(CookedHistoryModel meal) async {
+    final bool isNewRecipe = !completedRecipeIds.contains(meal.recipeId);
+
+    // 1. Update local meals list
+    savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
+
+    // 2. Update streak and meal stats locally
+    _updateStreakAndMealStats(meal.recipeId, isNewRecipe: isNewRecipe);
+
+    // 3. Save meals list and profile stats to Firestore
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) {
+        await _db.collection('users').doc(uid).set({
+          ...currentProfile.toMap(),
+          'savedMeals': savedMeals.map((m) => m.toMap()).toList(),
+        }, SetOptions(merge: true));
+      }
+    } catch (e) {
+      debugPrint('Error saving cooked meal to Firestore: $e');
+    }
+  }
+
   static void _updateStreakAndMealStats(String recipeId, {required bool isNewRecipe}) {
     final profile = currentProfile;
     final now = DateTime.now();
@@ -64,7 +209,6 @@ class HistoryService {
       }
     }
 
-    // Derive unique recipes tried directly from all saved meals
     final uniqueRecipesCount = completedRecipeIds.length;
 
     userProfileNotifier.value = profile.copyWith(
@@ -75,54 +219,8 @@ class HistoryService {
     );
   }
 
-  // --- 3. STANDALONE XP ENGINE ---
+  // --- 7. RECIPE STATUS HELPERS ---
 
-  /// Direct method to award XP immediately (e.g., when the reward dialog opens)
-  static XpRewardSnapshot addXp(int amountEarned) {
-    final profile = currentProfile;
-    final int startXp = profile.currentXp;
-    final int startLevel = profile.currentLevel;
-    final int newTotalXp = profile.totalXp + amountEarned;
-
-    final stats = _calculateLevelStats(newTotalXp);
-
-    userProfileNotifier.value = profile.copyWith(
-      totalXp: newTotalXp,
-      currentLevel: stats.level,
-      currentXp: stats.xpInLevel,
-      maxXp: stats.maxXpForLevel,
-    );
-
-    return XpRewardSnapshot(
-      startXp: startXp,
-      startLevel: startLevel,
-      xpEarned: amountEarned,
-      finalXp: stats.xpInLevel,
-      finalLevel: stats.level,
-      didLevelUp: stats.level > startLevel,
-    );
-  }
-
-  /// Math Engine: Calculates level and progress using total XP as source of truth
-  static ({int level, int xpInLevel, int maxXpForLevel}) _calculateLevelStats(int totalXp) {
-    int level = 1;
-    int remainingXp = totalXp;
-    int currentMax = getXpForLevel(level);
-
-    while (remainingXp >= currentMax) {
-      remainingXp -= currentMax;
-      level++;
-      currentMax = getXpForLevel(level);
-    }
-
-    return (
-      level: level,
-      xpInLevel: remainingXp,
-      maxXpForLevel: currentMax,
-    );
-  }
-
-  // --- 4. RECIPE STATUS HELPERS ---
   static Set<String> get completedRecipeIds {
     return savedMeals.map((meal) => meal.recipeId).toSet();
   }
@@ -137,37 +235,33 @@ class HistoryService {
         .length;
   }
 
-  // --- 5. TIER UNLOCK LOGIC ---
-  static bool isTierUnlocked(int tierNumber) {
-    if (tierNumber <= 1) return true;
+  // --- 8. TIER UNLOCK LOGIC ---
 
-    List<RecipeModel> previousTierRecipes = switch (tierNumber) {
-      2 => tier1Recipes,
-      3 => tier2Recipes,
-      4 => tier3Recipes,
-      _ => [],
-    };
+  static bool isTierUnlocked(TierModel tier, List<TierModel> allTiers) {
+    if (tier.tierNumber <= 1) return true;
 
-    return getCompletedCount(previousTierRecipes) >= 2;
+    final previousTier = allTiers.firstWhere(
+      (t) => t.tierNumber == tier.tierNumber - 1,
+      orElse: () => allTiers.first,
+    );
+
+    final completedInPrevious = getCompletedCount(previousTier.recipes);
+    return completedInPrevious >= 2;
   }
 
   static TierModel getActiveTier(List<TierModel> allTiers) {
     for (int i = allTiers.length - 1; i >= 0; i--) {
       final tier = allTiers[i];
-      if (isTierUnlocked(tier.tierNumber)) {
+      if (isTierUnlocked(tier, allTiers)) {
         return tier;
       }
     }
-    return allTiers.first;
+    return allTiers.isNotEmpty ? allTiers.first : throw Exception("No tiers loaded");
   }
 
-  // --- 6. FAVORITES STORAGE (REACTIVE) ---
-  static final ValueNotifier<Set<String>> favoriteRecipeIdsNotifier =
-      ValueNotifier<Set<String>>({});
+  // --- 9. FAVORITES LOGIC ---
 
-  static Set<String> get favoriteRecipeIds => favoriteRecipeIdsNotifier.value;
-
-  static void toggleFavorite(String recipeId) {
+  static Future<void> toggleFavorite(String recipeId) async {
     final updatedFavorites = Set<String>.from(favoriteRecipeIdsNotifier.value);
 
     if (updatedFavorites.contains(recipeId)) {
@@ -176,7 +270,20 @@ class HistoryService {
       updatedFavorites.add(recipeId);
     }
 
+    // 1. Update local reactive state immediately for snappy UI
     favoriteRecipeIdsNotifier.value = updatedFavorites;
+
+    // 2. Auto-save to Firestore
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) {
+        await _db.collection('users').doc(uid).set({
+          'favoriteRecipeIds': updatedFavorites.toList(),
+        }, SetOptions(merge: true));
+      }
+    } catch (e) {
+      debugPrint('Error updating favorites in Firestore: $e');
+    }
   }
 
   static bool isRecipeFavorite(String recipeId) {

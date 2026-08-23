@@ -8,4 +8,13 @@ class SkillStepModel {
     required this.description,
     this.imagePath,
   });
+
+  /// Factory constructor to parse JSON Map into SkillStepModel
+  factory SkillStepModel.fromMap(Map<String, dynamic> map) {
+    return SkillStepModel(
+      title: map['title'] ?? '',
+      description: map['description'] ?? '',
+      imagePath: map['imagePath'] as String?,
+    );
+  }
 }

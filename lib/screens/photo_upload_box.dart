@@ -1,11 +1,10 @@
-import 'package:flutter/foundation.dart'; // Gives us access to 'kIsWeb'
-import 'dart:io';
+import 'dart:io' show File; // Safe import for mobile
+import 'package:flutter/foundation.dart'; // Gives access to 'kIsWeb'
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/models.dart';
 
 class PhotoUploadBox extends StatefulWidget {
-  // Callback function to pass the selected image file up to the parent screen
   final Function(XFile? image) onImageSelected;
 
   const PhotoUploadBox({super.key, required this.onImageSelected});
@@ -16,24 +15,32 @@ class PhotoUploadBox extends StatefulWidget {
 
 class _PhotoUploadBoxState extends State<PhotoUploadBox> {
   XFile? _selectedImage;
+  Uint8List? _webImageBytes; // Stores image bytes specifically for Web previews
   final ImagePicker _picker = ImagePicker();
 
-  // Launches the native phone camera or photo gallery
   Future<void> _pickImage(ImageSource source) async {
     final XFile? image = await _picker.pickImage(
       source: source,
-      imageQuality: 80, // Compresses image to save memory
+      imageQuality: 80,
     );
 
     if (image != null) {
-      setState(() {
-        _selectedImage = image;
-      });
-      widget.onImageSelected(image); // Rings the parent and hands over the photo
+      if (kIsWeb) {
+        // Read bytes directly so Web can render a smooth preview without crashing
+        final bytes = await image.readAsBytes();
+        setState(() {
+          _selectedImage = image;
+          _webImageBytes = bytes;
+        });
+      } else {
+        setState(() {
+          _selectedImage = image;
+        });
+      }
+      widget.onImageSelected(image);
     }
   }
 
-  // Slides up the menu asking user to choose between Camera or Gallery
   void _showSourceOptions() {
     showModalBottomSheet(
       context: context,
@@ -47,21 +54,33 @@ class _PhotoUploadBoxState extends State<PhotoUploadBox> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 12),
-              const Text('Add Photo', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.oliveSecondary)),
+              const Text(
+                'Add Photo',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.oliveSecondary,
+                ),
+              ),
               ListTile(
                 leading: const Icon(Icons.camera_alt, color: AppColors.terracottaAccent),
-                title: const Text('Take Photo with Camera', style: TextStyle(color: AppColors.oliveSecondary)),
+                title: const Text(
+                  'Take Photo with Camera',
+                  style: TextStyle(color: AppColors.oliveSecondary),
+                ),
                 onTap: () {
-                  Navigator.pop(context); // Closes bottom menu
-                  _pickImage(ImageSource.camera); // opens camera
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library, color: AppColors.terracottaAccent),
-                title: const Text('Choose from Gallery', style: TextStyle(color: AppColors.oliveSecondary)),
+                title: const Text(
+                  'Choose from Gallery',
+                  style: TextStyle(color: AppColors.oliveSecondary),
+                ),
                 onTap: () {
-                  Navigator.pop(context); // Closes bottom menu
-                  _pickImage(ImageSource.gallery); // opens gallery
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
                 },
               ),
             ],
@@ -71,23 +90,45 @@ class _PhotoUploadBoxState extends State<PhotoUploadBox> {
     );
   }
 
+  // Safe helper widget to load the preview on both Mobile and Web
+  Widget _buildImagePreview() {
+    if (_selectedImage == null) return const SizedBox.shrink();
+
+    if (kIsWeb) {
+      if (_webImageBytes != null) {
+        return Image.memory(
+          _webImageBytes!,
+          fit: BoxFit.cover,
+        );
+      }
+      return Image.network(
+        _selectedImage!.path,
+        fit: BoxFit.cover,
+      );
+    }
+
+    return Image.file(
+      File(_selectedImage!.path),
+      fit: BoxFit.cover,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _showSourceOptions,
       child: Container(
-        height: 600,
+        height: 300,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: _selectedImage != null ? AppColors.oliveSecondary : Colors.grey.shade300, // if image then green border and bigger width
+            color: _selectedImage != null ? AppColors.oliveSecondary : Colors.grey.shade300,
             width: _selectedImage != null ? 2 : 1,
           ),
         ),
         child: _selectedImage == null
-            // STATE A: No photo selected yet
             ? const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -96,21 +137,12 @@ class _PhotoUploadBoxState extends State<PhotoUploadBox> {
                   Text('Tap to add photo', style: TextStyle(color: Colors.grey)),
                 ],
               )
-            // STATE B: Photo captured/selected (Shows preview & delete button)
             : Stack(
                 fit: StackFit.expand,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(11),
-                    child: kIsWeb
-                      ? Image.network(
-                          _selectedImage!.path,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.file(
-                          File(_selectedImage!.path),
-                          fit: BoxFit.cover,
-                        ),
+                    child: _buildImagePreview(),
                   ),
                   Positioned(
                     top: 8,
@@ -118,9 +150,10 @@ class _PhotoUploadBoxState extends State<PhotoUploadBox> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          _selectedImage = null; // Clear image locally
+                          _selectedImage = null;
+                          _webImageBytes = null;
                         });
-                        widget.onImageSelected(null); // Tell parent photo was removed
+                        widget.onImageSelected(null);
                       },
                       child: const CircleAvatar(
                         radius: 14,

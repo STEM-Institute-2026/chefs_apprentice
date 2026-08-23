@@ -4,9 +4,9 @@ import '../../services/history_service.dart';
 import './widgets/header_and_app_bar.dart';
 import './widgets/recipe_card.dart';
 import './widgets/home_app_bar.dart';
-import '../mock_tier_data.dart';
 import './tier_detail_screen.dart';
 import '../constants/app_transitions.dart';
+import '../services/data_loader_service.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<RecipeModel> recipes;
@@ -21,70 +21,101 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late Future<AppData> _appDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _appDataFuture = DataLoaderService.loadInitialData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentTier = HistoryService.getActiveTier(mockTiers);
-
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
       appBar: const MainHomeScreenAppBar(),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // NEXT TIER HERO BANNER
-            ContinueTierProgressCard(
-              tier: currentTier,
-              onTierUpdated: () {
-                setState(() {}); // Forces HomeScreen to rebuild with the updated tier!
-              },
+      body: FutureBuilder<AppData>(
+        future: _appDataFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.terracottaAccent,
+              ),
+            );
+          }
+
+          if (snapshot.hasError || !snapshot.hasData) {
+            return const Center(
+              child: Text("Error loading app data."),
+            );
+          }
+
+          final appData = snapshot.data!;
+          final allTiers = appData.tiers;
+          final currentTier = HistoryService.getActiveTier(allTiers);
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // NEXT TIER HERO BANNER
+                ContinueTierProgressCard(
+                  tier: currentTier,
+                  onTierUpdated: () {
+                    setState(() {}); // Forces HomeScreen to rebuild with the updated tier!
+                  },
+                ),
+
+                const SizedBox(height: 12),
+
+                // SECTION 1: QUICK RECIPES
+                const HeaderWidget(
+                  headerText: 'Quick Recipes',
+                  icon: Icons.bolt_rounded,
+                ),
+                _buildHorizontalRecipeList(widget.recipes),
+
+                const SizedBox(height: 12),
+
+                // SECTION 2: MY FAVORITES
+                const HeaderWidget(
+                  headerText: 'My Favorites',
+                  icon: Icons.favorite_rounded,
+                  iconColor: Colors.redAccent,
+                ),
+
+                // Dynamically listen to favorite changes using ValueListenableBuilder
+                ValueListenableBuilder<Set<String>>(
+                  valueListenable: HistoryService.favoriteRecipeIdsNotifier,
+                  builder: (context, favoriteIds, child) {
+                    final favoriteRecipes = widget.recipes
+                        .where((r) => favoriteIds.contains(r.recipeId))
+                        .toList();
+
+                    if (favoriteRecipes.isEmpty) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        child: Text(
+                          'No favorites added yet! Tap the heart on any recipe.',
+                          style: TextStyle(color: Colors.grey, fontSize: 13),
+                        ),
+                      );
+                    }
+
+                    return _buildHorizontalRecipeList(favoriteRecipes);
+                  },
+                ),
+              ],
             ),
-
-            const SizedBox(height: 12),
-
-            // SECTION 1: QUICK RECIPES
-            const HeaderWidget(
-              headerText: 'Quick Recipes',
-              icon: Icons.bolt_rounded,
-            ),
-            _buildHorizontalRecipeList(widget.recipes),
-
-            const SizedBox(height: 12),
-
-            // SECTION 2: MY FAVORITES
-            const HeaderWidget(
-              headerText: 'My Favorites',
-              icon: Icons.favorite_rounded,
-              iconColor: Colors.redAccent,
-            ),
-
-            // Dynamically listen to favorite changes using ValueListenableBuilder
-            ValueListenableBuilder<Set<String>>(
-              valueListenable: HistoryService.favoriteRecipeIdsNotifier,
-              builder: (context, favoriteIds, child) {
-                final favoriteRecipes = widget.recipes
-                    .where((r) => favoriteIds.contains(r.recipeId))
-                    .toList();
-
-                if (favoriteRecipes.isEmpty) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Text(
-                      'No favorites added yet! Tap the heart on any recipe.',
-                      style: TextStyle(color: Colors.grey, fontSize: 13),
-                    ),
-                  );
-                }
-
-                return _buildHorizontalRecipeList(favoriteRecipes);
-              },
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
+}
 
   Widget _buildHorizontalRecipeList(List<RecipeModel> recipeList) {
     return SizedBox(
@@ -105,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
+
 
 class ContinueTierProgressCard extends StatelessWidget {
   final TierModel tier;

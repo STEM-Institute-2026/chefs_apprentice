@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import "../models/models.dart"; 
-import 'package:flutter/services.dart';
-import 'photo_upload_box.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:confetti/confetti.dart';
+import 'package:flutter/services.dart';
+
+import "../models/models.dart"; 
+import 'photo_upload_box.dart';
 import '../services/history_service.dart';
 import 'widgets/header_and_app_bar.dart';
-import 'package:confetti/confetti.dart';
+
+import 'dart:io';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:path/path.dart' as path;
+import 'package:flutter/foundation.dart'; // For kIsWeb check
+import '../services/image_upload_service.dart';
 
 class RecipeCompleteScreen extends StatefulWidget {
   final RecipeModel recipe;
@@ -17,20 +24,20 @@ class RecipeCompleteScreen extends StatefulWidget {
 
 class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
   double? _calculatedSavings;
-  String? _userPhotoPath;
+  XFile? _selectedPhotoFile;
   int? _userRating;
+  bool _isSaving = false; // Tracks saving state to prevent double-clicks
 
   @override
   void initState() {
     super.initState();
-    // Triggers the XP Popup after the first frame renders
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      const int xpEarned = 500; // controls xp addition
+      const int xpEarned = 500;
       final snapshot = HistoryService.addXp(xpEarned);
 
       showDialog(
         context: context,
-        barrierDismissible: false, // User must tap "Awesome!" to close
+        barrierDismissible: false,
         builder: (context) => XpRewardDialog(
           earnedXp: snapshot.xpEarned,
           startXp: snapshot.startXp,
@@ -41,13 +48,64 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
     });
   }
 
+  // Save Meal Logic
+  Future<void> _handleSaveMeal() async {
+    if (_isSaving) return; // Prevent multiple execution
+
+    setState(() {
+      _isSaving = true;
+    });
+
+    try {
+      String persistentPath = '';
+
+      if (_selectedPhotoFile != null) {
+        if (kIsWeb) {
+          final uploadedUrl = await ImageUploadService.uploadToImgBB(_selectedPhotoFile!);
+          if (uploadedUrl != null && uploadedUrl.isNotEmpty) {
+            persistentPath = uploadedUrl;
+          } else {
+            throw Exception('Failed to upload image to host.');
+          }
+        } else {
+          // MOBILE FIX: Copy file to permanent Documents directory
+          final appDir = await path_provider.getApplicationDocumentsDirectory();
+          final fileName = '${DateTime.now().millisecondsSinceEpoch}_${path.basename(_selectedPhotoFile!.path)}';
+          final File localImage = await File(_selectedPhotoFile!.path).copy('${appDir.path}/$fileName');
+          persistentPath = localImage.path;
+        }
+      }
+
+      final newHistoryItem = CookedHistoryModel(
+        entryId: DateTime.now().millisecondsSinceEpoch.toString(),
+        recipeId: widget.recipe.recipeId,
+        recipeTitle: widget.recipe.title,
+        imagePath: persistentPath,
+        dateCooked: DateTime.now(),
+        costSaved: _calculatedSavings,
+        rating: _userRating,
+      );
+
+      await HistoryService.addMeal(newHistoryItem);
+
+      if (!mounted) return;
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _isSaving = false; // Re-enable button on error
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to save meal: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.creamBackground,
-      appBar: CustomAppBar(title: "Meal Complete!"),
-
-      // --- SCROLLABLE CONTENT AREA ---
+      appBar: const CustomAppBar(title: "Meal Complete!"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -72,7 +130,7 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
             PhotoUploadBox(
               onImageSelected: (XFile? image) {
                 setState(() {
-                  _userPhotoPath = image?.path;
+                  _selectedPhotoFile = image;
                 });
               },
             ),
@@ -88,23 +146,7 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                final newHistoryItem = CookedHistoryModel(
-                  entryId: DateTime.now().millisecondsSinceEpoch.toString(),
-                  recipeId: widget.recipe.recipeId,
-                  recipeTitle: widget.recipe.title,
-                  imagePath: _userPhotoPath ?? '',
-                  dateCooked: DateTime.now(),
-                  costSaved: _calculatedSavings,
-                  rating: _userRating,
-                );
-
-                // 1. Add the new history item to global state
-                HistoryService.addMeal(newHistoryItem);
-
-                // 2. Pop screens until back to root or detail
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
+              onPressed: _isSaving ? null : _handleSaveMeal,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.oliveSecondary,
                 foregroundColor: AppColors.creamBackground,
@@ -114,10 +156,22 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
                 ),
                 elevation: 2,
               ),
-              child: const Text(
-                'Save to Cooked History',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              child: _isSaving
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        color: AppColors.creamBackground,
+                      ),
+                    )
+                  : const Text(
+                      'Save to Cooked History',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
         ),
@@ -129,7 +183,6 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
 // ============================================================================
 // 2. XP REWARD POPUP DIALOG WIDGET
 // ============================================================================
-
 
 class XpRewardDialog extends StatefulWidget {
   final int startLevel;
@@ -166,11 +219,9 @@ class _XpRewardDialogState extends State<XpRewardDialog>
     _displayLevel = widget.startLevel;
     _currentMaxXp = widget.getXpForLevel(widget.startLevel);
 
-    // Initialize Confetti Controller
     _confettiController =
         ConfettiController(duration: const Duration(seconds: 2));
 
-    // Initial progress bar baseline
     final double initialProgress =
         _currentMaxXp > 0 ? (widget.startXp / _currentMaxXp).clamp(0.0, 1.0) : 0.0;
     _progressAnimation = AlwaysStoppedAnimation<double>(initialProgress);
@@ -203,17 +254,14 @@ class _XpRewardDialogState extends State<XpRewardDialog>
       int xpNeededToFill = maxForCurrentLevel - currentXp;
 
       if (remainingXpToEarn >= xpNeededToFill) {
-        // 1. Animate progress bar to 100%
         double startProgress = (currentXp / maxForCurrentLevel).clamp(0.0, 1.0);
         _progressAnimation = Tween<double>(begin: startProgress, end: 1.0).animate(
           CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
         );
         await _controller.forward();
 
-        // 2. Short pause at full bar
         await Future.delayed(const Duration(milliseconds: 250));
 
-        // 3. Advance level and recalculate remaining XP
         remainingXpToEarn -= xpNeededToFill;
         currentLevel++;
         currentXp = 0;
@@ -228,13 +276,11 @@ class _XpRewardDialogState extends State<XpRewardDialog>
             _progressAnimation = const AlwaysStoppedAnimation<double>(0.0);
           });
 
-          // Trigger Confetti blast on Level Up!
           _confettiController.play();
         }
 
         await Future.delayed(const Duration(milliseconds: 100));
       } else {
-        // 4. Animate partial bar fill with remaining XP
         double startProgress = (currentXp / maxForCurrentLevel).clamp(0.0, 1.0);
         double endProgress =
             ((currentXp + remainingXpToEarn) / maxForCurrentLevel).clamp(0.0, 1.0);
@@ -249,7 +295,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
       }
     }
 
-    // 5. Fade in status text at the end
     if (mounted) {
       setState(() {
         _textOpacity = 1.0;
@@ -272,7 +317,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
         alignment: Alignment.topCenter,
         clipBehavior: Clip.none,
         children: [
-          // Main Dialog Body
           Container(
             padding: const EdgeInsets.all(28.0),
             decoration: BoxDecoration(
@@ -283,7 +327,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Gold Star Badge
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: const BoxDecoration(
@@ -293,8 +336,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
                   child: const Icon(Icons.star_rounded, size: 48, color: Colors.white),
                 ),
                 const SizedBox(height: 12),
-
-                // XP Text Header
                 Text(
                   '+${widget.earnedXp} XP EARNED!',
                   style: const TextStyle(
@@ -304,8 +345,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Dynamic Progress Bar & Labels
                 AnimatedBuilder(
                   animation: _controller,
                   builder: (context, child) {
@@ -347,8 +386,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
                   },
                 ),
                 const SizedBox(height: 12),
-
-                // Status Text
                 AnimatedOpacity(
                   opacity: _textOpacity,
                   duration: const Duration(milliseconds: 500),
@@ -364,8 +401,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
                   ),
                 ),
                 const SizedBox(height: 24),
-
-                // Dismiss Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -388,8 +423,6 @@ class _XpRewardDialogState extends State<XpRewardDialog>
               ],
             ),
           ),
-
-          // Confetti Widget Overlay (Shoots down from top center)
           Positioned(
             top: -10,
             child: ConfettiWidget(

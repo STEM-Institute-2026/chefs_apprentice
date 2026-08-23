@@ -96,6 +96,39 @@ class CookedMealCard extends StatelessWidget {
     required this.meal,
   });
 
+  // Safe image provider that works across Web, Network, and Native Storage
+  Widget _buildMealImage(String imagePath) {
+    if (imagePath.isEmpty) {
+      return const Center(
+        child: Icon(
+          Icons.restaurant,
+          size: 40,
+          color: AppColors.oliveSecondary,
+        ),
+      );
+    }
+
+    // Handles Web Base64 strings, Network URLs, or Blob URLs
+    if (imagePath.startsWith('data:image') ||
+        imagePath.startsWith('http') ||
+        imagePath.startsWith('blob:')) {
+      return Image.network(
+        imagePath,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) =>
+            const Icon(Icons.broken_image, color: Colors.grey),
+      );
+    }
+
+    // Handles Native Mobile File Paths
+    return Image.file(
+      File(imagePath),
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.broken_image, color: Colors.grey),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -123,23 +156,7 @@ class CookedMealCard extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 color: Colors.grey.shade200,
-                child: meal.imagePath.isNotEmpty
-                    ? (kIsWeb
-                        ? Image.network(
-                            meal.imagePath,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            File(meal.imagePath),
-                            fit: BoxFit.cover,
-                          ))
-                    : const Center(
-                        child: Icon(
-                          Icons.restaurant,
-                          size: 40,
-                          color: AppColors.oliveSecondary,
-                        ),
-                      ),
+                child: _buildMealImage(meal.imagePath),
               ),
             ),
 
