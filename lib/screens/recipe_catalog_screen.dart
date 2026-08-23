@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // Replace with your actual import paths:
 import '../models/models.dart';
-import 'package:charles_flutter_app_main/mock_data.dart';
 import './widgets/recipe_card.dart';
 import 'widgets/header_and_app_bar.dart';
 import 'widgets/filter_category_section.dart';
@@ -9,10 +8,10 @@ import 'widgets/filter_category_section.dart';
 class RecipeCatalogScreen extends StatefulWidget {
   final List<RecipeModel> initialRecipes;
 
-  RecipeCatalogScreen({
+  const RecipeCatalogScreen({
     super.key,
-    List<RecipeModel>? initialRecipes,
-  }) : initialRecipes = initialRecipes ?? mockRecipes;
+    required this.initialRecipes,
+  });
 
   @override
   State<RecipeCatalogScreen> createState() => _RecipeCatalogScreenState();
