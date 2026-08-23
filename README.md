@@ -1,4 +1,4 @@
-# Chef's Apprentice App Overview
+# Chef's Apprentice App Overview (some features are still in development)
 
 * This is a  learning based app meant to target teenagers and help them learn how to cook in a quick and fun way. 
 * This app has a catalog of thousands of different healthy recipes with the recipes ranging from an easy difficulty to an expert difficulty. 
