@@ -51,6 +51,9 @@ class HistoryService {
         // Restore Profile Model
         userProfileNotifier.value = UserProfileModel.fromMap(data);
 
+
+        _verifyAndUpdateStreak();
+
         // Restore Favorited Recipe IDs
         if (data['favoriteRecipeIds'] != null) {
           final List<dynamic> favs = data['favoriteRecipeIds'];
@@ -107,6 +110,30 @@ class HistoryService {
     }
   }
 
+ static Future<void> logout() async {
+    try {
+      // 1. Sign out from Firebase Auth
+      await FirebaseAuth.instance.signOut();
+
+      // 2. Reset profile state to defaults
+      userProfileNotifier.value = UserProfileModel(
+        userId: '',
+        userName: 'Chef',
+        currentLevel: 1,
+        currentXp: 0,
+        maxXp: 1000,
+        recipesTried: 0,
+        totalTimesCooked: 0,
+        currentStreak: 0,
+      );
+
+      // 3. Clear user-specific lists
+      savedMealsNotifier.value = [];
+      favoriteRecipeIdsNotifier.value = {};
+    } catch (e) {
+      debugPrint('Error during logout: $e');
+    }
+  }
   // --- 5. XP ENGINE & LEVEL CALCULATIONS ---
 
   static int getXpForLevel(int level) {
@@ -206,7 +233,7 @@ class HistoryService {
         newStreak += 1;
       } else if (differenceInDays > 1) {
         newStreak = 1;
-      }
+    }
     }
 
     final uniqueRecipesCount = completedRecipeIds.length;
@@ -219,6 +246,28 @@ class HistoryService {
     );
   }
 
+  static void _verifyAndUpdateStreak() {
+    final profile = currentProfile;
+    if (profile.lastCookedDate == null || profile.currentStreak == 0) return;
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final lastCooked = DateTime(
+      profile.lastCookedDate!.year,
+      profile.lastCookedDate!.month,
+      profile.lastCookedDate!.day,
+    );
+
+    final differenceInDays = today.difference(lastCooked).inDays;
+
+    // If more than 1 day has passed, the streak is broken
+    if (differenceInDays > 1) {
+      userProfileNotifier.value = profile.copyWith(currentStreak: 0);
+      _saveProfileToFirestore();
+    }
+  }
+
+  
   // --- 7. RECIPE STATUS HELPERS ---
 
   static Set<String> get completedRecipeIds {

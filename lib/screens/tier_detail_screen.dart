@@ -47,7 +47,7 @@ class TierDetailScreen extends StatelessWidget {
                   // Image with Progress Badge
                   Stack(
                     children: [
-                      Image.network(
+                      Image.asset(
                         tier.coverImageUrl,
                         height: 160,
                         width: double.infinity,

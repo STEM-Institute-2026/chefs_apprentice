@@ -4,7 +4,7 @@
     "tierNumber": 1,
     "title": "Kitchen Fundamentals",
     "description": "Master essential knife cuts, boiling techniques, and kitchen safety basics.",
-    "coverImageUrl": "https://images.unsplash.com/photo-1604543456734-4559dd906a0c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a25pZmUlMjBjaG9wcGluZyUyMGZvb2R8ZW58MHx8MHx8fDA%3D",
+    "coverImageUrl": "assets/images/tiers/tier_1.webp",
     "skills": [
       {
         "id": "skill_knife_safety",
@@ -50,7 +50,7 @@
     "tierNumber": 2,
     "title": "Heat & Pan Control",
     "description": "Learn how to sear, sauté, and manage pan temperatures like a pro.",
-    "coverImageUrl": "https://images.unsplash.com/flagged/photo-1571902241554-82ec31087fe3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym9pbGluZyUyMGZvb2RzfGVufDB8fDB8fHww",
+    "coverImageUrl": "assets/images/tiers/tier_2.webp",
     "skills": [
       {
         "id": "skill_boiling",

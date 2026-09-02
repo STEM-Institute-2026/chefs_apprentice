@@ -40,7 +40,7 @@ class RecipeDetailScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Image.network(
+              Image.asset(
                 recipe.imageUrl,
                 height: 220,
                 width: double.infinity,

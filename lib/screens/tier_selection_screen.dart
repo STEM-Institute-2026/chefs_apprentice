@@ -131,7 +131,7 @@ class TierCard extends StatelessWidget {
               // --- 1. BACKGROUND IMAGE WITH SAFE FALLBACK ---
               Opacity(
                 opacity: isUnlocked ? 1.0 : 0.35,
-                child: Image.network(
+                child: Image.asset(
                   tier.coverImageUrl,
                   height: 180,
                   width: double.infinity,

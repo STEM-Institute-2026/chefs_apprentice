@@ -259,6 +259,139 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                const SizedBox(height: 8),
+                
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.terracottaAccent,
+                    foregroundColor: AppColors.creamBackground,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    elevation: 0,
+                  ),
+                  onPressed: () async {
+                    // 1. Show custom-styled confirmation dialog
+                    final shouldLogout = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => Dialog(
+                        backgroundColor: AppColors.creamBackground,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Icon Header
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: AppColors.terracottaAccent.withValues(alpha: 0.1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.logout_rounded,
+                                  color: AppColors.terracottaAccent,
+                                  size: 32,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+
+                              // Title
+                              const Text(
+                                'Sign Out',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.oliveSecondary,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+
+                              // Message
+                              const Text(
+                                'Are you sure you want to sign out of Chef\'s Apprentice?',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+
+                              // Action Buttons Row
+                              Row(
+                                children: [
+                                  // Cancel Button
+                                  Expanded(
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(vertical: 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(16),
+                                        ),
+                                      ),
+                                      onPressed: () => Navigator.pop(context, false),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.oliveSecondary,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+
+                                  // Confirm Sign Out Button
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.terracottaAccent,
+                                        foregroundColor: AppColors.creamBackground,
+                                        padding: const EdgeInsets.symmetric(vertical: 12),
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(16),
+                                        ),
+                                      ),
+                                      onPressed: () => Navigator.pop(context, true),
+                                      child: const Text(
+                                        'Sign Out',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+
+                    // 2. Trigger Firebase sign-out if confirmed
+                    if (shouldLogout == true) {
+                      await HistoryService.logout();
+                    }
+                  },
+                  icon: const Icon(Icons.logout_rounded),
+                  label: const Text(
+                    'Sign Out',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

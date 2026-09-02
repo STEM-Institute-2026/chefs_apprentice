@@ -169,7 +169,7 @@ class ContinueTierProgressCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.network(
+              child: Image.asset(
                 tier.coverImageUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => Container(

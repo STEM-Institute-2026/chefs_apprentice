@@ -45,7 +45,7 @@ class RecipeCatalogCard extends StatelessWidget {
                 children: [
                   // Recipe Image
                   Positioned.fill(
-                    child: Image.network(
+                    child: Image.asset(
                       recipe.imageUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {

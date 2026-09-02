@@ -21,12 +21,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  /// Loads static recipes from JSON and syncs the live user profile from Firestore
-  Future<AppData> _initAppData() async {
-    await HistoryService.loadUserProfile();
-    return await DataLoaderService.loadInitialData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,43 +34,77 @@ class MyApp extends StatelessWidget {
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+          // 1. Waiting for auth state check
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
               body: Center(child: CircularProgressIndicator()),
             );
           }
 
+          // 2. User is logged out -> Show Login Screen
           if (!snapshot.hasData) {
             return const CustomAuthScreen();
           }
 
-          return FutureBuilder<AppData>(
-            future: _initAppData(),
-            builder: (context, dataSnapshot) {
-              if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                return const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(color: AppColors.oliveSecondary),
-                  ),
-                );
-              }
-
-              if (dataSnapshot.hasError) {
-                return Scaffold(
-                  body: Center(child: Text('Failed to load data: ${dataSnapshot.error}')),
-                );
-              }
-
-              final appData = dataSnapshot.data!;
-
-              return MainShellScreen(
-                recipes: appData.recipes,
-                userProfile: HistoryService.currentProfile,
-              );
-            },
-          );
+          // 3. User is logged in -> Load data once and enter app
+          return const AuthenticatedAppLoader();
         },
       ),
+    );
+  }
+}
+
+/// Helper widget to initialize user data once upon successful sign-in
+class AuthenticatedAppLoader extends StatefulWidget {
+  const AuthenticatedAppLoader({super.key});
+
+  @override
+  State<AuthenticatedAppLoader> createState() => _AuthenticatedAppLoaderState();
+}
+
+class _AuthenticatedAppLoaderState extends State<AuthenticatedAppLoader> {
+  late Future<AppData> _appDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // Cache the future so it only executes once when sign-in completes
+    _appDataFuture = _initAppData();
+  }
+
+  Future<AppData> _initAppData() async {
+    await HistoryService.loadUserProfile();
+    return await DataLoaderService.loadInitialData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<AppData>(
+      future: _appDataFuture,
+      builder: (context, dataSnapshot) {
+        if (dataSnapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(color: AppColors.oliveSecondary),
+            ),
+          );
+        }
+
+        if (dataSnapshot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Text('Failed to load data: ${dataSnapshot.error}'),
+            ),
+          );
+        }
+
+        final appData = dataSnapshot.data!;
+
+        return MainShellScreen(
+          recipes: appData.recipes,
+          userProfile: HistoryService.currentProfile,
+        );
+      },
     );
   }
 }
