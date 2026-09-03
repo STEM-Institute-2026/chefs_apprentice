@@ -127,13 +127,205 @@
         "stepNumber": 1,
         "title": "Sear Chicken",
         "instructionText": "Slice chicken thinly and cook in oil over high heat until browned.",
-        "timerSeconds": 360
+        "timerSeconds": 360,
+        "importantTip": null
       },
       {
         "stepNumber": 2,
         "title": "Toss Veggies & Sauce",
         "instructionText": "Add broccoli, peppers, and soy sauce. Stir-fry until veggies are tender-crisp.",
-        "timerSeconds": 240
+        "timerSeconds": 240,
+        "importantTip": null
+      }
+    ]
+  },
+  {
+    "recipeId": "rec_004",
+    "title": "Street-Style Chicken Tacos",
+    "description": "Warm corn tortillas loaded with spiced grilled chicken, diced onion, and fresh cilantro.",
+    "imageUrl": "assets/images/recipes/street_style_chicken_tacos.png",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 15,
+    "servings": 3,
+    "difficultyTier": "Tier 1",
+    "mealType": "Dinner",
+    "cuisine": "Mexican",
+    "dietary": ["Gluten-Free"],
+    "tags": ["Quick & Easy", "High Protein"],
+    "ingredients": {
+      "Chicken Thighs": "1 lb",
+      "Small Corn Tortillas": "6",
+      "White Onion": "1/2 cup diced",
+      "Fresh Cilantro": "1/4 cup chopped",
+      "Taco Seasoning": "2 tbsp",
+      "Lime": "1"
+    },
+    "estimatedCost": 6.00,
+    "costPerServing": 2.00,
+    "estimatedRestaurantCost": 14.00,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 420,
+      "proteinGrams": 32,
+      "carbsGrams": 38,
+      "fatGrams": 14
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Cook Chicken",
+        "instructionText": "Season chicken with taco seasoning and sear in a skillet over medium-high heat until fully cooked.",
+        "timerSeconds": 480,
+        "importantTip": "Let the chicken rest for 5 minutes before chopping to retain juices."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Warm Tortillas & Assemble",
+        "instructionText": "Warm tortillas in a dry skillet, fill with chopped chicken, onions, cilantro, and squeeze fresh lime juice over top.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ]
+  },
+  {
+    "recipeId": "rec_005",
+    "title": "Cheesy Black Bean Quesadillas",
+    "description": "Crispy golden tortillas stuffed with seasoned black beans, sweet corn, and melted jack cheese.",
+    "imageUrl": "assets/images/recipes/cheesy_black_bean_quesadillas.webp",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "Tier 1",
+    "mealType": "Lunch",
+    "cuisine": "Mexican",
+    "dietary": ["Vegetarian"],
+    "tags": ["Quick & Easy", "Budget"],
+    "ingredients": {
+      "Flour Tortillas": "2 large",
+      "Black Beans": "1 can (15 oz)",
+      "Monterey Jack Cheese": "1 cup shredded",
+      "Cumin": "1/2 tsp",
+      "Salsa": "1/4 cup"
+    },
+    "estimatedCost": 3.80,
+    "costPerServing": 1.90,
+    "estimatedRestaurantCost": 10.00,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 510,
+      "proteinGrams": 22,
+      "carbsGrams": 58,
+      "fatGrams": 20
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare Filling",
+        "instructionText": "Rinse black beans and mix with cumin and a spoonful of salsa in a bowl.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Cook Quesadillas",
+        "instructionText": "Place filling and cheese inside folded tortillas and cook in a skillet on medium heat until golden brown on both sides.",
+        "timerSeconds": 300,
+        "importantTip": "Keep the heat at medium to allow the cheese to melt completely without burning the tortilla."
+      }
+    ]
+  },
+  {
+    "recipeId": "rec_006",
+    "title": "Classic Margherita Pizza",
+    "description": "Crispy homemade pizza crust topped with rich tomato sauce, fresh mozzarella, and basil leaves.",
+    "imageUrl": "assets/images/recipes/classic_margherita_pizza.webp",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 20,
+    "servings": 2,
+    "difficultyTier": "Tier 2",
+    "mealType": "Dinner",
+    "cuisine": "Italian",
+    "dietary": ["Vegetarian"],
+    "tags": ["Beginner Friendly", "Favorite"],
+    "ingredients": {
+      "Pizza Dough": "1 lb",
+      "San Marzano Tomato Sauce": "1/2 cup",
+      "Fresh Mozzarella": "6 oz",
+      "Fresh Basil": "8 leaves",
+      "Olive Oil": "1 tbsp"
+    },
+    "estimatedCost": 5.50,
+    "costPerServing": 2.75,
+    "estimatedRestaurantCost": 15.00,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 580,
+      "proteinGrams": 24,
+      "carbsGrams": 68,
+      "fatGrams": 22
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Shape & Top Dough",
+        "instructionText": "Stretch dough onto a pizza pan, spread sauce evenly, and lay sliced fresh mozzarella on top.",
+        "timerSeconds": 300,
+        "importantTip": "Preheat your oven to its highest setting (475°F–500°F) for the crispiest crust."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Bake & Garnish",
+        "instructionText": "Bake until crust is golden and cheese is bubbly, then top with fresh basil leaves and a drizzle of olive oil.",
+        "timerSeconds": 600,
+        "importantTip": null
+      }
+    ]
+  },
+  {
+    "recipeId": "rec_007",
+    "title": "Tuscan Garlic Butter Shrimp",
+    "description": "Juicy shrimp seared with sun-dried tomatoes and spinach in a creamy garlic white wine sauce.",
+    "imageUrl": "assets/images/recipes/tuscan_garlic_butter_shrimp.webp",
+    "cookTimeMinutes": 12,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "Tier 2",
+    "mealType": "Dinner",
+    "cuisine": "Italian",
+    "dietary": ["Gluten-Free", "Pescatarian"],
+    "tags": ["Quick & Easy", "High Protein"],
+    "ingredients": {
+      "Shrimp": "1/2 lb (peeled)",
+      "Sun-Dried Tomatoes": "1/4 cup",
+      "Baby Spinach": "2 cups",
+      "Heavy Cream": "1/2 cup",
+      "Garlic": "4 cloves",
+      "Butter": "2 tbsp"
+    },
+    "estimatedCost": 9.20,
+    "costPerServing": 4.60,
+    "estimatedRestaurantCost": 22.00,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 440,
+      "proteinGrams": 30,
+      "carbsGrams": 12,
+      "fatGrams": 31
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Sear Shrimp",
+        "instructionText": "Melt butter in a skillet and cook shrimp for 2 minutes per side until pink, then remove from pan.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Simmer Sauce & Combine",
+        "instructionText": "Sauté garlic, add heavy cream and sun-dried tomatoes, toss in spinach until wilted, and stir shrimp back in.",
+        "timerSeconds": 300,
+        "importantTip": "Do not overcook the shrimp in the sauce to keep them tender."
       }
     ]
   }

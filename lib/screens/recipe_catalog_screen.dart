@@ -184,7 +184,7 @@ class _RecipeCatalogScreenState extends State<RecipeCatalogScreen> {
                           // Cuisine Category
                           FilterCategorySection(
                             title: 'Cuisine',
-                            options: const ['American', 'Italian', 'Asian'],
+                            options: const ['American', 'Italian', 'Asian', 'Mexican', 'French'],
                             selectedOptions:
                                 tempCuisine != null ? [tempCuisine!] : [],
                             onOptionToggled: (option) {

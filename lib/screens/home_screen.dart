@@ -4,7 +4,7 @@ import '../../services/history_service.dart';
 import './widgets/header_and_app_bar.dart';
 import './widgets/recipe_card.dart';
 import './widgets/home_app_bar.dart';
-import './tier_detail_screen.dart';
+import 'skill_module_detail_screen.dart';
 import '../constants/app_transitions.dart';
 import '../services/data_loader_service.dart';
 
@@ -27,6 +27,26 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _appDataFuture = DataLoaderService.loadInitialData();
+  }
+
+  /// Helper to find the first incomplete SkillModule
+  SkillModuleModel _getActiveSkillModule(List<SkillModuleModel> skillModules) {
+    for (final module in skillModules) {
+      final allModuleRecipes = [
+        ...module.tier1Recipes,
+        ...module.tier2Recipes,
+        ...module.tier3Recipes,
+      ];
+
+      final completedCount = HistoryService.getCompletedCount(allModuleRecipes);
+
+      // If there are recipes and not all are completed, pick this module
+      if (allModuleRecipes.isNotEmpty && completedCount < allModuleRecipes.length) {
+        return module;
+      }
+    }
+    // Fallback: If all modules are completed or empty, return the last one (or first if available)
+    return skillModules.isNotEmpty ? skillModules.last : skillModules.first;
   }
 
   @override
@@ -52,19 +72,21 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           final appData = snapshot.data!;
-          final allTiers = appData.tiers;
-          final currentTier = HistoryService.getActiveTier(allTiers);
+          final skillModules = appData.skillModules;
+          final activeModule = _getActiveSkillModule(skillModules);
 
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // NEXT TIER HERO BANNER
+                // ===================================================================
+                // SHARPEN YOUR SKILLS HERO BANNER
+                // ===================================================================
                 ContinueTierProgressCard(
-                  tier: currentTier,
+                  module: activeModule,
                   onTierUpdated: () {
-                    setState(() {}); // Forces HomeScreen to rebuild with the updated tier!
+                    setState(() {}); // Rebuilds HomeScreen to re-evaluate active module!
                   },
                 ),
 
@@ -86,7 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   iconColor: Colors.redAccent,
                 ),
 
-                // Dynamically listen to favorite changes using ValueListenableBuilder
                 ValueListenableBuilder<Set<String>>(
                   valueListenable: HistoryService.favoriteRecipeIdsNotifier,
                   builder: (context, favoriteIds, child) {
@@ -115,7 +136,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
 
   Widget _buildHorizontalRecipeList(List<RecipeModel> recipeList) {
     return SizedBox(
@@ -136,15 +156,18 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
 
-
+// ===================================================================
+// HERO PROGRESS CARD FOR SKILL MODULES
+// ===================================================================
 class ContinueTierProgressCard extends StatelessWidget {
-  final TierModel tier;
+  final SkillModuleModel module;
   final VoidCallback? onTierUpdated;
 
   const ContinueTierProgressCard({
     super.key,
-    required this.tier,
+    required this.module,
     this.onTierUpdated,
   });
 
@@ -170,7 +193,7 @@ class ContinueTierProgressCard extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                tier.coverImageUrl,
+                module.coverImageUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => Container(
                   color: AppColors.oliveSecondary,
@@ -209,7 +232,7 @@ class ContinueTierProgressCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            'NEXT LESSON • TIER ${tier.tierNumber}',
+                            'SHARPEN YOUR SKILLS',
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.bold,
@@ -221,7 +244,7 @@ class ContinueTierProgressCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        tier.title,
+                        module.title,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -230,7 +253,7 @@ class ContinueTierProgressCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        tier.description,
+                        module.description,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -245,7 +268,7 @@ class ContinueTierProgressCard extends StatelessWidget {
                       await Navigator.push(
                         context,
                         StandardDetailRoute(
-                          page: TierDetailScreen(tier: tier),
+                          page: SkillModuleDetailScreen(module: module),
                         ),
                       );
 

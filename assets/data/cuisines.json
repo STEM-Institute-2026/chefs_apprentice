@@ -1,0 +1,67 @@
+[
+  {
+    "id": "cuisine_italian",
+    "title": "Italian Cuisine Fundamentals",
+    "description": "Master the art of building flavors with high-quality ingredients, fresh herbs, and essential pasta techniques.",
+    "coverImageUrl": "assets/images/cuisines/italian_cuisine.jpg",
+    "flavorProfileOverview": "Built on fresh, simple ingredients where high quality shines. Emphasizes olive oil, garlic, tomatoes, aged cheeses, and fresh herbs like basil and oregano.",
+    "essentialPantry": [
+      {
+        "name": "Extra Virgin Olive Oil",
+        "description": "Used both as a cooking base and as a finishing touch for richness and aroma."
+      },
+      {
+        "name": "Parmigiano-Reggiano",
+        "description": "A hard, salty cheese that adds deep umami flavor to pasta, risottos, and soups."
+      },
+      {
+        "name": "San Marzano Tomatoes",
+        "description": "Sweet, low-acidity canned tomatoes essential for classic red sauces."
+      }
+    ],
+    "keyTechniques": [
+      "Pan Sauce Emulsification (starchy water + oil/fat)",
+      "Sautéing Sofrito (onion, celery, carrot base)",
+      "Deglazing with wine or broth"
+    ],
+    "tier1RecipeIds": [
+      "rec_004",
+      "rec_005"
+    ],
+    "tier2RecipeIds": [],
+    "tier3RecipeIds": []
+  },
+  {
+    "id": "cuisine_mexican",
+    "title": "Mexican Street Food & Salsas",
+    "description": "Explore the bold world of charred chilies, citrus marinades, and fresh salsa preparation.",
+    "coverImageUrl": "assets/images/cuisines/mexican_cuisine.webp",
+    "flavorProfileOverview": "A vibrant balance of heat, acidity, and smokiness using fresh and dried chilies, lime, cilantro, cumin, and Mexican oregano.",
+    "essentialPantry": [
+      {
+        "name": "Dried Chilies (Ancho & Guajillo)",
+        "description": "Rehydrated and blended to create complex, earthy, and mildly spicy sauce bases."
+      },
+      {
+        "name": "Fresh Limes",
+        "description": "Provides essential acidity to balance rich meats and cut through fat."
+      },
+      {
+        "name": "Masa Harina",
+        "description": "Nixtamalized corn flour used to make fresh tortillas and tamales from scratch."
+      }
+    ],
+    "keyTechniques": [
+      "Comal Dry Roasting & Charring",
+      "Rehydrating & Blending Chili Pastes",
+      "Citrus Acid Marinating"
+    ],
+    "tier1RecipeIds": [
+      "rec_006"
+    ],
+    "tier2RecipeIds": [
+      "rec_007"
+    ],
+    "tier3RecipeIds": []
+  }
+]

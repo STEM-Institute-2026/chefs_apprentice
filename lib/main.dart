@@ -102,6 +102,8 @@ class _AuthenticatedAppLoaderState extends State<AuthenticatedAppLoader> {
 
         return MainShellScreen(
           recipes: appData.recipes,
+          skillModules: appData.skillModules,
+          cuisineModules: appData.cuisineModules,
           userProfile: HistoryService.currentProfile,
         );
       },

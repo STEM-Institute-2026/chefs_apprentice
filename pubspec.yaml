@@ -81,9 +81,11 @@ flutter:
     - assets/images/knife_skills/
     - assets/images/app_logo_cropped.png
     - assets/images/recipes/
-    - assets/images/tiers/
+    - assets/images/skills/
+    - assets/images/cuisines/
     - assets/data/recipes.json
-    - assets/data/tiers.json
+    - assets/data/skills.json
+    - assets/data/cuisines.json
     
 
   # To add assets to your application, add an assets section, like this:

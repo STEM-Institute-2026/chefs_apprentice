@@ -7,6 +7,6 @@ const TextStyle kBodyTextStyle = TextStyle(
 );
 
 const TextStyle kHeaderTextStyle = TextStyle(
-  fontSize: 22,
+  fontSize: 26,
   fontWeight: FontWeight.bold,
 );

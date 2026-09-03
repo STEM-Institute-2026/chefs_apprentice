@@ -284,30 +284,6 @@ class HistoryService {
         .length;
   }
 
-  // --- 8. TIER UNLOCK LOGIC ---
-
-  static bool isTierUnlocked(TierModel tier, List<TierModel> allTiers) {
-    if (tier.tierNumber <= 1) return true;
-
-    final previousTier = allTiers.firstWhere(
-      (t) => t.tierNumber == tier.tierNumber - 1,
-      orElse: () => allTiers.first,
-    );
-
-    final completedInPrevious = getCompletedCount(previousTier.recipes);
-    return completedInPrevious >= 2;
-  }
-
-  static TierModel getActiveTier(List<TierModel> allTiers) {
-    for (int i = allTiers.length - 1; i >= 0; i--) {
-      final tier = allTiers[i];
-      if (isTierUnlocked(tier, allTiers)) {
-        return tier;
-      }
-    }
-    return allTiers.isNotEmpty ? allTiers.first : throw Exception("No tiers loaded");
-  }
-
   // --- 9. FAVORITES LOGIC ---
 
   static Future<void> toggleFavorite(String recipeId) async {

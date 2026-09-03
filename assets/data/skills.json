@@ -1,10 +1,10 @@
 [
   {
-    "id": "tier_1",
-    "tierNumber": 1,
-    "title": "Kitchen Fundamentals",
-    "description": "Master essential knife cuts, boiling techniques, and kitchen safety basics.",
-    "coverImageUrl": "assets/images/tiers/tier_1.webp",
+    "id": "module_knife_mastery",
+    "title": "Knife Mastery & Prep Work",
+    "description": "Master essential knife cuts, grip techniques, and kitchen safety basics.",
+    "coverImageUrl": "assets/images/skills/knife_mastery_and_prep_work.webp",
+    "difficultyLevel": "Beginner",
     "skills": [
       {
         "id": "skill_knife_safety",
@@ -40,17 +40,20 @@
         "whereItsUsed": "Virtually every recipe requiring vegetables, herbs, or meats."
       }
     ],
-    "recipeIds": [
-      "rec_001",
+    "tier1RecipeIds": [
+      "rec_001"
+    ],
+    "tier2RecipeIds": [
       "rec_002"
-    ]
+    ],
+    "tier3RecipeIds": []
   },
   {
-    "id": "tier_2",
-    "tierNumber": 2,
+    "id": "module_heat_control",
     "title": "Heat & Pan Control",
     "description": "Learn how to sear, sauté, and manage pan temperatures like a pro.",
-    "coverImageUrl": "assets/images/tiers/tier_2.webp",
+    "coverImageUrl": "assets/images/skills/heat_and_pan_control.webp",
+    "difficultyLevel": "Intermediate",
     "skills": [
       {
         "id": "skill_boiling",
@@ -85,8 +88,10 @@
         "whereItsUsed": "Pasta, soups, boiled eggs, and stocks."
       }
     ],
-    "recipeIds": [
+    "tier1RecipeIds": [
       "rec_003"
-    ]
+    ],
+    "tier2RecipeIds": [],
+    "tier3RecipeIds": []
   }
 ]
