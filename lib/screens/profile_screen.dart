@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_transitions.dart';
 import './widgets/header_and_app_bar.dart';
 import '../services/history_service.dart';
+import 'badges_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final UserProfileModel profile;
@@ -26,7 +27,55 @@ class ProfileScreen extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: AppColors.creamBackground,
-          appBar: const CustomAppBar(title: "Profile"),
+          appBar: CustomAppBar(
+            title: 'Profile',
+            leadingWidth: 110.0,
+            leading: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const BadgesScreen()),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: AppColors.terracottaAccent.withValues(alpha: 0.90),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: AppColors.creamBackground.withValues(alpha: 0.35),
+                        width: 1.2,
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.workspace_premium,
+                          color: AppColors.creamBackground,
+                          size: 16,
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          'Badges',
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.creamBackground,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          actions: [],
+        ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
             child: Column(

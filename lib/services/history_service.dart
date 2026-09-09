@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/models.dart';
+import '../services/badge_evaluator_service.dart';
 
 class HistoryService {
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -189,28 +190,54 @@ class HistoryService {
 
   // --- 6. MEAL SAVING & STREAKS ---
 
-  static Future<void> addMeal(CookedHistoryModel meal) async {
-    final bool isNewRecipe = !completedRecipeIds.contains(meal.recipeId);
+  static Future<List<BadgeUnlockResult>> addMeal({
+  required CookedHistoryModel meal,
+  required List<BadgeModel> badges,
+  required List<CuisineModuleModel> cuisineModules,
+  required List<SkillModuleModel> skillModules,
+}) async {
+  // 1. Snapshot BEFORE state
+  final UserProfileModel oldProfile = currentProfile;
+  final Set<String> oldCompletedRecipeIds = Set<String>.from(completedRecipeIds);
 
-    // 1. Update local meals list
-    savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
+  final bool isNewRecipe = !oldCompletedRecipeIds.contains(meal.recipeId);
 
-    // 2. Update streak and meal stats locally
-    _updateStreakAndMealStats(meal.recipeId, isNewRecipe: isNewRecipe);
+  // 2. Update local state
+  savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
+  _updateStreakAndMealStats(meal.recipeId, isNewRecipe: isNewRecipe);
 
-    // 3. Save meals list and profile stats to Firestore
-    try {
-      final uid = FirebaseAuth.instance.currentUser?.uid;
-      if (uid != null) {
-        await _db.collection('users').doc(uid).set({
-          ...currentProfile.toMap(),
-          'savedMeals': savedMeals.map((m) => m.toMap()).toList(),
-        }, SetOptions(merge: true));
-      }
-    } catch (e) {
-      debugPrint('Error saving cooked meal to Firestore: $e');
+  // 3. Snapshot AFTER state
+  final UserProfileModel newProfile = currentProfile;
+  final Set<String> newCompletedRecipeIds = completedRecipeIds;
+
+  // 4. Run evaluation engine
+  final List<BadgeUnlockResult> newlyUnlockedBadges =
+      BadgeEvaluatorService.evaluateUnlocks(
+    badges: badges,
+    oldProfile: oldProfile,
+    newProfile: newProfile,
+    oldCompletedRecipeIds: oldCompletedRecipeIds,
+    newCompletedRecipeIds: newCompletedRecipeIds,
+    cuisineModules: cuisineModules,
+    skillModules: skillModules,
+  );
+
+  // 5. Sync state to Firestore in background
+  try {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await _db.collection('users').doc(uid).set({
+        ...currentProfile.toMap(),
+        'savedMeals': savedMeals.map((m) => m.toMap()).toList(),
+      }, SetOptions(merge: true));
     }
+  } catch (e) {
+    debugPrint('Error saving cooked meal to Firestore: $e');
   }
+
+  // 6. Return evaluation results
+  return newlyUnlockedBadges;
+}
 
   static void _updateStreakAndMealStats(String recipeId, {required bool isNewRecipe}) {
     final profile = currentProfile;

@@ -11,3 +11,4 @@ export 'cuisine_module_model.dart';
 export 'skill_model.dart';
 export 'skill_step_model.dart';
 export 'xp_reward_snapshot_model.dart';
+export 'badge_model.dart';

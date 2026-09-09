@@ -50,11 +50,11 @@ class HeaderWidget extends StatelessWidget {
   }
 }
 
-// app bar widget
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget? leading;
+  final double? leadingWidth;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
 
@@ -62,6 +62,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.leading,
+    this.leadingWidth,
     this.actions,
     this.bottom,
   });
@@ -79,6 +80,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: AppColors.oliveSecondary,
       foregroundColor: AppColors.creamBackground,
+      leadingWidth: leadingWidth ?? 56.0,
       leading: leading,
       actions: actions,
       bottom: bottom,

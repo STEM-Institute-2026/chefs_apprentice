@@ -1,0 +1,62 @@
+[
+  {
+    "id": "italian_cuisine_master",
+    "title": "Italian Apprentice",
+    "description": "Cook traditional Italian recipes to master classic pasta and sauce techniques. Earned by finishing the Italian Cuisine module.",
+    "category": "cuisine",
+    "iconPath": "assets/images/badges/badge_italian.PNG",
+    "targetValues": [1, 2],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "cuisine_italian"
+  },
+  {
+    "id": "mexican_cuisine_master",
+    "title": "Salsa & Street Food Explorer",
+    "description": "Master bold charred chilies, citrus marinades, and fresh salsa preparation. Earned by finishing the Mexican Cuisine module.",
+    "category": "cuisine",
+    "iconPath": "assets/images/badges/badge_mexican.PNG",
+    "targetValues": [1, 2],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "cuisine_mexican"
+  },
+  {
+    "id": "knife_skills_master",
+    "title": "Blade Runner",
+    "description": "Complete practice recipes focused on precision knife skills and prep work. Earned by finishing the Knife Skills module.",
+    "category": "skill",
+    "iconPath": "assets/images/badges/badge_knife_skills.PNG",
+    "targetValues": [1, 2],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "module_knife_mastery"
+  },
+  {
+    "id": "heat_control_master",
+    "title": "Flame Tamer",
+    "description": "Master boiling, simmering, and temperature management across practice recipes. Earned by finishing the Heat & Pan Control module.",
+    "category": "skill",
+    "iconPath": "assets/images/badges/badge_heat_control.PNG",
+    "targetValues": [1],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "module_heat_control"
+  },
+  {
+    "id": "total_meals_cooked",
+    "title": "Home Chef",
+    "description": "Cook meals across any cuisine or skill category. Earned by completing a total of 1, 5, 10, and 25 recipes.",
+    "category": "milestone",
+    "iconPath": "assets/images/badges/badge_home_chef.PNG",
+    "targetValues": [1, 5, 10, 25],
+    "targetDescription": "Total Recipes Cooked",
+    "targetModuleId": null
+  },
+  {
+    "id": "cooking_streak",
+    "title": "Consistent Cook",
+    "description": "Maintain your cooking streak by logging completed recipes back-to-back. Earned by maintaining a streak for 3, 7, 14, and 30 days.",
+    "category": "streak",
+    "iconPath": "assets/images/badges/badge_cooking_streak.PNG",
+    "targetValues": [3, 7, 14, 30],
+    "targetDescription": "Consecutive Days Cooking",
+    "targetModuleId": null
+  }
+]

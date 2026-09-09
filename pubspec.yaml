@@ -83,9 +83,11 @@ flutter:
     - assets/images/recipes/
     - assets/images/skills/
     - assets/images/cuisines/
+    - assets/images/badges/
     - assets/data/recipes.json
     - assets/data/skills.json
     - assets/data/cuisines.json
+    - assets/data/badges.json
     
 
   # To add assets to your application, add an assets section, like this:

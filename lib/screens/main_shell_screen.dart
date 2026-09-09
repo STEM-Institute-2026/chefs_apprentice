@@ -10,6 +10,7 @@ class MainShellScreen extends StatefulWidget {
   final List<SkillModuleModel> skillModules;
   final List<CuisineModuleModel> cuisineModules;
   final UserProfileModel userProfile;
+  final List<BadgeModel> badges;
 
   const MainShellScreen({
     super.key,
@@ -17,6 +18,7 @@ class MainShellScreen extends StatefulWidget {
     required this.skillModules,
     required this.cuisineModules,
     required this.userProfile,
+    required this.badges,
   });
 
   @override

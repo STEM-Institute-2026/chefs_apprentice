@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import "../models/models.dart"; 
 import 'photo_upload_box.dart';
 import '../services/history_service.dart';
+import '../services/badge_evaluator_service.dart';
+import '../services/data_loader_service.dart';
 import 'widgets/header_and_app_bar.dart';
 
 import 'dart:io';
@@ -16,47 +18,55 @@ import '../services/image_upload_service.dart';
 
 class RecipeCompleteScreen extends StatefulWidget {
   final RecipeModel recipe;
-  const RecipeCompleteScreen({super.key, required this.recipe});
+
+
+  const RecipeCompleteScreen({
+    super.key, 
+    required this.recipe // <-- Added AppData dependency
+  });
 
   @override
   State<RecipeCompleteScreen> createState() => _RecipeCompleteScreenState();
 }
 
-class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
-  double? _calculatedSavings;
-  XFile? _selectedPhotoFile;
-  int? _userRating;
-  bool _isSaving = false; // Tracks saving state to prevent double-clicks
+  class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
+    double? _calculatedSavings;
+    XFile? _selectedPhotoFile;
+    int? _userRating;
+    bool _isSaving = false; // Tracks saving state to prevent double-clicks
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      const int xpEarned = 500;
-      final snapshot = HistoryService.addXp(xpEarned);
+    @override
+    void initState() {
+      super.initState();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        const int xpEarned = 500;
+        final snapshot = HistoryService.addXp(xpEarned);
 
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => XpRewardDialog(
-          earnedXp: snapshot.xpEarned,
-          startXp: snapshot.startXp,
-          startLevel: snapshot.startLevel,
-          getXpForLevel: HistoryService.getXpForLevel,
-        ),
-      );
-    });
-  }
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => XpRewardDialog(
+            earnedXp: snapshot.xpEarned,
+            startXp: snapshot.startXp,
+            startLevel: snapshot.startLevel,
+            getXpForLevel: HistoryService.getXpForLevel,
+          ),
+        );
+      });
+    }
 
-  // Save Meal Logic
-  Future<void> _handleSaveMeal() async {
-    if (_isSaving) return; // Prevent multiple execution
+    // Save Meal Logic
+    Future<void> _handleSaveMeal() async {
+    if (_isSaving) return;
 
     setState(() {
       _isSaving = true;
     });
 
     try {
+      // 1. Load app data on the fly using your DataLoaderService
+      final AppData appData = await DataLoaderService.loadInitialData();
+
       String persistentPath = '';
 
       if (_selectedPhotoFile != null) {
@@ -68,7 +78,6 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
             throw Exception('Failed to upload image to host.');
           }
         } else {
-          // MOBILE FIX: Copy file to permanent Documents directory
           final appDir = await path_provider.getApplicationDocumentsDirectory();
           final fileName = '${DateTime.now().millisecondsSinceEpoch}_${path.basename(_selectedPhotoFile!.path)}';
           final File localImage = await File(_selectedPhotoFile!.path).copy('${appDir.path}/$fileName');
@@ -86,19 +95,146 @@ class _RecipeCompleteScreenState extends State<RecipeCompleteScreen> {
         rating: _userRating,
       );
 
-      await HistoryService.addMeal(newHistoryItem);
+      // 2. Pass the freshly loaded data into HistoryService
+      final List<BadgeUnlockResult> newlyUnlocked = await HistoryService.addMeal(
+        meal: newHistoryItem,
+        badges: appData.badges,
+        cuisineModules: appData.cuisineModules,
+        skillModules: appData.skillModules,
+      );
 
       if (!mounted) return;
+
+      // 3. Navigate back to root/home screen
       Navigator.of(context).popUntil((route) => route.isFirst);
+
+      // 4. Show celebration popup if any badges leveled up
+      if (newlyUnlocked.isNotEmpty) {
+        _showBadgeUnlockDialog(context, newlyUnlocked);
+      }
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _isSaving = false; // Re-enable button on error
+        _isSaving = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to save meal: $e')),
       );
     }
+  }
+
+  // Badge level-up dialog launcher
+  void _showBadgeUnlockDialog(BuildContext context, List<BadgeUnlockResult> unlocks) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          backgroundColor: AppColors.creamBackground,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          titlePadding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+          title: Column(
+            children: [
+              // Top Terracotta Circle with White Star
+              Container(
+                width: 56,
+                height: 56,
+                decoration: const BoxDecoration(
+                  color: AppColors.terracottaAccent,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.star_rounded,
+                  color: Colors.white,
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'Badge Leveled Up!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: unlocks.map((unlock) {
+                return ListTile(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 4),
+                  leading: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.terracottaAccent, width: 2),
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        unlock.badge.iconPath,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) => const Icon(
+                          Icons.workspace_premium,
+                          size: 32,
+                          color: AppColors.terracottaAccent,
+                        ),
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    unlock.badge.title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Reached Star Level ${unlock.newStarLevel}!',
+                    style: const TextStyle(
+                      color: AppColors.oliveSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          actions: [
+            // Full-width Terracotta Button
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.terracottaAccent,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                onPressed: () => Navigator.of(dialogContext).pop(),
+                child: const Text(
+                  'Awesome!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override

@@ -76,4 +76,41 @@ class CuisineModuleModel {
       tier3Recipes: resolveRecipes(t3Ids),
     );
   }
+
+  // ===========================================================================
+  // BADGE & PROGRESS HELPER METHODS
+  // ===========================================================================
+
+  /// Returns a combined list of all recipes belonging to this module across all tiers.
+  List<RecipeModel> get allRecipes => [
+        ...tier1Recipes,
+        ...tier2Recipes,
+        ...tier3Recipes,
+      ];
+
+  /// Returns a combined list of all unique recipe IDs belonging to this cuisine.
+  List<String> get allRecipeIds =>
+      allRecipes.map((recipe) => recipe.recipeId).toList();
+
+  /// Calculates how many recipes in this cuisine module the user has completed.
+  int getCompletedCount(Set<String> userCompletedRecipeIds) {
+    return allRecipeIds.where((id) => userCompletedRecipeIds.contains(id)).length;
+  }
+
+  /// Calculates the completion percentage (0.0 to 1.0) for this cuisine.
+  double getCompletionPercentage(Set<String> userCompletedRecipeIds) {
+    if (allRecipes.isEmpty) return 0.0;
+    return getCompletedCount(userCompletedRecipeIds) / allRecipes.length;
+  }
+
+  /// Checks if the user has cooked every single recipe in this cuisine module.
+  bool isFullyCompleted(Set<String> userCompletedRecipeIds) {
+    if (allRecipes.isEmpty) return false;
+    return getCompletedCount(userCompletedRecipeIds) == allRecipes.length;
+  }
+
+  /// Checks if a specific recipe belongs to this cuisine module.
+  bool containsRecipe(String recipeId) {
+    return allRecipeIds.contains(recipeId);
+  }
 }

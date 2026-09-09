@@ -55,4 +55,41 @@ class SkillModuleModel {
       tier3Recipes: resolveRecipes(t3Ids),
     );
   }
+
+  // ===========================================================================
+  // BADGE & PROGRESS HELPER METHODS
+  // ===========================================================================
+
+  /// Returns a combined list of all practice recipes in this skill module.
+  List<RecipeModel> get allRecipes => [
+        ...tier1Recipes,
+        ...tier2Recipes,
+        ...tier3Recipes,
+      ];
+
+  /// Returns a combined list of all unique recipe IDs in this skill module.
+  List<String> get allRecipeIds =>
+      allRecipes.map((recipe) => recipe.recipeId).toList();
+
+  /// Calculates how many recipes in this skill module the user has completed.
+  int getCompletedCount(Set<String> userCompletedRecipeIds) {
+    return allRecipeIds.where((id) => userCompletedRecipeIds.contains(id)).length;
+  }
+
+  /// Calculates the completion percentage (0.0 to 1.0) for this skill module.
+  double getCompletionPercentage(Set<String> userCompletedRecipeIds) {
+    if (allRecipes.isEmpty) return 0.0;
+    return getCompletedCount(userCompletedRecipeIds) / allRecipes.length;
+  }
+
+  /// Checks if the user has cooked every practice recipe in this skill module.
+  bool isFullyCompleted(Set<String> userCompletedRecipeIds) {
+    if (allRecipes.isEmpty) return false;
+    return getCompletedCount(userCompletedRecipeIds) == allRecipes.length;
+  }
+
+  /// Checks if a specific recipe belongs to this skill module.
+  bool containsRecipe(String recipeId) {
+    return allRecipeIds.contains(recipeId);
+  }
 }
