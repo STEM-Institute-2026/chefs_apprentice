@@ -18,6 +18,8 @@ class HistoryService {
       maxXp: 1000,
       recipesTried: 0,
       totalTimesCooked: 0,
+      avatarKey: 'person',
+      equippedTitle: 'Novice Cook',
     ),
   );
 
@@ -52,7 +54,6 @@ class HistoryService {
         // Restore Profile Model
         userProfileNotifier.value = UserProfileModel.fromMap(data);
 
-
         _verifyAndUpdateStreak();
 
         // Restore Favorited Recipe IDs
@@ -80,6 +81,8 @@ class HistoryService {
           recipesTried: 0,
           totalTimesCooked: 0,
           currentStreak: 0,
+          avatarKey: 'person',
+          equippedTitle: 'Novice Cook',
         );
 
         // Write initial user document to Firestore
@@ -111,7 +114,29 @@ class HistoryService {
     }
   }
 
- static Future<void> logout() async {
+  /// Update individual user profile fields
+  static Future<void> updateUserProfile({
+    String? userName,
+    String? avatarKey,
+    int? avatarColorHex,
+  }) async {
+    final profile = currentProfile;
+
+    userProfileNotifier.value = profile.copyWith(
+      userName: userName ?? profile.userName,
+      avatarKey: avatarKey ?? profile.avatarKey,
+      avatarColorHex: avatarColorHex ?? profile.avatarColorHex,
+    );
+
+    await _saveProfileToFirestore();
+  }
+
+  /// Convenience helper to update the selected avatar icon key
+  static Future<void> updateAvatar(String avatarKey) async {
+    await updateUserProfile(avatarKey: avatarKey);
+  }
+
+  static Future<void> logout() async {
     try {
       // 1. Sign out from Firebase Auth
       await FirebaseAuth.instance.signOut();
@@ -126,6 +151,8 @@ class HistoryService {
         recipesTried: 0,
         totalTimesCooked: 0,
         currentStreak: 0,
+        avatarKey: 'person',
+        equippedTitle: 'Novice Cook',
       );
 
       // 3. Clear user-specific lists
@@ -135,7 +162,21 @@ class HistoryService {
       debugPrint('Error during logout: $e');
     }
   }
-  // --- 5. XP ENGINE & LEVEL CALCULATIONS ---
+
+  // --- 5. TITLES MANAGEMENT ---
+
+  /// Equips a title for the user profile and syncs with Firestore
+  static Future<void> updateEquippedTitle(String newTitle) async {
+    final profile = currentProfile;
+
+    userProfileNotifier.value = profile.copyWith(
+      equippedTitle: newTitle,
+    );
+
+    await _saveProfileToFirestore();
+  }
+
+  // --- 6. XP ENGINE & LEVEL CALCULATIONS ---
 
   static int getXpForLevel(int level) {
     return 1000 + ((level - 1) * 750);
@@ -188,56 +229,56 @@ class HistoryService {
     );
   }
 
-  // --- 6. MEAL SAVING & STREAKS ---
+  // --- 7. MEAL SAVING & STREAKS ---
 
   static Future<List<BadgeUnlockResult>> addMeal({
-  required CookedHistoryModel meal,
-  required List<BadgeModel> badges,
-  required List<CuisineModuleModel> cuisineModules,
-  required List<SkillModuleModel> skillModules,
-}) async {
-  // 1. Snapshot BEFORE state
-  final UserProfileModel oldProfile = currentProfile;
-  final Set<String> oldCompletedRecipeIds = Set<String>.from(completedRecipeIds);
+    required CookedHistoryModel meal,
+    required List<BadgeModel> badges,
+    required List<CuisineModuleModel> cuisineModules,
+    required List<SkillModuleModel> skillModules,
+  }) async {
+    // 1. Snapshot BEFORE state
+    final UserProfileModel oldProfile = currentProfile;
+    final Set<String> oldCompletedRecipeIds = Set<String>.from(completedRecipeIds);
 
-  final bool isNewRecipe = !oldCompletedRecipeIds.contains(meal.recipeId);
+    final bool isNewRecipe = !oldCompletedRecipeIds.contains(meal.recipeId);
 
-  // 2. Update local state
-  savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
-  _updateStreakAndMealStats(meal.recipeId, isNewRecipe: isNewRecipe);
+    // 2. Update local state
+    savedMealsNotifier.value = [...savedMealsNotifier.value, meal];
+    _updateStreakAndMealStats(meal.recipeId, isNewRecipe: isNewRecipe);
 
-  // 3. Snapshot AFTER state
-  final UserProfileModel newProfile = currentProfile;
-  final Set<String> newCompletedRecipeIds = completedRecipeIds;
+    // 3. Snapshot AFTER state
+    final UserProfileModel newProfile = currentProfile;
+    final Set<String> newCompletedRecipeIds = completedRecipeIds;
 
-  // 4. Run evaluation engine
-  final List<BadgeUnlockResult> newlyUnlockedBadges =
-      BadgeEvaluatorService.evaluateUnlocks(
-    badges: badges,
-    oldProfile: oldProfile,
-    newProfile: newProfile,
-    oldCompletedRecipeIds: oldCompletedRecipeIds,
-    newCompletedRecipeIds: newCompletedRecipeIds,
-    cuisineModules: cuisineModules,
-    skillModules: skillModules,
-  );
+    // 4. Run evaluation engine
+    final List<BadgeUnlockResult> newlyUnlockedBadges =
+        BadgeEvaluatorService.evaluateUnlocks(
+      badges: badges,
+      oldProfile: oldProfile,
+      newProfile: newProfile,
+      oldCompletedRecipeIds: oldCompletedRecipeIds,
+      newCompletedRecipeIds: newCompletedRecipeIds,
+      cuisineModules: cuisineModules,
+      skillModules: skillModules,
+    );
 
-  // 5. Sync state to Firestore in background
-  try {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid != null) {
-      await _db.collection('users').doc(uid).set({
-        ...currentProfile.toMap(),
-        'savedMeals': savedMeals.map((m) => m.toMap()).toList(),
-      }, SetOptions(merge: true));
+    // 5. Sync state to Firestore in background
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) {
+        await _db.collection('users').doc(uid).set({
+          ...currentProfile.toMap(),
+          'savedMeals': savedMeals.map((m) => m.toMap()).toList(),
+        }, SetOptions(merge: true));
+      }
+    } catch (e) {
+      debugPrint('Error saving cooked meal to Firestore: $e');
     }
-  } catch (e) {
-    debugPrint('Error saving cooked meal to Firestore: $e');
-  }
 
-  // 6. Return evaluation results
-  return newlyUnlockedBadges;
-}
+    // 6. Return evaluation results
+    return newlyUnlockedBadges;
+  }
 
   static void _updateStreakAndMealStats(String recipeId, {required bool isNewRecipe}) {
     final profile = currentProfile;
@@ -260,7 +301,7 @@ class HistoryService {
         newStreak += 1;
       } else if (differenceInDays > 1) {
         newStreak = 1;
-    }
+      }
     }
 
     final uniqueRecipesCount = completedRecipeIds.length;
@@ -294,8 +335,7 @@ class HistoryService {
     }
   }
 
-  
-  // --- 7. RECIPE STATUS HELPERS ---
+  // --- 8. RECIPE STATUS HELPERS ---
 
   static Set<String> get completedRecipeIds {
     return savedMeals.map((meal) => meal.recipeId).toSet();

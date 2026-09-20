@@ -37,7 +37,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
         cuisineModules: widget.cuisineModules,
       ),
       RecipeCatalogScreen(initialRecipes: widget.recipes),
-      ProfileScreen(profile: widget.userProfile),
+      ProfileScreen()
     ];
 
     return Scaffold(
