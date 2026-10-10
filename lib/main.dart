@@ -104,6 +104,7 @@ class _AuthenticatedAppLoaderState extends State<AuthenticatedAppLoader> {
           recipes: appData.recipes,
           skillModules: appData.skillModules,
           cuisineModules: appData.cuisineModules,
+          essentialsData: appData.essentialsData,
           badges: appData.badges,
           userProfile: HistoryService.currentProfile,
         );

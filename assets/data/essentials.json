@@ -1,0 +1,62 @@
+{
+  "title": "Starter Path & Foundations",
+  "description": "Master core kitchen techniques and build your confidence through easy, repeatable recipes designed for beginners.",
+  "coverImageUrl": "assets/images/essentials/starter_path.jpg",
+  "starterPath": [
+    {
+      "skillName": "Heat Control",
+      "recipeId": "rec_001",
+      "description": "Practice controlling temperature with an essential breakfast staple"
+    },
+    {
+      "skillName": "Knife Work",
+      "recipeId": "rec_023",
+      "description": "Learn proper knife techniques with this classic lunch."
+    }
+  ],
+  "mealFundamentals": [
+    {
+      "categoryName": "Essentials",
+      "description": "Best Breakfast Meals",
+      "imageUrl": "assets/images/essentials/breakfast.jpg",
+      "mealFundamentalCriteria": "Quick prep, high protein, minimal morning cleanup.",
+      "recipeIds": ["rec_001", "rec_003", "rec_021"],
+      "strategies": [
+        {
+          "title": "Extra Protein Boost",
+          "tip": "Swap water for milk or soy milk in oatmeal, or stir in a scoop of unflavored protein powder right after cooking."
+        },
+        {
+          "title": "Flash-Freeze Grab & Go",
+          "tip": "Freeze ripe bananas and berry blends in single-serve bags so you can blend them straight with milk for a fast morning smoothie."
+        }
+      ]
+    },
+    {
+      "categoryName": "Essentials",
+      "description": "Best Lunch Meals",
+      "imageUrl": "assets/images/essentials/lunch.jpg",
+      "mealFundamentalCriteria": "Portable, easy to scale, and great for meal prep.",
+      "recipeIds": ["rec_007", "rec_008", "rec_015"],
+      "strategies": [
+        {
+          "title": "Smart Carb Swaps",
+          "tip": "Use rolled oats or quinoa as a base when keeping refined carbs low—they absorb savory flavors easily and keep you full longer."
+        }
+      ]
+    },
+    {
+      "categoryName": "Essentials",
+      "description": "Best Dinner Meals",
+      "imageUrl": "assets/images/essentials/dinner.jpg",
+      "mealFundamentalCriteria": "Complete nutrition, under 25 minutes, minimal pots used.",
+      "recipeIds": ["rec_012", "rec_017", "rec_020"],
+      "strategies": [
+        {
+          "title": "Flavor & Acid Balancing",
+          "tip": "Finished a dish and it tastes flat? Add a splash of lemon juice or vinegar instead of more salt to instantly wake up the flavors."
+        }
+      ]
+    }
+  ]
+}

@@ -5,13 +5,17 @@ import '../constants/app_transitions.dart';
 import 'skill_module_detail_screen.dart';
 import 'cuisine_module_detail_screen.dart';
 import 'widgets/header_and_app_bar.dart';
+import 'starter_path_detail_screen.dart';
+import 'meal_fundamental_detail_screen.dart';
 
 class LearnScreen extends StatelessWidget {
+  final EssentialsTabModel essentialsData;
   final List<SkillModuleModel> skillModules;
   final List<CuisineModuleModel> cuisineModules;
 
   const LearnScreen({
     super.key,
+    required this.essentialsData,
     required this.skillModules,
     required this.cuisineModules,
   });
@@ -38,7 +42,7 @@ class LearnScreen extends StatelessWidget {
           .compareTo(_getDifficultyRank(b.difficultyLevel)));
 
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: AppColors.creamBackground,
         appBar: CustomAppBar(
@@ -64,15 +68,25 @@ class LearnScreen extends StatelessWidget {
                     AppColors.creamBackground.withValues(alpha: 0.8),
                 labelStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14,
+                  fontSize: 13,
                 ),
                 tabs: const [
                   Tab(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.school, size: 18),
-                        SizedBox(width: 8),
+                        Icon(Icons.star, size: 16),
+                        SizedBox(width: 4),
+                        Text('Essentials'),
+                      ],
+                    ),
+                  ),
+                  Tab(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.school, size: 16),
+                        SizedBox(width: 4),
                         Text('Skills'),
                       ],
                     ),
@@ -81,8 +95,8 @@ class LearnScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.restaurant, size: 18),
-                        SizedBox(width: 8),
+                        Icon(Icons.restaurant, size: 16),
+                        SizedBox(width: 4),
                         Text('Cuisines'),
                       ],
                     ),
@@ -95,9 +109,85 @@ class LearnScreen extends StatelessWidget {
         body: ValueListenableBuilder<List<CookedHistoryModel>>(
           valueListenable: HistoryService.savedMealsNotifier,
           builder: (context, savedMeals, child) {
+            // Extract all completed recipe IDs into a Set for fast lookup
+            final userCompletedRecipeIds =
+                savedMeals.map((m) => m.recipeId).toSet();
+
             return TabBarView(
               children: [
-                // TAB 1: SKILLS
+                // =============================================================
+                // TAB 1: ESSENTIALS
+                // =============================================================
+                ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: InfoBannerBox(
+                        icon: Icons.star_outline,
+                        title: "Essential Recipes",
+                        description:
+                            "Learn essential recipes that are healthy, nutritious, and time-effective. For cooking novices, look through the Starter Path to get exposure to various fundamental cooking-skills.",
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // --- STARTER PATH SECTION ---
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: StarterPathCard(
+                        essentialsData: essentialsData,
+                        userCompletedRecipeIds: userCompletedRecipeIds,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Divider(
+                              color: AppColors.oliveSecondary,
+                              thickness: 1,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Text(
+                              "MEAL FUNDAMENTALS",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.oliveSecondary.withValues(alpha: 0.7),
+                                letterSpacing: 1.2,
+                              ),
+                            ),
+                          ),
+                          const Expanded(
+                            child: Divider(
+                              color: AppColors.oliveSecondary,
+                              thickness: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+
+                    // --- MEAL FUNDAMENTALS CARDS (Breakfast, Lunch, Dinner) ---
+                    ...essentialsData.mealFundamentals.map((mealModel) {
+                      return MealFundamentalCard(
+                        mealModel: mealModel,
+                        userCompletedRecipeIds: userCompletedRecipeIds,
+                      );
+                    }),
+                  ],
+                ),
+
+                // =============================================================
+                // TAB 2: SKILLS
+                // =============================================================
                 ListView(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   children: [
@@ -129,7 +219,9 @@ class LearnScreen extends StatelessWidget {
                   ],
                 ),
 
-                // TAB 2: CUISINES
+                // =============================================================
+                // TAB 3: CUISINES
+                // =============================================================
                 ListView(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   children: [
@@ -152,6 +244,311 @@ class LearnScreen extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+// =============================================================================
+// STARTER PATH CARD
+// =============================================================================
+class StarterPathCard extends StatelessWidget {
+  final EssentialsTabModel essentialsData;
+  final Set<String> userCompletedRecipeIds;
+
+  const StarterPathCard({
+    super.key,
+    required this.essentialsData,
+    required this.userCompletedRecipeIds,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final int completedCount =
+        essentialsData.getCompletedStarterCount(userCompletedRecipeIds);
+    final int totalCount = essentialsData.totalStarterRecipes;
+    final double progress =
+        essentialsData.getStarterCompletionPercentage(userCompletedRecipeIds);
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      elevation: 3,
+      color: AppColors.creamBackground,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: AppColors.oliveSecondary.withValues(alpha: 0.2),
+          width: 1,
+        ),
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              StandardDetailRoute(
+                page: StarterPathDetailScreen(essentialsData: essentialsData),
+              ),
+            );
+        },
+        child: Stack(
+          children: [
+            Image.asset(
+              essentialsData.coverImageUrl,
+              height: 180,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  _buildPlaceholder(),
+            ),
+            Container(
+              height: 180,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.75),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 16,
+              left: 16,
+              right: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.terracottaAccent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Text(
+                          'LEARN',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      const Icon(
+                        Icons.auto_awesome,
+                        color: AppColors.terracottaAccent,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Ultimate Starter Path",
+                    style: const TextStyle(
+                      color: AppColors.creamBackground,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '$completedCount / $totalCount Completed',
+                    style: TextStyle(
+                      color: AppColors.creamBackground.withValues(alpha: 0.85),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      backgroundColor: Colors.white24,
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        AppColors.terracottaAccent,
+                      ),
+                      minHeight: 6,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceholder() {
+    return Container(
+      height: 180,
+      width: double.infinity,
+      color: AppColors.oliveSecondary.withValues(alpha: 0.15),
+      child: const Icon(
+        Icons.school,
+        size: 40,
+        color: AppColors.oliveSecondary,
+      ),
+    );
+  }
+}
+
+// =============================================================================
+// MEAL FUNDAMENTAL CARD (Breakfast, Lunch, Dinner)
+// =============================================================================
+class MealFundamentalCard extends StatelessWidget {
+  final MealFundamentalModel mealModel;
+  final Set<String> userCompletedRecipeIds;
+
+  const MealFundamentalCard({
+    super.key,
+    required this.mealModel,
+    required this.userCompletedRecipeIds,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final int completedCount = mealModel.getCompletedCount(userCompletedRecipeIds);
+    final int totalCount = mealModel.recipes.length;
+    final double progress = mealModel.getCompletionPercentage(userCompletedRecipeIds);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 3,
+        color: AppColors.creamBackground,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            color: AppColors.oliveSecondary.withValues(alpha: 0.2),
+            width: 1,
+          ),
+        ),
+        child: InkWell(
+          onTap: () {
+             Navigator.push(
+              context,
+              StandardDetailRoute(
+                page: MealFundamentalDetailScreen(fundamental: mealModel),
+              ),
+            );
+          },
+          child: Stack(
+            children: [
+              Image.asset(
+                mealModel.imageUrl,
+                height: 180,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    _buildPlaceholder(),
+              ),
+              Container(
+                height: 180,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: 0.75),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 16,
+                left: 16,
+                right: 16,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.terracottaAccent,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            mealModel.categoryName.toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        const Icon(
+                          Icons.restaurant_menu,
+                          color: AppColors.terracottaAccent,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      mealModel.description,
+                      style: const TextStyle(
+                        color: AppColors.creamBackground,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '$completedCount / $totalCount Completed',
+                      style: TextStyle(
+                        color: AppColors.creamBackground.withValues(alpha: 0.85),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: Colors.white24,
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          AppColors.terracottaAccent,
+                        ),
+                        minHeight: 6,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceholder() {
+    return Container(
+      height: 180,
+      width: double.infinity,
+      color: AppColors.oliveSecondary.withValues(alpha: 0.15),
+      child: const Icon(
+        Icons.restaurant,
+        size: 40,
+        color: AppColors.oliveSecondary,
       ),
     );
   }
@@ -230,7 +627,6 @@ class SkillModuleCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Badge Row positioned above the title on the left
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

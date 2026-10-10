@@ -84,9 +84,11 @@ flutter:
     - assets/images/skills/
     - assets/images/cuisines/
     - assets/images/badges/
+    - assets/images/essentials/
     - assets/data/recipes.json
     - assets/data/skills.json
     - assets/data/cuisines.json
+    - assets/data/essentials.json
     - assets/data/badges.json
     
 
