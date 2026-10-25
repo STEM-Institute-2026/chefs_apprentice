@@ -1,0 +1,77 @@
+{
+  "title": "Starter Path & Foundations",
+  "description": "Master core kitchen techniques and build your confidence through easy, repeatable recipes designed for beginners.",
+  "coverImageUrl": "assets/images/essentials/starter_path.jpg",
+  "starterPath": [
+    {
+      "skillName": "Mixing & Whisking",
+      "recipeId": "rec_033",
+      "description": "Master mixing and whisking with an essential breakfast staple."
+    },
+    {
+      "skillName": "Boiling and Simmering",
+      "recipeId": "rec_046",
+      "description": "Learn the art of boiling and simmering with this savory, flavorful dinner meal."
+    },
+    {
+      "skillName": "Heat Control",
+      "recipeId": "rec_047",
+      "description": "Practice controlling temperature with a high-performance lunch delight."
+    },
+    {
+      "skillName": "Knife Work",
+      "recipeId": "rec_003",
+      "description": "Learn proper knife techniques with this healthy, high-protein and delicious dinner recipe."
+    },
+    {
+      "skillName": "Oven Roasting & Baking",
+      "recipeId": "rec_048",
+      "description": "Learn the fundamentals of oven roasting and baking with this balanced, extremely healthy dinner meal."
+    }
+  ],
+  "mealFundamentals": [
+    {
+      "categoryName": "Essentials",
+      "description": "Best Breakfast Meals",
+      "imageUrl": "assets/images/essentials/breakfast.jpg",
+      "mealFundamentalCriteria": "Quick prep, high protein, minimal morning cleanup.",
+      "recipeIds": ["rec_013", "rec_021", "rec_032", "rec_033"],
+      "strategies": [
+        {
+          "title": "Extra Protein Boost",
+          "tip": "Swap water for milk or soy milk in oatmeal, or stir in a scoop of unflavored protein powder right after cooking."
+        },
+        {
+          "title": "Flash-Freeze Grab & Go",
+          "tip": "Freeze ripe bananas and berry blends in single-serve bags so you can blend them straight with milk for a fast morning smoothie."
+        }
+      ]
+    },
+    {
+      "categoryName": "Essentials",
+      "description": "Best Lunch Meals",
+      "imageUrl": "assets/images/essentials/lunch.jpg",
+      "mealFundamentalCriteria": "Portable, easy to scale, and great for meal prep.",
+      "recipeIds": ["rec_016","rec_034", "rec_035", "rec_036"],
+      "strategies": [
+        {
+          "title": "Smart Carb Swaps",
+          "tip": "Use rolled oats or quinoa as a base when keeping refined carbs low—they absorb savory flavors easily and keep you full longer."
+        }
+      ]
+    },
+    {
+      "categoryName": "Essentials",
+      "description": "Best Dinner Meals",
+      "imageUrl": "assets/images/essentials/dinner.jpg",
+      "mealFundamentalCriteria": "Complete nutrition, under 25 minutes, minimal pots used.",
+      "recipeIds": ["rec_003", "rec_037","rec_038", "rec_039"],
+      "strategies": [
+        {
+          "title": "Flavor & Acid Balancing",
+          "tip": "Finished a dish and it tastes flat? Add a splash of lemon juice or vinegar instead of more salt to instantly wake up the flavors."
+        }
+      ]
+    }
+  ]
+}

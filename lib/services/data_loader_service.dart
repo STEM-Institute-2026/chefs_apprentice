@@ -7,12 +7,14 @@ class AppData {
   final List<SkillModuleModel> skillModules;
   final List<CuisineModuleModel> cuisineModules;
   final List<BadgeModel> badges;
+  final EssentialsTabModel essentialsData; // Added Essentials data model
 
   AppData({
     required this.recipes,
     required this.skillModules,
     required this.cuisineModules,
     required this.badges,
+    required this.essentialsData,
   });
 }
 
@@ -72,12 +74,24 @@ class DataLoaderService {
         .map((map) => BadgeModel.fromMap(map as Map<String, dynamic>))
         .toList();
 
-    // 3. Store the parsed result in the cache before returning
+    // 5. Load essentials JSON
+    final String essentialsString =
+        await rootBundle.loadString('assets/data/essentials.json');
+    final Map<String, dynamic> essentialsJson = jsonDecode(essentialsString);
+
+    // Parse into EssentialsTabModel object
+    final EssentialsTabModel essentialsData = EssentialsTabModel.fromMap(
+      essentialsJson,
+      recipes,
+    );
+
+    // 6. Store the parsed result in the cache before returning
     _cachedData = AppData(
       recipes: recipes,
       skillModules: skillModules,
       cuisineModules: cuisineModules,
       badges: badges,
+      essentialsData: essentialsData,
     );
 
     return _cachedData!;

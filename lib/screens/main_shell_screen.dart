@@ -9,6 +9,7 @@ class MainShellScreen extends StatefulWidget {
   final List<RecipeModel> recipes;
   final List<SkillModuleModel> skillModules;
   final List<CuisineModuleModel> cuisineModules;
+  final EssentialsTabModel essentialsData;
   final UserProfileModel userProfile;
   final List<BadgeModel> badges;
 
@@ -17,6 +18,7 @@ class MainShellScreen extends StatefulWidget {
     required this.recipes,
     required this.skillModules,
     required this.cuisineModules,
+    required this.essentialsData,
     required this.userProfile,
     required this.badges,
   });
@@ -31,13 +33,21 @@ class _MainShellScreenState extends State<MainShellScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> screens = [
-      HomeScreen(recipes: widget.recipes),
+      HomeScreen(
+        recipes: widget.recipes,
+        onOpenCatalog: () {
+          setState(() {
+            _selectedIndex = 2;
+          });
+        },
+      ),
       LearnScreen(
+        essentialsData: widget.essentialsData,
         skillModules: widget.skillModules,
         cuisineModules: widget.cuisineModules,
       ),
       RecipeCatalogScreen(initialRecipes: widget.recipes),
-      ProfileScreen(profile: widget.userProfile),
+      ProfileScreen()
     ];
 
     return Scaffold(

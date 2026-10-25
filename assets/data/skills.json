@@ -9,89 +9,291 @@
       {
         "id": "skill_knife_safety",
         "name": "Knife Safety & Control",
-        "shortDescription": "Master the claw grip and essential knife handling to chop safely. Good knife skills save prep time and prevent kitchen accidents.",
+        "shortDescription": "Learn safe knife handling, a stable grip, and basic cuts to prepare ingredients efficiently and reduce the risk of accidents.",
         "icon": "flatware",
         "videoUrl": "assets/videos/skill_knife_cutting.mp4",
         "coreSteps": [
           {
             "title": "Claw Grip",
-            "description": "Curl fingertips inward to protect fingers while steadying food.",
+            "description": "Curl your fingertips inward and use your knuckles to guide the side of the blade while holding food steady.",
             "imagePath": "assets/images/knife_skills/claw_grip.webp"
           },
           {
             "title": "Pinch Grip",
-            "description": "Pinch the base of the blade with thumb and index finger for maximum control.",
+            "description": "Pinch the blade near the handle with your thumb and index finger, then wrap your remaining fingers around the handle for control.",
             "imagePath": "assets/images/knife_skills/pinch_grip.jpg"
           },
           {
-            "title": "Rocking Motion",
-            "description": "Keep the knife tip down and rock the blade smoothly forward and down."
+            "title": "Controlled Cuts",
+            "description": "Use slow, deliberate cuts and keep the cutting board stable. Choose a chopping motion or a gentle rocking motion that suits the ingredient and knife.",
+            "imagePath": ""
           }
         ],
         "keyTypesOrCuts": [
-          "Rough Chop: Large, casual cuts for stocks or stews.",
-          "Dice: Even, square cubes for onions and peppers.",
-          "Mince: Fine, tiny pieces for garlic and ginger."
+          "Rough Chop: Larger, irregular pieces for dishes where uniformity is less important.",
+          "Dice: Small, similarly sized cubes that cook at a more even rate.",
+          "Mince: Very small pieces, commonly used for garlic, ginger, and herbs.",
+          "Slice: Thin, even pieces of vegetables, fruit, or other ingredients."
         ],
         "safetyOrProTips": [
-          "Place a damp paper towel under your cutting board so it doesn’t slide.",
-          "Keep your knife sharp—dull knives slip much more easily."
+          "Place a damp towel beneath the cutting board to help prevent it from sliding.",
+          "Keep fingertips curled away from the blade and cut slowly until your technique feels comfortable.",
+          "A sharp, well-maintained knife is generally safer than a dull knife because it requires less force."
         ],
-        "whereItsUsed": "Virtually every recipe requiring vegetables, herbs, or meats."
+        "whereItsUsed": "Most recipes that require preparing vegetables, fruit, herbs, or other ingredients."
       }
     ],
     "tier1RecipeIds": [
-      "rec_001"
+      "rec_004",
+      "rec_023"
     ],
     "tier2RecipeIds": [
-      "rec_002"
+      "rec_057",
+      "rec_060"
     ],
-    "tier3RecipeIds": []
+    "tier3RecipeIds": [
+      "rec_059",
+      "rec_063"
+    ]
   },
   {
     "id": "module_heat_control",
     "title": "Heat & Pan Control",
-    "description": "Learn how to sear, sauté, and manage pan temperatures like a pro.",
-    "coverImageUrl": "assets/images/skills/heat_and_pan_control.webp",
-    "difficultyLevel": "Intermediate",
+    "description": "Learn to manage stovetop heat and use a pan to sauté, sear, and cook ingredients evenly without burning them.",
+    "coverImageUrl": "assets/images/skills/heat_and_pan_control.jpg",
+    "difficultyLevel": "Beginner",
     "skills": [
       {
-        "id": "skill_boiling",
-        "name": "Boiling & Simmering Control",
-        "shortDescription": "Understand water heat levels for pasta, eggs, and stock control. Proper liquid temperatures prevent overcooking and preserve texture.",
-        "icon": "soup_kitchen",
-        "videoUrl": "assets/videos/boiling.mp4",
+        "id": "skill_heat_pan_control",
+        "name": "Stovetop Heat & Pan Techniques",
+        "shortDescription": "Learn how to preheat a pan, choose an appropriate heat level, and control cooking so ingredients brown evenly instead of burning or steaming.",
+        "icon": "cooking",
+        "videoUrl": "assets/videos/skill_heat_and_pan.mp4",
         "coreSteps": [
           {
-            "title": "Rolling Boil",
-            "description": "Wait until large, vigorous bubbles break rapidly on the surface.",
+            "title": "Preheat the Pan",
+            "description": "Warm the pan over an appropriate heat before adding ingredients. Add oil when suitable for the recipe, and avoid letting an empty pan overheat.",
             "imagePath": ""
           },
           {
-            "title": "Simmer",
-            "description": "Drop heat to medium-low so small, slow bubbles rise gently.",
+            "title": "Choose the Right Heat",
+            "description": "Use low heat for gentle cooking, medium heat for many everyday sautéing tasks, and higher heat when a recipe calls for a quick sear. Adjust as the food cooks.",
             "imagePath": ""
           },
           {
-            "title": "Salting",
-            "description": "Salt boiling water generously until it tastes lightly like seawater."
+            "title": "Avoid Crowding the Pan",
+            "description": "Leave space between ingredients so moisture can escape and the food can brown. Cook in batches if necessary."
+          },
+          {
+            "title": "Sauté and Sear",
+            "description": "Sauté smaller pieces with a little oil, moving or tossing them as needed. For searing, let the food make contact with the hot pan long enough to develop browning before turning."
           }
         ],
         "keyTypesOrCuts": [
-          "Rolling Boil: Best for pasta and blanching green veggies.",
-          "Gentle Simmer: Best for soups, stews, and delicate poached eggs."
+          "Sautéing: Cooking ingredients relatively quickly with a small amount of fat.",
+          "Searing: Browning the surface of food using sufficiently high heat.",
+          "Pan-Frying: Cooking food in a shallow layer of oil, turning as needed."
         ],
         "safetyOrProTips": [
-          "Cover the pot with a lid to bring water to a boil much faster.",
-          "Never drop pasta into cold water; wait for a full boil."
+          "Keep pan handles turned inward so they are less likely to be bumped.",
+          "Food added to a pan can cause oil to splatter, especially when wet; pat ingredients dry when appropriate.",
+          "Lower the heat if oil smokes or ingredients brown too quickly."
         ],
-        "whereItsUsed": "Pasta, soups, boiled eggs, and stocks."
+        "whereItsUsed": "Stir-fries, eggs, sautéed vegetables, skillet meals, and many stovetop proteins."
       }
     ],
     "tier1RecipeIds": [
-      "rec_003"
+      "rec_013",
+      "rec_033"
     ],
-    "tier2RecipeIds": [],
-    "tier3RecipeIds": []
+    "tier2RecipeIds": [
+      "rec_003",
+      "rec_014"
+    ],
+    "tier3RecipeIds": [
+      "rec_054",
+      "rec_059"
+    ]
+  },
+  {
+    "id": "module_boiling_simmering",
+    "title": "Boiling & Simmering",
+    "description": "Learn to control bubbling liquid to cook pasta, grains, eggs, and soups with the right texture.",
+    "coverImageUrl": "assets/images/skills/boiling_and_simmering.webp",
+    "difficultyLevel": "Beginner",
+    "skills": [
+      {
+        "id": "skill_boiling_simmering",
+        "name": "Boiling & Simmering Control",
+        "shortDescription": "Recognize the difference between a rolling boil and a gentle simmer, and choose the right liquid temperature for the food you're cooking.",
+        "icon": "soup_kitchen",
+        "videoUrl": "assets/videos/skill_boiling_and_simmering.mp4",
+        "coreSteps": [
+          {
+            "title": "Bring Liquid to a Boil",
+            "description": "Heat water or another cooking liquid until bubbles rise actively across the surface. Use a lid to help it heat faster, keeping an eye on the pot.",
+            "imagePath": ""
+          },
+          {
+            "title": "Adjust to a Simmer",
+            "description": "Reduce the heat until small, gentle bubbles appear occasionally or steadily, depending on the recipe.",
+            "imagePath": ""
+          },
+          {
+            "title": "Add Food at the Right Time",
+            "description": "Follow the recipe's instructions about when to add pasta, eggs, grains, or other ingredients; different foods start in hot or cold liquid.",
+            "imagePath": ""
+          },
+          {
+            "title": "Check Texture and Timing",
+            "description": "Stir when needed and begin checking the food near the recipe's suggested cooking time. Drain or remove it once it reaches the desired texture."
+          }
+        ],
+        "keyTypesOrCuts": [
+          "Rolling Boil: Vigorous bubbling, often used for pasta and blanching vegetables.",
+          "Gentle Simmer: Small, controlled bubbles, often used for soups, stews, and gentle poaching.",
+          "Blanching: Briefly boiling food, often followed by cooling it quickly to help preserve texture and color."
+        ],
+        "safetyOrProTips": [
+          "Use a pot large enough to reduce the chance of liquid boiling over.",
+          "Lower the heat once a steady boil is reached if the recipe does not require vigorous boiling.",
+          "Lift pot lids carefully and angle them away from your face to avoid steam burns."
+        ],
+        "whereItsUsed": "Pasta, rice and other grains, boiled eggs, soups, stews, and blanched vegetables."
+      }
+    ],
+    "tier1RecipeIds": [
+      "rec_002",
+      "rec_026"
+    ],
+    "tier2RecipeIds": [
+      "rec_046",
+      "rec_064"
+    ],
+    "tier3RecipeIds": [
+      "rec_065",
+      "rec_067"
+    ]
+  },
+  {
+    "id": "module_mixing_whisking",
+    "title": "Mixing & Whisking",
+    "description": "Build confidence combining ingredients smoothly and evenly with spoons, forks, whisks, and bowls.",
+    "coverImageUrl": "assets/images/skills/mixing_and_whisking.webp",
+    "difficultyLevel": "Beginner",
+    "skills": [
+      {
+        "id": "skill_mixing_whisking",
+        "name": "Mixing, Whisking & Combining",
+        "shortDescription": "Learn how to combine ingredients evenly, break up lumps, and whisk mixtures to the consistency a recipe needs.",
+        "icon": "blender",
+        "videoUrl": "assets/videos/skill_mixing_and_whisking.mp4",
+        "coreSteps": [
+          {
+            "title": "Choose the Right Tool",
+            "description": "Use a fork or whisk for eggs and thin mixtures, a spoon or spatula for folding and stirring, and a larger bowl when ingredients need room to move.",
+            "imagePath": ""
+          },
+          {
+            "title": "Whisk Until Combined",
+            "description": "Move the whisk through the mixture in quick circular or back-and-forth strokes, scraping the sides of the bowl when needed to incorporate everything evenly.",
+            "imagePath": ""
+          },
+          {
+            "title": "Mix Without Overdoing It",
+            "description": "Mix until ingredients are combined unless the recipe calls for a specific texture. For batters, overmixing can make some baked goods tough.",
+            "imagePath": ""
+          },
+          {
+            "title": "Fold Delicate Ingredients",
+            "description": "Use a spatula to gently lift and turn ingredients when you want to combine them without deflating a light mixture or breaking delicate pieces."
+          }
+        ],
+        "keyTypesOrCuts": [
+          "Stirring: Moving ingredients together with a spoon or spatula.",
+          "Whisking: Beating a mixture to combine ingredients and, when appropriate, incorporate air.",
+          "Folding: Gently turning ingredients together to preserve a light or delicate texture.",
+          "Mashing: Pressing soft foods, such as cooked potatoes or bananas, into a smoother mixture."
+        ],
+        "safetyOrProTips": [
+          "Use a bowl with enough space to prevent splashes and spills.",
+          "Crack eggs into a separate small bowl first when you want to check for shell fragments before adding them to a larger mixture.",
+          "Scrape the bowl's sides and bottom so dry or unmixed ingredients are not left behind."
+        ],
+        "whereItsUsed": "Scrambled eggs, oatmeal, batters, dressings, marinades, dips, and many baking recipes."
+      }
+    ],
+    "tier1RecipeIds": [
+      "rec_025",
+      "rec_033"
+    ],
+    "tier2RecipeIds": [
+      "rec_017",
+      "rec_030"
+    ],
+    "tier3RecipeIds": [
+      "rec_071",
+      "rec_073"
+    ]
+  },
+  {
+    "id": "module_oven_roasting_baking",
+    "title": "Oven Roasting & Baking",
+    "description": "Learn the basics of oven cooking, from preparing a tray to roasting ingredients evenly.",
+    "coverImageUrl": "assets/images/skills/oven_roasting_and_baking.jpg",
+    "difficultyLevel": "Beginner",
+    "skills": [
+      {
+        "id": "skill_oven_roasting_baking",
+        "name": "Oven Roasting & Baking Basics",
+        "shortDescription": "Learn how to prepare ingredients for the oven, use the correct temperature and rack position, and recognize when food is ready.",
+        "icon": "oven",
+        "videoUrl": "assets/videos/skill_oven_roasting_and_baking.mp4",
+        "coreSteps": [
+          {
+            "title": "Preheat the Oven",
+            "description": "Set the oven to the recipe's stated temperature and allow it to preheat before putting the food in, unless the recipe says otherwise.",
+            "imagePath": ""
+          },
+          {
+            "title": "Prepare the Tray or Dish",
+            "description": "Use the pan or baking dish specified by the recipe. Line or lightly oil it when appropriate, and arrange ingredients so heat can circulate.",
+            "imagePath": ""
+          },
+          {
+            "title": "Arrange Food Evenly",
+            "description": "Cut ingredients into similar sizes and spread them in a single layer when roasting. Crowding a tray can trap moisture and reduce browning.",
+            "imagePath": ""
+          },
+          {
+            "title": "Check Progress Safely",
+            "description": "Use the recipe's timing as a guide, check food as it cooks, and rotate the tray if needed for more even results. Use oven mitts when handling hot cookware."
+          }
+        ],
+        "keyTypesOrCuts": [
+          "Roasting: Cooking foods, often vegetables or proteins, in the oven to develop browning and flavor.",
+          "Baking: Cooking foods such as casseroles, breads, and baked dishes using oven heat.",
+          "Sheet-Pan Cooking: Preparing ingredients together on a tray, often for a convenient one-pan meal."
+        ],
+        "safetyOrProTips": [
+          "Use dry oven mitts and keep hands and forearms clear of hot oven surfaces.",
+          "Avoid overcrowding the tray when browning is important.",
+          "For meat, poultry, and fish, follow reliable food-safety guidance rather than relying on color alone to determine doneness."
+        ],
+        "whereItsUsed": "Roasted vegetables and potatoes, baked fish or chicken, casseroles, and sheet-pan meals."
+      }
+    ],
+    "tier1RecipeIds": [
+      "rec_024",
+      "rec_029"
+    ],
+    "tier2RecipeIds": [
+      "rec_006",
+      "rec_038"
+    ],
+    "tier3RecipeIds": [
+      "rec_001",
+      "rec_055"
+    ]
   }
 ]

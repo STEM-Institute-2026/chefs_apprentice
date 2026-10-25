@@ -84,7 +84,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
 
                 final generalBadges = _appData!.badges
                     .where((b) =>
-                        b.category == 'milestone' || b.category == 'streak')
+                        b.category == 'milestone' || b.category == 'streak' || b.category == 'level')
                     .toList();
                 final skillBadges = _appData!.badges
                     .where((b) => b.category == 'skill')

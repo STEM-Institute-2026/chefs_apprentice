@@ -25,11 +25,17 @@
       "Deglazing with wine or broth"
     ],
     "tier1RecipeIds": [
-      "rec_004",
-      "rec_005"
+      "rec_002",
+      "rec_039"
     ],
-    "tier2RecipeIds": [],
-    "tier3RecipeIds": []
+    "tier2RecipeIds": [
+      "rec_006",
+      "rec_007"
+    ],
+    "tier3RecipeIds": [
+      "rec_054",
+      "rec_055"
+    ]
   },
   {
     "id": "cuisine_mexican",
@@ -57,11 +63,161 @@
       "Citrus Acid Marinating"
     ],
     "tier1RecipeIds": [
-      "rec_006"
+      "rec_004",
+      "rec_005"
     ],
     "tier2RecipeIds": [
-      "rec_007"
+      "rec_060",
+      "rec_062"
     ],
-    "tier3RecipeIds": []
+    "tier3RecipeIds": [
+      "rec_061",
+      "rec_063"
+    ]
+  },
+  {
+    "id": "cuisine_chinese",
+    "title": "Chinese Cuisine Fundamentals",
+    "description": "Master the art of balancing savory, sweet, sour, and spicy flavors through wok cooking, aromatic ingredients, and essential sauce combinations.",
+    "coverImageUrl": "assets/images/cuisines/chinese_cuisine.jpg",
+    "flavorProfileOverview": "Built on layered aromatics, contrasting textures, and balanced seasoning. Emphasizes soy sauce, ginger, garlic, scallions, rice vinegar, sesame oil, and fermented ingredients. Regional traditions range from the bold heat of Sichuan cuisine to the delicate flavors of Cantonese cooking.",
+    "essentialPantry": [
+      {
+        "name": "Light & Dark Soy Sauce",
+        "description": "Light soy sauce adds saltiness and umami, while dark soy sauce contributes deeper color and a richer, slightly sweeter flavor to braises and stir-fries."
+      },
+      {
+        "name": "Shaoxing Cooking Wine",
+        "description": "A traditional Chinese rice wine used in marinades, stir-fries, and braises to add aroma and complexity while balancing meat and seafood flavors."
+      },
+      {
+        "name": "Chinkiang Black Vinegar",
+        "description": "A dark, malty Chinese vinegar that adds acidity and depth to dipping sauces, noodle dishes, dumpling sauces, and braised preparations."
+      },
+      {
+        "name": "Sesame Oil",
+        "description": "A fragrant finishing oil used to enhance the aroma of noodles, soups, marinades, and dipping sauces."
+      },
+      {
+        "name": "Dried Sichuan Peppercorns",
+        "description": "Provide the characteristic citrusy aroma and tingling, numbing sensation associated with Sichuan dishes."
+      }
+    ],
+    "keyTechniques": [
+      "Wok Hei: High-Heat Stir-Frying",
+      "Velveting Meat with Marinades and Starch",
+      "Aromatic Base Building with Ginger, Garlic, and Scallions",
+      "Cornstarch Slurry Thickening",
+      "Braising with Soy Sauce and Aromatics"
+    ],
+    "tier1RecipeIds": [
+      "rec_045",
+      "rec_056"
+    ],
+    "tier2RecipeIds": [
+      "rec_003",
+      "rec_058"
+    ],
+    "tier3RecipeIds": [
+      "rec_044",
+      "rec_059"
+    ]
+  },
+  {
+    "id": "cuisine_indian",
+    "title": "Indian Cuisine & Spice Mastery",
+    "description": "Discover how to build deep, layered flavors through spice tempering, aromatic bases, slow-simmered curries, and traditional cooking techniques.",
+    "coverImageUrl": "assets/images/cuisines/indian_cuisine.jpg",
+    "flavorProfileOverview": "Characterized by complex spice combinations, aromatic ingredients, and a balance of heat, acidity, richness, and fragrance. Common ingredients include cumin, coriander, turmeric, ginger, garlic, chilies, and garam masala. Regional cuisines vary widely, from coconut-rich South Indian curries to creamy North Indian gravies and tangy Gujarati dishes.",
+    "essentialPantry": [
+      {
+        "name": "Cumin Seeds",
+        "description": "Earthy, warm seeds that can be toasted or tempered in hot oil to release their aroma and establish a flavorful foundation for dals, curries, and vegetable dishes."
+      },
+      {
+        "name": "Ground Coriander",
+        "description": "A mildly citrusy, earthy spice that adds body and balance to curry bases, marinades, lentil dishes, and vegetable preparations."
+      },
+      {
+        "name": "Turmeric",
+        "description": "An earthy, slightly bitter spice that contributes golden color and subtle flavor to dals, rice dishes, curries, and marinades."
+      },
+      {
+        "name": "Garam Masala",
+        "description": "A variable blend of warming spices, often including cardamom, cinnamon, cloves, cumin, and coriander, used to add fragrance and complexity, frequently near the end of cooking."
+      },
+      {
+        "name": "Ghee",
+        "description": "Clarified butter with a rich, nutty aroma, used for sautéing aromatics, tempering whole spices, cooking flatbreads, and finishing rice or curry dishes."
+      }
+    ],
+    "keyTechniques": [
+      "Tadka: Tempering Whole Spices in Hot Fat",
+      "Building Curry Bases with Onions, Ginger, and Garlic",
+      "Blooming Ground Spices to Release Aromas",
+      "Slow-Simmering Curries and Legumes",
+      "Cooking Basmati Rice for Separate, Fluffy Grains"
+    ],
+    "tier1RecipeIds": [
+      "rec_041",
+      "rec_064"
+    ],
+    "tier2RecipeIds": [
+      "rec_042",
+      "rec_065"
+    ],
+    "tier3RecipeIds": [
+      "rec_066",
+      "rec_067"
+    ]
+  },
+  {
+    "id": "cuisine_american",
+    "title": "American Comfort Food & Grilling",
+    "description": "Learn the fundamentals of classic American cooking, from crispy fried foods and juicy burgers to smoky barbecue, hearty sides, and homemade sauces.",
+    "coverImageUrl": "assets/images/cuisines/american_cuisine.jpg",
+    "flavorProfileOverview": "A diverse culinary tradition shaped by regional ingredients and influences from Indigenous, African American, European, Latin American, and other immigrant cuisines. Common flavor profiles include smoky, savory, sweet, tangy, and buttery. Techniques range from high-heat grilling and deep-frying to low-and-slow barbecue, baking, and hearty one-pot cooking.",
+    "essentialPantry": [
+      {
+        "name": "Kosher Salt",
+        "description": "A versatile seasoning used to enhance flavor, season meat evenly, and support techniques such as dry-brining before roasting or grilling."
+      },
+      {
+        "name": "Smoked Paprika",
+        "description": "Adds a warm, smoky flavor and red color to barbecue rubs, roasted vegetables, burgers, and spice blends."
+      },
+      {
+        "name": "Apple Cider Vinegar",
+        "description": "Provides bright acidity for barbecue sauces, coleslaw dressings, marinades, and pan sauces, balancing rich and sweet flavors."
+      },
+      {
+        "name": "Dijon Mustard",
+        "description": "A tangy, sharp condiment used in sandwich spreads, vinaigrettes, marinades, and sauces. It can also help emulsify oil-based dressings."
+      },
+      {
+        "name": "Brown Sugar",
+        "description": "Adds molasses-rich sweetness to barbecue sauces, dry rubs, baked goods, and glazes, helping develop color during cooking."
+      }
+    ],
+    "keyTechniques": [
+      "High-Heat Grilling and Searing",
+      "Dry-Brining Meat for Improved Seasoning and Juiciness",
+      "Low-and-Slow Barbecue Smoking and Braising",
+      "Deep-Frying with Temperature Control",
+      "Building Pan Sauces from Fond and Deglazing",
+      "Balancing Sweet, Tangy, Smoky, and Savory Flavors"
+    ],
+    "tier1RecipeIds": [
+      "rec_046",
+      "rec_049"
+    ],
+    "tier2RecipeIds": [
+      "rec_030",
+      "rec_050"
+    ],
+    "tier3RecipeIds": [
+      "rec_001",
+      "rec_051"
+    ]
   }
 ]

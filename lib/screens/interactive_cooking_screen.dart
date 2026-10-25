@@ -26,6 +26,7 @@ class _InteractiveCookingScreenState extends State<InteractiveCookingScreen> {
         children: [
           // ---------------- TOP HALF (CREAM - 50%) ----------------
           Expanded(
+            flex: 6,
             child: Container(
               color: AppColors.creamBackground,
               width: double.infinity,
@@ -178,6 +179,7 @@ class _InteractiveCookingScreenState extends State<InteractiveCookingScreen> {
 
           // ---------------- BOTTOM HALF (OLIVE - 50%) ----------------
           Expanded(
+            flex: 4,
             child: GestureDetector(
               onTap: () {
                 setState(() {

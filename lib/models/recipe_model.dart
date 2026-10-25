@@ -16,6 +16,7 @@ class RecipeModel {
   final String cuisine;             // e.g. "Italian", "Mexican", "American"
   final List<String> dietary;       // e.g. ["Vegetarian", "Vegan", "Gluten-Free"]
   final List<String> tags;          // General keywords like ["Quick", "Budget", "Spicy"]
+  final List<String> allergens;
 
   final Map<String, String> ingredients;
   final double estimatedCost;
@@ -38,6 +39,7 @@ class RecipeModel {
     this.cuisine = '',               
     this.dietary = const [],          
     this.tags = const [],             
+    this.allergens = const [],
     required this.ingredients,
     required this.estimatedCost,
     required this.costPerServing,
@@ -64,7 +66,8 @@ class RecipeModel {
       // Safely casting arrays
       dietary: List<String>.from(map['dietary'] ?? []),
       tags: List<String>.from(map['tags'] ?? []),
-      
+      allergens: List<String>.from(map['allergens'] ?? []),
+
       // Safely casting key-value maps
       ingredients: Map<String, String>.from(map['ingredients'] ?? {}),
       

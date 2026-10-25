@@ -7,20 +7,25 @@
     "cookTimeMinutes": 25,
     "activePrepTimeMinutes": 10,
     "servings": 2,
-    "difficultyTier": "Tier 1",
+    "difficultyTier": "1",
     "mealType": "Breakfast",
     "cuisine": "American",
-    "dietary": ["Vegetarian"],
-    "tags": ["Beginner Friendly", "Budget"],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
     "ingredients": {
-      "Flour": "2 cups",
+      "Wheat flour": "2 cups",
       "Yeast": "1 tbsp",
       "Garlic": "2 cloves",
       "Butter": "2 tbsp"
     },
-    "estimatedCost": 3.50,
+    "estimatedCost": 3.5,
     "costPerServing": 1.75,
-    "estimatedRestaurantCost": 7.00,
+    "estimatedRestaurantCost": 7.0,
     "startCookingButtonLabel": "Start Cooking",
     "nutritionStats": {
       "calories": 404,
@@ -34,15 +39,26 @@
         "title": "Prep the Dough",
         "instructionText": "Prep the dough by mixing the flour and yeast in a bowl with warm water.",
         "timerSeconds": 300,
-        "importantTip": "Make sure your dough ends up smooth and elastic. If it's too sticky, add a bit more flour. If it's too dry, add some water."
+        "importantTip": "Make sure your dough ends up smooth and elastic. If it's too sticky, add a bit more flour."
       },
       {
         "stepNumber": 2,
-        "title": "Bake",
-        "instructionText": "Place on a baking sheet at 375°F (190°C) for 15 minutes.",
+        "title": "Shape & Boil",
+        "instructionText": "Shape the dough into bagel rings and briefly boil in lightly sweetened hot water for 1 minute per side.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Bake & Season",
+        "instructionText": "Brush with melted garlic butter and bake on a sheet at 375°F (190°C) until golden brown.",
         "timerSeconds": 900,
         "importantTip": null
       }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
     ]
   },
   {
@@ -53,21 +69,25 @@
     "cookTimeMinutes": 20,
     "activePrepTimeMinutes": 10,
     "servings": 2,
-    "difficultyTier": "Tier 1",
+    "difficultyTier": "1",
     "mealType": "Dinner",
     "cuisine": "Italian",
-    "dietary": ["Vegetarian"],
-    "tags": ["Quick & Easy"],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy"
+    ],
     "ingredients": {
       "Fettuccine": "8 oz",
       "Heavy Cream": "1 cup",
-      "Parmesan": "1/2 cup",
+      "Parmesan cheese": "1/2 cup",
       "Butter": "3 tbsp",
       "Garlic": "3 cloves"
     },
-    "estimatedCost": 4.80,
-    "costPerServing": 2.40,
-    "estimatedRestaurantCost": 16.00,
+    "estimatedCost": 4.8,
+    "costPerServing": 2.4,
+    "estimatedRestaurantCost": 16.0,
     "startCookingButtonLabel": "Start Cooking",
     "nutritionStats": {
       "calories": 1070,
@@ -79,17 +99,28 @@
       {
         "stepNumber": 1,
         "title": "Boil Pasta",
-        "instructionText": "Boil fettuccine in salted water according to package instructions.",
+        "instructionText": "Boil fettuccine in salted water according to package instructions until al dente.",
         "timerSeconds": 600,
-        "importantTip": null
+        "importantTip": "Reserve 1/4 cup of starchy pasta water before draining."
       },
       {
         "stepNumber": 2,
-        "title": "Make Sauce",
-        "instructionText": "Melt butter, sauté garlic, then stir in heavy cream and parmesan until smooth.",
-        "timerSeconds": 300,
+        "title": "Make Garlic Butter Base",
+        "instructionText": "Melt butter in a pan over medium heat and sauté minced garlic until fragrant.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Simmer & Toss",
+        "instructionText": "Whisk in heavy cream and parmesan until smooth, then toss with cooked fettuccine.",
+        "timerSeconds": 180,
         "importantTip": null
       }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
     ]
   },
   {
@@ -100,21 +131,26 @@
     "cookTimeMinutes": 15,
     "activePrepTimeMinutes": 15,
     "servings": 3,
-    "difficultyTier": "Tier 2",
+    "difficultyTier": "2",
     "mealType": "Dinner",
-    "cuisine": "Asian",
-    "dietary": ["Gluten-Free"],
-    "tags": ["Quick & Easy", "Beginner Friendly"],
+    "cuisine": "Chinese",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly"
+    ],
     "ingredients": {
-      "Chicken Breast": "1 lb",
-      "Broccoli Florets": "2 cups",
+      "Chicken breast": "1 lb",
+      "Broccoli": "2 cups",
       "Bell Pepper": "1 large",
-      "Soy Sauce": "3 tbsp",
+      "Gluten-free soy sauce": "3 tbsp",
       "Sesame Oil": "1 tbsp"
     },
-    "estimatedCost": 7.50,
-    "costPerServing": 2.50,
-    "estimatedRestaurantCost": 18.50,
+    "estimatedCost": 7.5,
+    "costPerServing": 2.5,
+    "estimatedRestaurantCost": 18.5,
     "startCookingButtonLabel": "Start Cooking",
     "nutritionStats": {
       "calories": 250,
@@ -132,11 +168,22 @@
       },
       {
         "stepNumber": 2,
-        "title": "Toss Veggies & Sauce",
-        "instructionText": "Add broccoli, peppers, and soy sauce. Stir-fry until veggies are tender-crisp.",
-        "timerSeconds": 240,
+        "title": "Sauté Vegetables",
+        "instructionText": "Add broccoli florets and sliced bell pepper to the skillet, cooking until tender-crisp.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Glaze & Serve",
+        "instructionText": "Pour in gluten-free soy sauce and sesame oil, tossing everything together for another minute.",
+        "timerSeconds": 60,
         "importantTip": null
       }
+    ],
+    "allergens": [
+      "Soy",
+      "Sesame"
     ]
   },
   {
@@ -147,22 +194,26 @@
     "cookTimeMinutes": 15,
     "activePrepTimeMinutes": 15,
     "servings": 3,
-    "difficultyTier": "Tier 1",
+    "difficultyTier": "1",
     "mealType": "Dinner",
     "cuisine": "Mexican",
-    "dietary": ["Gluten-Free"],
-    "tags": ["Quick & Easy", "High Protein"],
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy"
+    ],
     "ingredients": {
-      "Chicken Thighs": "1 lb",
-      "Small Corn Tortillas": "6",
-      "White Onion": "1/2 cup diced",
-      "Fresh Cilantro": "1/4 cup chopped",
+      "Chicken thigh": "1 lb",
+      "Corn tortillas": "6 tortillas",
+      "White onion": "1/2 cup",
+      "Cilantro": "1/4 cup",
       "Taco Seasoning": "2 tbsp",
-      "Lime": "1"
+      "Lime": "1 lime"
     },
-    "estimatedCost": 6.00,
-    "costPerServing": 2.00,
-    "estimatedRestaurantCost": 14.00,
+    "estimatedCost": 6.0,
+    "costPerServing": 2.0,
+    "estimatedRestaurantCost": 14.0,
     "startCookingButtonLabel": "Start Cooking",
     "nutritionStats": {
       "calories": 420,
@@ -180,12 +231,20 @@
       },
       {
         "stepNumber": 2,
-        "title": "Warm Tortillas & Assemble",
-        "instructionText": "Warm tortillas in a dry skillet, fill with chopped chicken, onions, cilantro, and squeeze fresh lime juice over top.",
-        "timerSeconds": 120,
+        "title": "Warm Tortillas",
+        "instructionText": "Warm corn tortillas in a dry skillet over medium heat for about 30 seconds per side.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Assemble & Serve",
+        "instructionText": "Fill warm tortillas with diced chicken, onions, cilantro, and fresh squeeze of lime juice.",
+        "timerSeconds": 60,
         "importantTip": null
       }
-    ]
+    ],
+    "allergens": []
   },
   {
     "recipeId": "rec_005",
@@ -195,21 +254,26 @@
     "cookTimeMinutes": 10,
     "activePrepTimeMinutes": 10,
     "servings": 2,
-    "difficultyTier": "Tier 1",
+    "difficultyTier": "1",
     "mealType": "Lunch",
     "cuisine": "Mexican",
-    "dietary": ["Vegetarian"],
-    "tags": ["Quick & Easy", "Budget"],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Budget"
+    ],
     "ingredients": {
-      "Flour Tortillas": "2 large",
-      "Black Beans": "1 can (15 oz)",
-      "Monterey Jack Cheese": "1 cup shredded",
+      "Wheat tortillas": "2 large",
+      "Black Beans": "1 can",
+      "Monterey Jack Cheese": "1 cup",
       "Cumin": "1/2 tsp",
       "Salsa": "1/4 cup"
     },
-    "estimatedCost": 3.80,
-    "costPerServing": 1.90,
-    "estimatedRestaurantCost": 10.00,
+    "estimatedCost": 3.8,
+    "costPerServing": 1.9,
+    "estimatedRestaurantCost": 10.0,
     "startCookingButtonLabel": "Start Cooking",
     "nutritionStats": {
       "calories": 510,
@@ -227,11 +291,22 @@
       },
       {
         "stepNumber": 2,
-        "title": "Cook Quesadillas",
-        "instructionText": "Place filling and cheese inside folded tortillas and cook in a skillet on medium heat until golden brown on both sides.",
-        "timerSeconds": 300,
-        "importantTip": "Keep the heat at medium to allow the cheese to melt completely without burning the tortilla."
+        "title": "Assemble Tortillas",
+        "instructionText": "Layer cheese and bean mixture onto one half of each tortilla, then fold over into half-moons.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook Until Crispy",
+        "instructionText": "Cook in a pan over medium heat until golden brown and cheese is fully melted.",
+        "timerSeconds": 240,
+        "importantTip": "Keep heat medium so cheese melts before tortilla burns."
       }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
     ]
   },
   {
@@ -242,21 +317,25 @@
     "cookTimeMinutes": 15,
     "activePrepTimeMinutes": 20,
     "servings": 2,
-    "difficultyTier": "Tier 2",
+    "difficultyTier": "2",
     "mealType": "Dinner",
     "cuisine": "Italian",
-    "dietary": ["Vegetarian"],
-    "tags": ["Beginner Friendly", "Favorite"],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Beginner Friendly"
+    ],
     "ingredients": {
       "Pizza Dough": "1 lb",
       "San Marzano Tomato Sauce": "1/2 cup",
-      "Fresh Mozzarella": "6 oz",
+      "Mozzarella cheese": "6 oz",
       "Fresh Basil": "8 leaves",
       "Olive Oil": "1 tbsp"
     },
-    "estimatedCost": 5.50,
+    "estimatedCost": 5.5,
     "costPerServing": 2.75,
-    "estimatedRestaurantCost": 15.00,
+    "estimatedRestaurantCost": 15.0,
     "startCookingButtonLabel": "Start Cooking",
     "nutritionStats": {
       "calories": 580,
@@ -267,18 +346,29 @@
     "steps": [
       {
         "stepNumber": 1,
-        "title": "Shape & Top Dough",
-        "instructionText": "Stretch dough onto a pizza pan, spread sauce evenly, and lay sliced fresh mozzarella on top.",
-        "timerSeconds": 300,
-        "importantTip": "Preheat your oven to its highest setting (475°F–500°F) for the crispiest crust."
+        "title": "Shape Dough",
+        "instructionText": "Stretch pizza dough out on a lightly floured surface or pizza baking pan.",
+        "timerSeconds": 180,
+        "importantTip": "Preheat your oven to high heat (475°F–500°F) beforehand."
       },
       {
         "stepNumber": 2,
+        "title": "Add Toppings",
+        "instructionText": "Spread sauce evenly over dough and arrange fresh mozzarella slices across top.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
         "title": "Bake & Garnish",
-        "instructionText": "Bake until crust is golden and cheese is bubbly, then top with fresh basil leaves and a drizzle of olive oil.",
+        "instructionText": "Bake until crust is golden brown, then finish with fresh basil leaves and olive oil.",
         "timerSeconds": 600,
         "importantTip": null
       }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
     ]
   },
   {
@@ -289,22 +379,26 @@
     "cookTimeMinutes": 12,
     "activePrepTimeMinutes": 10,
     "servings": 2,
-    "difficultyTier": "Tier 2",
+    "difficultyTier": "2",
     "mealType": "Dinner",
     "cuisine": "Italian",
-    "dietary": ["Gluten-Free", "Pescatarian"],
-    "tags": ["Quick & Easy", "High Protein"],
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy"
+    ],
     "ingredients": {
-      "Shrimp": "1/2 lb (peeled)",
+      "Shrimp": "1/2 lb",
       "Sun-Dried Tomatoes": "1/4 cup",
-      "Baby Spinach": "2 cups",
+      "Spinach": "2 cups",
       "Heavy Cream": "1/2 cup",
       "Garlic": "4 cloves",
       "Butter": "2 tbsp"
     },
-    "estimatedCost": 9.20,
-    "costPerServing": 4.60,
-    "estimatedRestaurantCost": 22.00,
+    "estimatedCost": 9.2,
+    "costPerServing": 4.6,
+    "estimatedRestaurantCost": 22.0,
     "startCookingButtonLabel": "Start Cooking",
     "nutritionStats": {
       "calories": 440,
@@ -316,17 +410,4936 @@
       {
         "stepNumber": 1,
         "title": "Sear Shrimp",
-        "instructionText": "Melt butter in a skillet and cook shrimp for 2 minutes per side until pink, then remove from pan.",
+        "instructionText": "Melt butter in a skillet and cook shrimp until pink, then remove from pan.",
         "timerSeconds": 240,
         "importantTip": null
       },
       {
         "stepNumber": 2,
-        "title": "Simmer Sauce & Combine",
-        "instructionText": "Sauté garlic, add heavy cream and sun-dried tomatoes, toss in spinach until wilted, and stir shrimp back in.",
-        "timerSeconds": 300,
-        "importantTip": "Do not overcook the shrimp in the sauce to keep them tender."
+        "title": "Build Cream Sauce",
+        "instructionText": "Sauté garlic and sun-dried tomatoes, then stir in heavy cream and bring to a light simmer.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Wilt Spinach & Combine",
+        "instructionText": "Toss in baby spinach until wilted, then return seared shrimp to skillet and stir gently.",
+        "timerSeconds": 120,
+        "importantTip": "Do not overcook the shrimp in sauce to keep them tender."
       }
+    ],
+    "allergens": [
+      "Milk",
+      "Shellfish"
+    ]
+  },
+  {
+    "recipeId": "rec_008",
+    "title": "Southwest Chicken Burrito Bowl",
+    "description": "A refreshing salad that can help you reach your protein goal and stay lean.",
+    "imageUrl": "assets/images/recipes/southwest_chicken_burrito_bowl.jpg",
+    "cookTimeMinutes": 7,
+    "activePrepTimeMinutes": 7,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Chicken thigh": "3 pieces",
+      "Spices": "As needed",
+      "Olive oil": "1 tbsp",
+      "Lettuce": "1 cup"
+    },
+    "estimatedCost": 5.0,
+    "costPerServing": 5.0,
+    "estimatedRestaurantCost": 12.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 280,
+      "proteinGrams": 20,
+      "carbsGrams": 36,
+      "fatGrams": 6
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Air Fry Chicken",
+        "instructionText": "Season chicken and place in air fryer, cooking until tender and crispy.",
+        "timerSeconds": 420,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Prep Veggie Base",
+        "instructionText": "Chop greens into a bowl and toss with olive oil and fresh lime juice.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Slice & Assemble",
+        "instructionText": "Slice the cooked chicken breast and place on top of your dressed salad base.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_009",
+    "title": "Gluten Free Teriyaki Chicken with Broccoli",
+    "description": "A high-protein, gluten-free Japanese dish featuring tender chicken and broccoli tossed in a savory tamari-pineapple glaze.",
+    "imageUrl": "assets/images/recipes/teriyaki_chicken.jpg",
+    "cookTimeMinutes": 11,
+    "activePrepTimeMinutes": 15,
+    "servings": 4,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "Chinese",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [],
+    "ingredients": {
+      "Grapeseed Oil": "1 tbsp",
+      "Chicken breast": "1 lb",
+      "Broccoli": "2 cups",
+      "Tamari": "Low-sodium",
+      "Pineapple Juice": "1/4 cup",
+      "Cornstarch": "1 tbsp",
+      "Ginger": "1 tsp",
+      "Brown Rice": "For serving",
+      "Garnish": "As desired"
+    },
+    "estimatedCost": 8.0,
+    "costPerServing": 2.0,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 426,
+      "proteinGrams": 35,
+      "carbsGrams": 53,
+      "fatGrams": 8
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Cook Chicken & Broccoli",
+        "instructionText": "Heat oil in skillet. Cook chicken until browned, then add broccoli florets until bright green and tender.",
+        "timerSeconds": 660,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Mix Sauce",
+        "instructionText": "Stir tamari, pineapple juice, honey, vinegar, garlic, cornstarch, and ginger together in a bowl.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Glaze & Serve",
+        "instructionText": "Pour tamari mixture into skillet and stir until thickened into a glossy glaze over chicken.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Soy"
+    ]
+  },
+  {
+    "recipeId": "rec_010",
+    "title": "Ground Turkey & Black Bean Taco Skillet",
+    "description": "A healthy take on an amazing Mexican staple.",
+    "imageUrl": "assets/images/recipes/ground_turkey_and_black_bean_taco_skillet.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Mexican",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Lean Ground Turkey": "6 oz",
+      "Bell Pepper": "1/2 pepper",
+      "Black Beans": "1/3 cup",
+      "Diced Tomatoes": "1/2 cup",
+      "Taco Seasoning": "1 tbsp",
+      "Cilantro": "1 tbsp",
+      "Greek Yogurt": "1 tbsp"
+    },
+    "estimatedCost": 4.5,
+    "costPerServing": 2.25,
+    "estimatedRestaurantCost": 12.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 380,
+      "proteinGrams": 38,
+      "carbsGrams": 22,
+      "fatGrams": 15
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Brown Turkey & Pepper",
+        "instructionText": "Heat skillet with oil spray. Add diced bell peppers and ground turkey, cooking until meat is fully browned.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Add Seasonings & Beans",
+        "instructionText": "Stir taco seasoning, black beans, and diced tomatoes into browned turkey.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Simmer & Garnish",
+        "instructionText": "Simmer over low heat until flavors combine, then top with cilantro or Greek yogurt.",
+        "timerSeconds": 240,
+        "importantTip": "Greek yogurt makes a great high-protein substitute for sour cream!"
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_011",
+    "title": "Lemon Garlic Chicken & Veggie Stir-Fry",
+    "description": "A light and fresh high-protein stir-fry with tender chicken, zucchini, and spinach.",
+    "imageUrl": "assets/images/recipes/lemon_garlic_chicken_and_veggie_stir_fry.jpg",
+    "cookTimeMinutes": 8,
+    "activePrepTimeMinutes": 16,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Chicken breast": "6 oz",
+      "Zucchini": "1 medium",
+      "Spinach": "2 cups",
+      "Garlic": "2 cloves",
+      "Lemon juice and zest": "1 tbsp",
+      "Olive Oil": "1 tsp",
+      "Salt and pepper": "To taste"
+    },
+    "estimatedCost": 5.0,
+    "costPerServing": 2.5,
+    "estimatedRestaurantCost": 14.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 350,
+      "proteinGrams": 42,
+      "carbsGrams": 10,
+      "fatGrams": 15
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Cook Chicken",
+        "instructionText": "Cook seasoned chicken cubes in olive oil over medium-high heat until golden brown.",
+        "timerSeconds": 330,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Sauté Zucchini",
+        "instructionText": "Toss zucchini slices into skillet with chicken, cooking until slightly tender.",
+        "timerSeconds": 150,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Wilt Spinach & Lemon Zest",
+        "instructionText": "Turn burner off, stir in spinach, minced garlic, and lemon juice/zest until spinach wilts.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_012",
+    "title": "Peach Glazed Salmon",
+    "description": "Perfect sweet and salty combo for fewer calories.",
+    "imageUrl": "assets/images/recipes/peach_glazed_salmon.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [],
+    "ingredients": {
+      "Salmon fillet": "2 pieces",
+      "Peach jam or peaches": "1/4 cup",
+      "Honey": "1 tbsp",
+      "Garlic Powder": "1/2 tsp"
+    },
+    "estimatedCost": 9.0,
+    "costPerServing": 4.5,
+    "estimatedRestaurantCost": 20.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 347,
+      "proteinGrams": 34,
+      "carbsGrams": 25,
+      "fatGrams": 11
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prep Salmon",
+        "instructionText": "Preheat oven broiler. Place salmon fillets on a sheet pan and season lightly with salt and pepper.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Glaze",
+        "instructionText": "Whisk peach jam, honey, garlic, and chipotle powders together, then brush over salmon fillets.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Broil & Serve",
+        "instructionText": "Broil salmon 6 inches from heat source until glazed and internal temperature reaches 145°F.",
+        "timerSeconds": 600,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Fish"
+    ]
+  },
+  {
+    "recipeId": "rec_013",
+    "title": "Avocado Toast with Egg",
+    "description": "Crispy toasted bread topped with mashed avocado and a fried egg.",
+    "imageUrl": "assets/images/recipes/avocado_toast_with_egg.jpg",
+    "cookTimeMinutes": 5,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "American",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Sourdough Bread": "1 slice",
+      "Avocado": "1/2 avocado",
+      "Eggs": "1 large",
+      "Olive Oil": "1 tsp",
+      "Red Pepper Flakes": "1 pinch"
+    },
+    "estimatedCost": 2.5,
+    "costPerServing": 2.5,
+    "estimatedRestaurantCost": 9.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 290,
+      "proteinGrams": 12,
+      "carbsGrams": 24,
+      "fatGrams": 18
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Toast Bread & Mash Avocado",
+        "instructionText": "Toast your slice of sourdough until golden. Mash avocado in a bowl with a squeeze of lemon juice, salt, and pepper.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Fry Egg",
+        "instructionText": "Heat olive oil in a skillet over medium heat and fry the egg to your preferred yolk runny level.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Assemble & Season",
+        "instructionText": "Spread the mashed avocado onto toast, top with the fried egg, and sprinkle red pepper flakes over top.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_014",
+    "title": "Vegetable Tofu Fry-Up",
+    "description": "Crispy pan-fried tofu with colorful stir-fried vegetables in a savory soy glaze.",
+    "imageUrl": "assets/images/recipes/vegetable_tofu_fry_up.jpg",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Lunch",
+    "cuisine": "Chinese",
+    "dietary": [
+      "Vegan",
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Extra Firm Tofu": "8 oz",
+      "Snap Peas": "1 cup",
+      "Carrots": "1 carrot",
+      "Soy sauce": "2 tbsp",
+      "Sesame Oil": "1 tbsp"
+    },
+    "estimatedCost": 4.0,
+    "costPerServing": 2.0,
+    "estimatedRestaurantCost": 13.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 220,
+      "proteinGrams": 15,
+      "carbsGrams": 14,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Crisp Tofu",
+        "instructionText": "Press tofu dry, cut into bite-sized cubes, and sear in a skillet with sesame oil until golden on all sides.",
+        "timerSeconds": 480,
+        "importantTip": "Pressing excess moisture out of tofu ensures a crispier texture."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Sauté Vegetables",
+        "instructionText": "Add snap peas and carrots to the skillet, stirring continuously until tender-crisp.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add Sauce & Serve",
+        "instructionText": "Pour in soy sauce, toss everything together for 1 minute, and serve warm.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Soy",
+      "Sesame"
+    ]
+  },
+  {
+    "recipeId": "rec_015",
+    "title": "Classic French Omelette",
+    "description": "Soft and tender folded omelette cooked in rich butter and filled with fresh herbs.",
+    "imageUrl": "assets/images/recipes/classic_french_omelette.jpg",
+    "cookTimeMinutes": 5,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "2",
+    "mealType": "Breakfast",
+    "cuisine": "French",
+    "dietary": [
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Eggs": "3 large",
+      "Butter": "1.5 tbsp",
+      "Chives": "1 tbsp",
+      "Salt": "1/4 tsp",
+      "Black pepper": "1 pinch"
+    },
+    "estimatedCost": 2.0,
+    "costPerServing": 2.0,
+    "estimatedRestaurantCost": 11.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 310,
+      "proteinGrams": 18,
+      "carbsGrams": 2,
+      "fatGrams": 26
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Whisk Eggs",
+        "instructionText": "Beat eggs vigorously with salt and pepper in a bowl until completely smooth.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Cook Slowly",
+        "instructionText": "Melt butter in a non-stick skillet over low-medium heat and pour in eggs, stirring gently in small circles.",
+        "timerSeconds": 180,
+        "importantTip": "Keep the heat low so the omelette stays pale and soft without browning."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Fold & Serve",
+        "instructionText": "Sprinkle with fresh chives, roll the egg into a cylinder shape, and slide onto a warm plate.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Eggs"
+    ]
+  },
+  {
+    "recipeId": "rec_016",
+    "title": "Loaded Vegan Taco Bowl",
+    "description": "Spiced black beans, rice, and fresh guacamole served up in a quick lunch bowl.",
+    "imageUrl": "assets/images/recipes/loaded_vegan_taco_bowl.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "Mexican",
+    "dietary": [
+      "Vegan",
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Rice": "1.5 cups",
+      "Black Beans": "1 can",
+      "Avocado": "1 avocado",
+      "Corn Kernels": "1/2 cup",
+      "Taco Seasoning": "1 tbsp"
+    },
+    "estimatedCost": 3.6,
+    "costPerServing": 1.8,
+    "estimatedRestaurantCost": 12.5,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 410,
+      "proteinGrams": 13,
+      "carbsGrams": 65,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Warm Seasoned Beans",
+        "instructionText": "Heat black beans and corn in a saucepan with taco seasoning until hot.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Warm Rice",
+        "instructionText": "Microwave or pan-warm cooked pre-packaged or leftover rice.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Assemble Bowls",
+        "instructionText": "Divide rice between bowls, top with bean mixture, diced fresh avocado, and optional salsa.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_017",
+    "title": "Classic French Crepes",
+    "description": "Paper-thin delicious French crepes perfect for sweet or savory toppings.",
+    "imageUrl": "assets/images/recipes/classic_french_crepes.jpg",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 10,
+    "servings": 4,
+    "difficultyTier": "2",
+    "mealType": "Breakfast",
+    "cuisine": "French",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Wheat flour": "1 cup",
+      "Milk": "1.25 cups",
+      "Eggs": "2 large",
+      "Butter": "2 tbsp",
+      "Sugar": "1 tbsp"
+    },
+    "estimatedCost": 2.8,
+    "costPerServing": 0.7,
+    "estimatedRestaurantCost": 10.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 190,
+      "proteinGrams": 6,
+      "carbsGrams": 24,
+      "fatGrams": 8
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Blend Batter",
+        "instructionText": "Whisk flour, milk, eggs, sugar, and melted butter together until smooth and lump-free.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Pour & Swirl",
+        "instructionText": "Lightly butter a pan, pour 1/4 cup of batter, and immediately swirl to coat the bottom thin.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Flip & Serve",
+        "instructionText": "Cook for 1 minute until edges lift, flip carefully, cook for 30 seconds, and transfer to plate.",
+        "timerSeconds": 90,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Eggs",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_018",
+    "title": "Cheesy Egg & Toast Skillet",
+    "description": "Simple skillet-baked eggs nestled in a rich tomato sauce with melted mozzarella.",
+    "imageUrl": "assets/images/recipes/cheesy_egg_toast_skillet.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 5,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "Italian",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Budget"
+    ],
+    "ingredients": {
+      "Eggs": "4 large",
+      "Marinara Sauce": "1 cup",
+      "Mozzarella cheese": "1/2 cup",
+      "Crusty Bread": "2 slices"
+    },
+    "estimatedCost": 3.2,
+    "costPerServing": 1.6,
+    "estimatedRestaurantCost": 11.5,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 360,
+      "proteinGrams": 22,
+      "carbsGrams": 28,
+      "fatGrams": 18
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Heat Marinara",
+        "instructionText": "Pour marinara sauce into a skillet over medium heat and bring to a simmer.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Crack Eggs & Cover",
+        "instructionText": "Make small wells in sauce, crack eggs into them, cover skillet with a lid, and cook until egg whites set.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Melt Cheese & Dip",
+        "instructionText": "Sprinkle mozzarella over top, let melt for 1 minute, and serve hot with crusty bread.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Eggs",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_019",
+    "title": "French Onion Panini",
+    "description": "Golden caramelized onions and melted swiss cheese toasted between crunchy sourdough.",
+    "imageUrl": "assets/images/recipes/french_onion_panini.jpg",
+    "cookTimeMinutes": 20,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Lunch",
+    "cuisine": "French",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Yellow onion": "2 large",
+      "Swiss Cheese": "4 slices",
+      "Sourdough Bread": "4 slices",
+      "Butter": "2 tbsp"
+    },
+    "estimatedCost": 3.8,
+    "costPerServing": 1.9,
+    "estimatedRestaurantCost": 13.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 480,
+      "proteinGrams": 18,
+      "carbsGrams": 52,
+      "fatGrams": 22
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Caramelize Onions",
+        "instructionText": "Melt butter in a pan over medium-low heat and cook sliced onions slowly until sweet and golden brown.",
+        "timerSeconds": 900,
+        "importantTip": "Stir frequently to prevent scorching while caramelizing."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Assemble Sandwiches",
+        "instructionText": "Layer Swiss cheese and caramelized onions between sourdough bread slices.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Toast Panini",
+        "instructionText": "Toast sandwiches in skillet or press on medium heat until bread turns crispy brown and cheese melts.",
+        "timerSeconds": 240,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_020",
+    "title": "Gluten-Free Garlic Chicken Bites",
+    "description": "Crispy pan-seared garlic chicken breast bites served with a light lemon sauce.",
+    "imageUrl": "assets/images/recipes/gluten_free_garlic_chicken_bites.jpg",
+    "cookTimeMinutes": 12,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Chicken breast": "1 lb",
+      "Garlic": "4 cloves",
+      "Olive Oil": "1 tbsp",
+      "Butter": "1 tbsp",
+      "Lemon Juice": "1 tbsp"
+    },
+    "estimatedCost": 5.8,
+    "costPerServing": 2.9,
+    "estimatedRestaurantCost": 15.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 320,
+      "proteinGrams": 40,
+      "carbsGrams": 3,
+      "fatGrams": 16
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Sear Chicken",
+        "instructionText": "Heat olive oil in a skillet and cook chicken bites until golden on all sides.",
+        "timerSeconds": 360,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Sauté Garlic",
+        "instructionText": "Add butter and minced garlic to pan, stirring around chicken until garlic is fragrant.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Glaze & Serve",
+        "instructionText": "Squeeze fresh lemon juice into skillet, toss chicken bites in sauce for 1 minute, and serve.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_021",
+    "title": "Berry Protein Oatmeal",
+    "description": "Warm oats mixed with vanilla protein powder, fresh berries, and a drizzle of honey.",
+    "imageUrl": "assets/images/recipes/berry_protein_oatmeal.jpg",
+    "cookTimeMinutes": 5,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "American",
+    "dietary": [
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Rolled Oats": "1/2 cup",
+      "Water or milk": "1 cup",
+      "Vanilla Protein Powder": "1 scoop",
+      "Mixed Berries": "1/2 cup",
+      "Honey": "1 tsp"
+    },
+    "estimatedCost": 2.2,
+    "costPerServing": 2.2,
+    "estimatedRestaurantCost": 8.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 320,
+      "proteinGrams": 28,
+      "carbsGrams": 45,
+      "fatGrams": 4
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Cook Oats",
+        "instructionText": "Combine oats and water or milk in a bowl and microwave on high for 2 minutes.",
+        "timerSeconds": 120,
+        "importantTip": "Use a deep microwave-safe bowl to prevent the oatmeal from boiling over."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Mix Protein Powder",
+        "instructionText": "Let the oats cool for 1 minute, then whisk in the protein powder until smooth.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Top & Serve",
+        "instructionText": "Top with fresh berries and a light drizzle of honey before serving.",
+        "timerSeconds": 30,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_022",
+    "title": "Crispy Sesame Tofu Bowl",
+    "description": "Golden crispy tofu cubes coated in a sweet sesame soy glaze served over white rice.",
+    "imageUrl": "assets/images/recipes/crispy_sesame_tofu_bowl.jpg",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Lunch",
+    "cuisine": "Japanese",
+    "dietary": [
+      "Vegan",
+      "Vegetarian"
+    ],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Extra Firm Tofu": "1 block",
+      "Cornstarch": "2 tbsp",
+      "Soy sauce": "2 tbsp",
+      "Sesame Oil": "1 tbsp",
+      "Toasted Sesame Seeds": "1 tbsp",
+      "Rice": "1.5 cups"
+    },
+    "estimatedCost": 4.2,
+    "costPerServing": 2.1,
+    "estimatedRestaurantCost": 14.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 410,
+      "proteinGrams": 20,
+      "carbsGrams": 55,
+      "fatGrams": 13
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Coat Tofu",
+        "instructionText": "Cube the drained tofu and toss gently in cornstarch until lightly coated.",
+        "timerSeconds": 120,
+        "importantTip": "Pat the tofu dry with paper towels before coating so the cornstarch turns extra crispy when cooked."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Pan Fry Tofu",
+        "instructionText": "Heat oil in a pan over medium-high heat and cook tofu cubes until golden on all sides.",
+        "timerSeconds": 480,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Glaze & Assemble",
+        "instructionText": "Pour in soy sauce and sesame oil, toss for 1 minute until glazed, and serve over rice with sesame seeds.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Soy",
+      "Sesame",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_023",
+    "title": "Greek Cucumber Salad",
+    "description": "Crisp cucumbers, cherry tomatoes, olives, and feta cheese tossed in olive oil.",
+    "imageUrl": "assets/images/recipes/greek_cucumber_salad.jpg",
+    "cookTimeMinutes": 5,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "American",
+    "dietary": [
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "English Cucumber": "1 cucumber",
+      "Cherry Tomatoes": "1 cup",
+      "Feta Cheese": "1/2 cup",
+      "Kalamata Olives": "1/4 cup",
+      "Olive Oil": "2 tbsp",
+      "Dried Oregano": "1 tsp"
+    },
+    "estimatedCost": 4.5,
+    "costPerServing": 2.25,
+    "estimatedRestaurantCost": 11.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 240,
+      "proteinGrams": 6,
+      "carbsGrams": 10,
+      "fatGrams": 20
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Chop Produce",
+        "instructionText": "Dice the cucumber and halve the cherry tomatoes into bite-sized pieces.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Combine Ingredients",
+        "instructionText": "Place vegetables, olives, and crumbled feta cheese into a medium mixing bowl.",
+        "timerSeconds": 60,
+        "importantTip": "Use block feta crumbled by hand rather than pre-crumbled feta for better flavor and creaminess."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Dress & Serve",
+        "instructionText": "Drizzle with extra virgin olive oil, sprinkle oregano on top, and toss lightly.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_024",
+    "title": "One-Pan Lemon Herb Tilapia",
+    "description": "Tender tilapia fillets baked with butter, fresh garlic, and lemon slices.",
+    "imageUrl": "assets/images/recipes/one_pan_lemon_herb_tilapia.jpg",
+    "cookTimeMinutes": 12,
+    "activePrepTimeMinutes": 8,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Tilapia fillet": "2 pieces",
+      "Butter": "2 tbsp",
+      "Garlic Powder": "1 tsp",
+      "Lemon": "1 sliced",
+      "Salt and pepper": "To taste"
+    },
+    "estimatedCost": 5.0,
+    "costPerServing": 2.5,
+    "estimatedRestaurantCost": 16.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 260,
+      "proteinGrams": 32,
+      "carbsGrams": 2,
+      "fatGrams": 14
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prep Fish",
+        "instructionText": "Place tilapia fillets onto a parchment-lined baking sheet and pat dry.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Season & Top",
+        "instructionText": "Pour melted butter over the fish, season with garlic powder, salt, and pepper, and lay lemon slices on top.",
+        "timerSeconds": 120,
+        "importantTip": "Preheat oven to 400°F (200°C) before seasoning so it bakes evenly right away."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Bake",
+        "instructionText": "Bake in oven until the fish turns opaque and flakes easily with a fork.",
+        "timerSeconds": 720,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Fish"
+    ]
+  },
+  {
+    "recipeId": "rec_025",
+    "title": "Avocado & Egg Salad Wrap",
+    "description": "A creamy egg salad made with mashed avocado wrapped in a flour tortilla.",
+    "imageUrl": "assets/images/recipes/avocado_and_egg_salad_wrap.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "American",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Budget"
+    ],
+    "ingredients": {
+      "Hard-Boiled Eggs": "2 eggs",
+      "Avocado": "1/2 avocado",
+      "Dijon Mustard": "1 tsp",
+      "Wheat tortilla": "1 large",
+      "Spinach Leaves": "1/2 cup"
+    },
+    "estimatedCost": 2.8,
+    "costPerServing": 2.8,
+    "estimatedRestaurantCost": 9.5,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 420,
+      "proteinGrams": 18,
+      "carbsGrams": 36,
+      "fatGrams": 24
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Mash Filling",
+        "instructionText": "In a bowl, mash hard-boiled eggs and avocado together with Dijon mustard, salt, and pepper.",
+        "timerSeconds": 180,
+        "importantTip": "Add a tiny drop of lemon juice to keep the avocado green if packing this for later."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Layer Wrap",
+        "instructionText": "Lay fresh spinach leaves flat onto the wrap, then scoop egg salad over top.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Roll & Slice",
+        "instructionText": "Tightly roll the wrap up, tucking in sides, and cut diagonally in half.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_026",
+    "title": "Spicy Peanut Noodle Bowl",
+    "description": "Ramen noodles tossed in a rich peanut butter, soy sauce, and chili oil glaze.",
+    "imageUrl": "assets/images/recipes/spicy_peanut_noodle_bowl.jpg",
+    "cookTimeMinutes": 6,
+    "activePrepTimeMinutes": 4,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "Japanese",
+    "dietary": [
+      "Vegan",
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Budget"
+    ],
+    "ingredients": {
+      "Ramen Noodles": "1 pack",
+      "Peanut Butter": "2 tbsp",
+      "Soy sauce": "1 tbsp",
+      "Chili crisp or chili oil": "1 tsp",
+      "Warm Water": "2 tbsp"
+    },
+    "estimatedCost": 1.5,
+    "costPerServing": 1.5,
+    "estimatedRestaurantCost": 10.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 480,
+      "proteinGrams": 14,
+      "carbsGrams": 56,
+      "fatGrams": 22
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Boil Noodles",
+        "instructionText": "Boil ramen noodles in water according to package instructions, then drain.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Whisk Sauce",
+        "instructionText": "Whisk peanut butter, soy sauce, chili oil, and warm water together in a bowl until smooth.",
+        "timerSeconds": 60,
+        "importantTip": "Use hot starchy water reserved from boiling the noodles to thin out the peanut sauce easily."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Toss & Serve",
+        "instructionText": "Pour peanut sauce directly onto noodles and toss until thoroughly coated.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Peanuts",
+      "Soy",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_027",
+    "title": "Sautéed Mushroom Toast",
+    "description": "Garlic butter sautéed mushrooms piled high on toasted crusty bread.",
+    "imageUrl": "assets/images/recipes/sautéed_mushroom_toast.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "2",
+    "mealType": "Breakfast",
+    "cuisine": "French",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Cremini Mushrooms": "1 cup",
+      "Garlic": "2 cloves",
+      "Butter": "1.5 tbsp",
+      "Sourdough Bread": "1 slice",
+      "Fresh Parsley": "1 tbsp"
+    },
+    "estimatedCost": 3.0,
+    "costPerServing": 3.0,
+    "estimatedRestaurantCost": 11.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 290,
+      "proteinGrams": 8,
+      "carbsGrams": 28,
+      "fatGrams": 17
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Sauté Mushrooms",
+        "instructionText": "Melt butter in a pan over medium heat and sauté sliced mushrooms until browned.",
+        "timerSeconds": 360,
+        "importantTip": "Don't salt mushrooms immediately; wait until they brown so they don't release water too early."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Add Garlic",
+        "instructionText": "Stir minced garlic into mushrooms and cook for another minute until fragrant.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Spoon On Toast",
+        "instructionText": "Toast sourdough slice, spoon buttered garlic mushrooms on top, and garnish with parsley.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_028",
+    "title": "Fiesta Corn & Black Bean Dip",
+    "description": "A fresh chip-dipping salad loaded with sweet corn, black beans, lime juice, and cilantro.",
+    "imageUrl": "assets/images/recipes/fiesta_corn_and_black_bean_dip.jpg",
+    "cookTimeMinutes": 0,
+    "activePrepTimeMinutes": 10,
+    "servings": 4,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "Mexican",
+    "dietary": [
+      "Vegan",
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Black Beans": "1 can",
+      "Sweet Corn": "1 can",
+      "Red Bell Pepper": "1/2 pepper",
+      "Cilantro": "1/4 cup",
+      "Lime Juice": "2 tbsp",
+      "Tortilla Chips": "For serving"
+    },
+    "estimatedCost": 3.5,
+    "costPerServing": 0.88,
+    "estimatedRestaurantCost": 9.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 210,
+      "proteinGrams": 7,
+      "carbsGrams": 42,
+      "fatGrams": 2
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Rinse Canned Goods",
+        "instructionText": "Rinse canned black beans and sweet corn thoroughly under cold water.",
+        "timerSeconds": 60,
+        "importantTip": "Rinsing canned beans reduces excess sodium and keeps the dip looking clean."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Dice & Mix",
+        "instructionText": "Combine corn, black beans, diced bell pepper, and chopped cilantro in a large bowl.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Season & Serve",
+        "instructionText": "Pour fresh lime juice over mixture, season with salt, toss gently, and serve with tortilla chips.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_029",
+    "title": "Garlic Parmesan Roasted Broccoli",
+    "description": "Crispy roasted broccoli florets tossed in garlic, olive oil, and grated parmesan cheese.",
+    "imageUrl": "assets/images/recipes/garlic_parmesan_roasted_broccoli.jpg",
+    "cookTimeMinutes": 18,
+    "activePrepTimeMinutes": 7,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "Italian",
+    "dietary": [
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Broccoli": "4 cups",
+      "Olive Oil": "2 tbsp",
+      "Garlic Powder": "1 tsp",
+      "Parmesan cheese": "1/3 cup",
+      "Salt and pepper": "To taste"
+    },
+    "estimatedCost": 3.2,
+    "costPerServing": 1.6,
+    "estimatedRestaurantCost": 10.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 180,
+      "proteinGrams": 8,
+      "carbsGrams": 12,
+      "fatGrams": 13
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Toss Broccoli",
+        "instructionText": "Toss broccoli florets on a baking sheet with olive oil, garlic powder, salt, and pepper.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Roast",
+        "instructionText": "Roast in oven at 425°F (220°C) until florets develop charred crispy edges.",
+        "timerSeconds": 900,
+        "importantTip": "Spread broccoli out so florets aren't crowded; overcrowding causes them to steam instead of roast."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add Parmesan",
+        "instructionText": "Sprinkle grated parmesan over hot broccoli immediately upon taking out of oven.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_030",
+    "title": "Honey Mustard Chicken Skillet",
+    "description": "Pan-seared chicken breasts cooked in a sweet and tangy garlic honey mustard sauce.",
+    "imageUrl": "assets/images/recipes/honey_mustard_chicken_skillet.jpg",
+    "cookTimeMinutes": 14,
+    "activePrepTimeMinutes": 6,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Chicken breast": "2 pieces",
+      "Honey": "2 tbsp",
+      "Dijon Mustard": "2 tbsp",
+      "Olive Oil": "1 tbsp",
+      "Garlic": "2 cloves"
+    },
+    "estimatedCost": 5.8,
+    "costPerServing": 2.9,
+    "estimatedRestaurantCost": 17.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 370,
+      "proteinGrams": 38,
+      "carbsGrams": 18,
+      "fatGrams": 15
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Sear Chicken",
+        "instructionText": "Heat olive oil in a skillet over medium heat and sear seasoned chicken breasts for 5 minutes per side.",
+        "timerSeconds": 600,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Mix Honey Mustard Sauce",
+        "instructionText": "Whisk honey, Dijon mustard, and minced garlic together in a small bowl.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Glaze & Simmer",
+        "instructionText": "Pour sauce into skillet around chicken, lower heat, and coat chicken until sauce thickens.",
+        "timerSeconds": 180,
+        "importantTip": "Use a meat thermometer to ensure chicken reaches 165°F internally before serving."
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_031",
+    "title": "Peanut Butter Banana Protein Smoothie",
+    "description": "A creamy, filling smoothie made with banana, milk, Greek yogurt, peanut butter, and optional oats.",
+    "imageUrl": "assets/images/recipes/peanut_butter_banana_protein_smoothie.jpg",
+    "cookTimeMinutes": 5,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "American",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Banana": "1 medium",
+      "Milk": "1 cup",
+      "Greek Yogurt": "1/2 cup",
+      "Frozen Berries": "1/2 cup",
+      "Peanut Butter": "1 tbsp",
+      "Rolled Oats": "1/4 cup"
+    },
+    "estimatedCost": 2.25,
+    "costPerServing": 2.25,
+    "estimatedRestaurantCost": 8.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 475,
+      "proteinGrams": 27,
+      "carbsGrams": 65,
+      "fatGrams": 13
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Gather Ingredients",
+        "instructionText": "Peel the banana and measure the milk, Greek yogurt, berries, peanut butter, and oats.",
+        "timerSeconds": 60,
+        "importantTip": "Use frozen berries for a thicker smoothie without needing to add ice."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Blend Until Smooth",
+        "instructionText": "Add all ingredients to a blender and blend for 30–60 seconds until creamy.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Adjust and Serve",
+        "instructionText": "Add a splash of milk if the smoothie is too thick, then pour into a glass and serve immediately.",
+        "timerSeconds": 30,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Peanuts",
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_032",
+    "title": "Overnight Oats with Berries",
+    "description": "A convenient make-ahead breakfast combining creamy oats, Greek yogurt, chia seeds, and fruit.",
+    "imageUrl": "assets/images/recipes/overnight_oats_with_berries.jpg",
+    "cookTimeMinutes": 5,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "American",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Rolled Oats": "1/2 cup",
+      "Milk": "1/2 cup",
+      "Greek Yogurt": "1/2 cup",
+      "Chia Seeds": "1 tbsp",
+      "Frozen Berries": "1/2 cup",
+      "Honey": "1 tsp"
+    },
+    "estimatedCost": 1.75,
+    "costPerServing": 1.75,
+    "estimatedRestaurantCost": 7.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 390,
+      "proteinGrams": 23,
+      "carbsGrams": 55,
+      "fatGrams": 9
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Combine the Base",
+        "instructionText": "Add rolled oats, milk, Greek yogurt, and chia seeds to a clean jar or food container.",
+        "timerSeconds": 120,
+        "importantTip": "Use a container with a tight-fitting lid and leave enough room for the oats to absorb the liquid."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Mix and Refrigerate",
+        "instructionText": "Stir thoroughly, cover the container, and refrigerate for at least 4 hours or overnight.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add Toppings",
+        "instructionText": "Stir the oats, add berries and honey, and adjust the consistency with a little extra milk if needed.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_033",
+    "title": "Scrambled Eggs and Whole-Wheat Toast",
+    "description": "A simple savory breakfast featuring fluffy scrambled eggs, whole-wheat toast, and fresh fruit.",
+    "imageUrl": "assets/images/recipes/scrambled_eggs_and_whole-wheat_toast.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 5,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "American",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Eggs": "3 large",
+      "Whole-Wheat Bread": "2 slices",
+      "Butter": "1 tsp",
+      "Banana": "1 medium",
+      "Salt": "1 pinch",
+      "Black pepper": "1 pinch"
+    },
+    "estimatedCost": 1.75,
+    "costPerServing": 1.75,
+    "estimatedRestaurantCost": 9.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 445,
+      "proteinGrams": 25,
+      "carbsGrams": 49,
+      "fatGrams": 16
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Eggs",
+        "instructionText": "Crack the eggs into a bowl, add a pinch of salt and pepper, and whisk until the yolks and whites are combined.",
+        "timerSeconds": 60,
+        "importantTip": "Whisk thoroughly for an even texture, and avoid adding too much salt before tasting."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Scramble the Eggs",
+        "instructionText": "Melt the butter in a nonstick skillet over medium-low heat. Add the eggs and stir gently until softly set and fully cooked.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Toast and Serve",
+        "instructionText": "Toast the bread while the eggs cook. Serve with the banana and enjoy while warm.",
+        "timerSeconds": 180,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Eggs",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_034",
+    "title": "Chicken, Rice, and Broccoli Bowl",
+    "description": "A balanced everyday meal with seasoned chicken, fluffy rice, and tender broccoli.",
+    "imageUrl": "assets/images/recipes/chicken_rice_broccoli_bowl.jpg",
+    "cookTimeMinutes": 30,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Chicken breast": "12 oz",
+      "White rice": "1 cup",
+      "Broccoli": "2 cups",
+      "Olive Oil": "1 tbsp",
+      "Garlic Powder": "1 tsp",
+      "Paprika": "1 tsp",
+      "Salt": "1/2 tsp",
+      "Black pepper": "1/4 tsp"
+    },
+    "estimatedCost": 7.0,
+    "costPerServing": 3.5,
+    "estimatedRestaurantCost": 15.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 560,
+      "proteinGrams": 39,
+      "carbsGrams": 67,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Start the Rice",
+        "instructionText": "Rinse the rice, add it to a pot or rice cooker with the appropriate amount of water, and cook according to the package instructions.",
+        "timerSeconds": 1200,
+        "importantTip": "Keep raw chicken and its juices away from Rice, vegetables, and other ready-to-eat foods."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Season the Chicken",
+        "instructionText": "Cut the chicken into evenly sized pieces. Toss with olive oil, garlic powder, paprika, salt, and pepper.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Chicken",
+        "instructionText": "Cook the chicken in a skillet over medium heat, turning the pieces until browned and the thickest pieces reach an internal temperature of 165°F (74°C).",
+        "timerSeconds": 600,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Prepare and Assemble",
+        "instructionText": "Steam the broccoli until tender, divide the rice between two bowls, and top with chicken and broccoli.",
+        "timerSeconds": 300,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_035",
+    "title": "Easy Chicken and Cheese Wrap",
+    "description": "A quick, portable wrap filled with chicken, fresh vegetables, cheese, and a creamy yogurt sauce.",
+    "imageUrl": "assets/images/recipes/easy_chicken_and_cheese_wrap.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 10,
+    "servings": 1,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Whole-Wheat Tortilla": "1 large",
+      "Cooked chicken breast": "4 oz",
+      "Shredded Cheese": "1/4 cup",
+      "Lettuce": "1/2 cup",
+      "Tomatoes": "1/2 medium",
+      "Greek Yogurt": "2 tbsp",
+      "Mustard": "1 tsp",
+      "Black pepper": "1 pinch"
+    },
+    "estimatedCost": 2.75,
+    "costPerServing": 2.75,
+    "estimatedRestaurantCost": 11.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 480,
+      "proteinGrams": 43,
+      "carbsGrams": 39,
+      "fatGrams": 16
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Make the Sauce",
+        "instructionText": "Mix the Greek yogurt, mustard, and black pepper in a small bowl until smooth.",
+        "timerSeconds": 60,
+        "importantTip": "Pat the lettuce and tomato dry after washing so the tortilla does not become soggy."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Prepare the Filling",
+        "instructionText": "Slice the cooked chicken into bite-sized pieces and chop the tomato and lettuce.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Assemble the Wrap",
+        "instructionText": "Spread the sauce over the tortilla, then layer on chicken, cheese, lettuce, and tomato.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Roll and Serve",
+        "instructionText": "Fold in the sides, roll the tortilla tightly, slice in half, and serve.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_036",
+    "title": "Tuna and Chickpea Salad Bowl",
+    "description": "A no-cook lunch combining tuna, fiber-rich chickpeas, crunchy vegetables, and a bright lemon dressing.",
+    "imageUrl": "assets/images/recipes/tuna_and_chickpea_salad_bowl.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "Mediterranean",
+    "dietary": [],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Canned Tuna": "1 can",
+      "Canned Chickpeas": "1 cup",
+      "Cucumber": "1/2 medium",
+      "Cherry Tomatoes": "1 cup",
+      "Olive Oil": "1 tbsp",
+      "Lemon Juice": "1 tbsp",
+      "Salt": "1 pinch",
+      "Black pepper": "1 pinch"
+    },
+    "estimatedCost": 5.0,
+    "costPerServing": 2.5,
+    "estimatedRestaurantCost": 14.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 320,
+      "proteinGrams": 27,
+      "carbsGrams": 30,
+      "fatGrams": 10
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Ingredients",
+        "instructionText": "Drain the tuna, rinse and drain the chickpeas, and wash the cucumber and cherry tomatoes.",
+        "timerSeconds": 120,
+        "importantTip": "Rinse canned chickpeas under running water to remove excess liquid and some of the added sodium."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Chop the Vegetables",
+        "instructionText": "Dice the cucumber and halve the cherry tomatoes. Place them in a medium mixing bowl.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Mix the Salad",
+        "instructionText": "Add the tuna and chickpeas. Drizzle with olive oil and lemon juice, season lightly, and toss until combined.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Divide and Serve",
+        "instructionText": "Divide the salad between two bowls and serve immediately, or refrigerate for later.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Fish"
+    ]
+  },
+  {
+    "recipeId": "rec_037",
+    "title": "Ground Turkey Taco Rice Bowl",
+    "description": "A flavorful bowl of seasoned ground turkey, rice, black beans, corn, and salsa for an easy weeknight dinner.",
+    "imageUrl": "assets/images/recipes/ground_turkey_taco_rice_bowl.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "Mexican",
+    "dietary": [],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Ground Turkey": "12 oz",
+      "White rice": "1 cup",
+      "Black Beans": "1 cup",
+      "Corn": "1/2 cup",
+      "Salsa": "1/2 cup",
+      "Olive Oil": "1 tsp",
+      "Ground Cumin": "1 tsp",
+      "Paprika": "1 tsp",
+      "Garlic Powder": "1/2 tsp"
+    },
+    "estimatedCost": 7.5,
+    "costPerServing": 3.75,
+    "estimatedRestaurantCost": 16.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 620,
+      "proteinGrams": 37,
+      "carbsGrams": 79,
+      "fatGrams": 14
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Cook the Rice",
+        "instructionText": "Rinse the rice and cook it in a pot or rice cooker according to the package instructions.",
+        "timerSeconds": 1200,
+        "importantTip": "Start the rice first so it finishes while you prepare the turkey and toppings."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Brown the Turkey",
+        "instructionText": "Heat the olive oil in a skillet over medium heat. Add the ground turkey and break it apart with a spatula.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Season and Finish",
+        "instructionText": "Add cumin, paprika, and garlic powder. Continue cooking until the turkey reaches an internal temperature of 165°F (74°C), then stir in the black beans and corn until heated through.",
+        "timerSeconds": 600,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Assemble the Bowls",
+        "instructionText": "Divide the rice between two bowls, add the turkey mixture, and finish with salsa.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_038",
+    "title": "Baked Salmon with Potatoes and Broccoli",
+    "description": "A nutritious oven-baked dinner featuring flaky salmon, crispy roasted potatoes, and tender broccoli.",
+    "imageUrl": "assets/images/recipes/baked_salmon_with_potatoes_and_broccoli.jpg",
+    "cookTimeMinutes": 35,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Salmon fillet": "2 fillets",
+      "Potatoes": "12 oz",
+      "Broccoli": "2 cups",
+      "Olive Oil": "1 tbsp",
+      "Lemon": "1/2 lemon",
+      "Garlic Powder": "1/2 tsp",
+      "Salt": "1/2 tsp",
+      "Black pepper": "1/4 tsp"
+    },
+    "estimatedCost": 10.0,
+    "costPerServing": 5.0,
+    "estimatedRestaurantCost": 24.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 520,
+      "proteinGrams": 36,
+      "carbsGrams": 43,
+      "fatGrams": 22
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Oven and Potatoes",
+        "instructionText": "Preheat the oven to 425°F (220°C). Wash the potatoes, cut them into small cubes, and toss with half the olive oil, salt, pepper, and garlic powder.",
+        "timerSeconds": 300,
+        "importantTip": "Cut the potatoes into similarly sized pieces so they roast evenly and finish on time."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Roast the Potatoes",
+        "instructionText": "Spread the potatoes on a baking sheet and roast for about 15 minutes, turning once.",
+        "timerSeconds": 900,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add the Salmon",
+        "instructionText": "Place the salmon on the baking sheet, drizzle with the remaining olive oil, and season with lemon juice, salt, and pepper. Return to the oven for approximately 10–15 minutes, depending on thickness.",
+        "timerSeconds": 720,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Steam the Broccoli and Serve",
+        "instructionText": "Steam the broccoli until tender. Check that the salmon reaches 145°F (63°C), then divide the salmon, potatoes, and broccoli between two plates.",
+        "timerSeconds": 300,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Fish"
+    ]
+  },
+  {
+    "recipeId": "rec_039",
+    "title": "Easy Pasta with Ground Turkey Marinara",
+    "description": "A comforting pasta dinner with savory ground turkey, tomato sauce, spinach, and a sprinkle of Parmesan.",
+    "imageUrl": "assets/images/recipes/easy_pasta_with_ground_turkey_marinara.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "Italian-American",
+    "dietary": [],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Pasta": "6 oz",
+      "Ground Turkey": "10 oz",
+      "Marinara Sauce": "1 1/2 cups",
+      "Spinach": "2 cups",
+      "Olive Oil": "1 tsp",
+      "Parmesan cheese": "2 tbsp",
+      "Garlic Powder": "1/2 tsp",
+      "Black pepper": "1 pinch"
+    },
+    "estimatedCost": 6.5,
+    "costPerServing": 3.25,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 610,
+      "proteinGrams": 39,
+      "carbsGrams": 69,
+      "fatGrams": 17
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Boil the Pasta",
+        "instructionText": "Bring a pot of salted water to a boil. Add the pasta and cook according to the package directions until al dente, then drain.",
+        "timerSeconds": 600,
+        "importantTip": "Reserve a small cup of pasta water before draining; it can help loosen the sauce if it becomes too thick."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Brown the Turkey",
+        "instructionText": "While the pasta cooks, heat olive oil in a skillet over medium heat. Add the ground turkey and break it into small pieces as it cooks.",
+        "timerSeconds": 420,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Simmer the Sauce",
+        "instructionText": "Once the turkey reaches an internal temperature of 165°F (74°C), stir in the marinara sauce and garlic powder. Simmer gently, then add the spinach and cook until wilted.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Combine and Serve",
+        "instructionText": "Add the drained pasta to the sauce and toss until coated. Divide between two plates and finish with Parmesan and black pepper.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_040",
+    "title": "Bengali Aloo Posto",
+    "description": "A comforting Bengali potato dish featuring tender potatoes coated in a creamy poppy seed paste, finished with green chilies and mustard oil.",
+    "imageUrl": "assets/images/recipes/bengali_aloo_posto.jpg",
+    "cookTimeMinutes": 35,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "Indian",
+    "dietary": [
+      "Vegetarian",
+      "Vegan",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Potatoes": "12 oz",
+      "White Poppy Seeds": "3 tbsp",
+      "Green chili pepper": "1 pepper",
+      "Mustard Oil": "1 tbsp",
+      "Turmeric": "1/4 tsp",
+      "Salt": "1/2 tsp",
+      "Water": "1/2 cup"
+    },
+    "estimatedCost": 4.5,
+    "costPerServing": 2.25,
+    "estimatedRestaurantCost": 20.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 310,
+      "proteinGrams": 6,
+      "carbsGrams": 39,
+      "fatGrams": 15
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Poppy Seed Paste",
+        "instructionText": "Soak the poppy seeds in warm water for 10 minutes. Drain them, then grind with the green chili and a few tablespoons of water until a thick, mostly smooth paste forms.",
+        "timerSeconds": 600,
+        "importantTip": "If your blender struggles with a small quantity, use a small spice grinder or mortar and pestle. A slightly textured paste is fine."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Cut the Potatoes",
+        "instructionText": "Peel the potatoes if desired and cut them into small, evenly sized cubes. Rinse and drain them.",
+        "timerSeconds": 180,
+        "importantTip": "Keep the potato pieces similar in size so they soften at approximately the same rate."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Potatoes",
+        "instructionText": "Heat the mustard oil in a skillet over medium heat. Add the potatoes, turmeric, and salt. Stir for 2 minutes, then add the water. Cover and cook for 12–15 minutes, stirring occasionally, until the potatoes are nearly tender.",
+        "timerSeconds": 900,
+        "importantTip": "If the pan becomes dry before the potatoes soften, add a small splash of water rather than increasing the heat."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add the Poppy Seed Paste",
+        "instructionText": "Stir the poppy seed paste into the potatoes. Cook uncovered for 5–7 minutes, stirring gently, until the paste thickens and coats the potatoes.",
+        "timerSeconds": 420,
+        "importantTip": "Keep the heat moderate and stir gently to prevent the thick paste from sticking to the bottom of the pan."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Finish and Serve",
+        "instructionText": "Taste and adjust the salt. Remove from the heat and serve warm with steamed rice or flatbread.",
+        "timerSeconds": 60,
+        "importantTip": "Mustard oil has a strong, distinctive flavor. If you are unfamiliar with it, start with a little less and add more only if desired."
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_041",
+    "title": "Maharashtrian Kanda Poha",
+    "description": "A light, savory western Indian breakfast made with flattened rice, onions, peanuts, turmeric, and lemon, finished with fresh cilantro.",
+    "imageUrl": "assets/images/recipes/maharashtrian_kanda_poha.jpg",
+    "cookTimeMinutes": 20,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "Indian",
+    "dietary": [
+      "Vegetarian",
+      "Vegan",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Thick Flattened Rice (Poha)": "1 1/2 cups",
+      "Yellow onion": "1 small",
+      "Raw Peanuts": "2 tbsp",
+      "Green chili pepper": "1 pepper",
+      "Mustard Seeds": "1/2 tsp",
+      "Turmeric": "1/4 tsp",
+      "Vegetable Oil": "1 tbsp",
+      "Lemon Juice": "1 tbsp",
+      "Cilantro": "2 tbsp",
+      "Salt": "1/2 tsp",
+      "Sugar": "1/4 tsp",
+      "Curry Leaves": "6 leaves"
+    },
+    "estimatedCost": 3.5,
+    "costPerServing": 1.75,
+    "estimatedRestaurantCost": 16.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 330,
+      "proteinGrams": 7,
+      "carbsGrams": 49,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Rinse the Flattened Rice",
+        "instructionText": "Place the flattened rice in a sieve and rinse briefly under running water. Let it drain for a few minutes until softened but still holding its shape. Mix in the salt, sugar, and turmeric.",
+        "timerSeconds": 180,
+        "importantTip": "Do not soak poha for too long. It should be soft enough to bend but not mushy."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Toast the Peanuts",
+        "instructionText": "Heat the oil in a skillet over medium heat. Add the peanuts and cook for 2–3 minutes, stirring until lightly golden. Transfer them to a plate.",
+        "timerSeconds": 180,
+        "importantTip": "Remove the peanuts before adding the onions so they stay crunchy instead of becoming soft."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Build the Aromatic Base",
+        "instructionText": "Add the mustard seeds to the same skillet. When they begin to pop, add the curry leaves, chopped green chili, and finely diced onion. Cook for 4–5 minutes until the onion softens.",
+        "timerSeconds": 300,
+        "importantTip": "Keep your face and hands away from the pan when adding curry leaves, as residual water can cause the oil to splatter."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Steam the Poha",
+        "instructionText": "Add the softened flattened rice and gently fold it into the onion mixture. Cover and cook over low heat for 3–4 minutes, until warmed through.",
+        "timerSeconds": 240,
+        "importantTip": "Fold rather than vigorously stir to keep the softened rice flakes intact."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Add the Finishing Touches",
+        "instructionText": "Turn off the heat. Stir in the lemon juice, toasted peanuts, and chopped cilantro. Taste and adjust the seasoning before serving.",
+        "timerSeconds": 60,
+        "importantTip": "Add the lemon juice after cooking to preserve its fresh, bright flavor."
+      }
+    ],
+    "allergens": [
+      "Peanuts"
+    ]
+  },
+  {
+    "recipeId": "rec_042",
+    "title": "Kerala-Style Egg Roast",
+    "description": "Boiled eggs simmered in a deeply caramelized onion gravy with curry leaves, black pepper, and warming spices, inspired by Kerala's coastal cooking.",
+    "imageUrl": "assets/images/recipes/kerala-style_egg_roast.jpg",
+    "cookTimeMinutes": 35,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Indian",
+    "dietary": [
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Eggs": "4 large",
+      "Yellow onion": "2 medium",
+      "Tomatoes": "1 medium",
+      "Garlic": "3 cloves",
+      "Ginger": "1 tsp",
+      "Curry Leaves": "8 leaves",
+      "Vegetable Oil": "1 tbsp",
+      "Ground Coriander": "1 tsp",
+      "Black pepper": "1/2 tsp",
+      "Chili Powder": "1/2 tsp",
+      "Turmeric": "1/4 tsp",
+      "Garam Masala": "1/2 tsp",
+      "Salt": "1/2 tsp",
+      "Water": "1/3 cup"
+    },
+    "estimatedCost": 5.0,
+    "costPerServing": 2.5,
+    "estimatedRestaurantCost": 22.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 330,
+      "proteinGrams": 19,
+      "carbsGrams": 20,
+      "fatGrams": 20
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Boil the Eggs",
+        "instructionText": "Place the eggs in a saucepan, cover with water, and bring to a boil. Reduce to a gentle boil and cook for 10–12 minutes. Transfer to cold water, cool, and peel.",
+        "timerSeconds": 720,
+        "importantTip": "Cooling the eggs in cold water makes them easier to peel and prevents them from continuing to cook."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Caramelize the Onions",
+        "instructionText": "Thinly slice the onions. Heat the oil in a skillet over medium heat and add the curry leaves. Add the onions and cook for 10–12 minutes, stirring regularly, until deeply golden and softened.",
+        "timerSeconds": 720,
+        "importantTip": "The onions are the foundation of the gravy. Give them enough time to turn golden without scorching; add a splash of water if they start sticking."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add the Aromatics and Spices",
+        "instructionText": "Stir in the minced garlic and grated ginger. Cook for 1 minute, then add the ground coriander, black pepper, chili powder, turmeric, and garam masala. Stir for 30 seconds.",
+        "timerSeconds": 90,
+        "importantTip": "Keep stirring once the ground spices enter the pan. They can burn quickly if left against the hot surface."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Simmer the Gravy",
+        "instructionText": "Add the chopped tomato and cook for 4–5 minutes until it softens. Pour in the water, scrape up any browned bits, and simmer for another 4 minutes until a thick gravy forms.",
+        "timerSeconds": 540,
+        "importantTip": "If the gravy becomes too thick, add water one tablespoon at a time until it reaches a consistency that coats the eggs."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Coat the Eggs",
+        "instructionText": "Make a few shallow slits in each peeled egg and add them to the gravy. Gently turn the eggs to coat them, then simmer for 3–4 minutes before serving.",
+        "timerSeconds": 240,
+        "importantTip": "Shallow slits help the gravy season the eggs. Avoid cutting too deeply or the yolks may break into the sauce."
+      }
+    ],
+    "allergens": [
+      "Eggs"
+    ]
+  },
+  {
+    "recipeId": "rec_043",
+    "title": "Gujarati Sev Tameta nu Shaak",
+    "description": "A sweet, tangy, and mildly spiced Gujarati tomato curry finished with crunchy chickpea-flour noodles called sev, traditionally served with roti.",
+    "imageUrl": "assets/images/recipes/gujarati_sev_tameta_nu_shaak.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "Indian",
+    "dietary": [
+      "Vegetarian",
+      "Vegan",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Tomatoes": "4 medium",
+      "Thin Sev (Chickpea Flour Noodles)": "1/2 cup",
+      "Vegetable Oil": "1 tbsp",
+      "Mustard Seeds": "1/2 tsp",
+      "Cumin Seeds": "1/2 tsp",
+      "Asafoetida": "1 pinch",
+      "Turmeric": "1/4 tsp",
+      "Ground Coriander": "1 tsp",
+      "Chili Powder": "1/2 tsp",
+      "Jaggery or Brown Sugar": "1 tsp",
+      "Salt": "1/2 tsp",
+      "Water": "1/3 cup",
+      "Cilantro": "1 tbsp"
+    },
+    "estimatedCost": 4.0,
+    "costPerServing": 2.0,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 280,
+      "proteinGrams": 6,
+      "carbsGrams": 34,
+      "fatGrams": 14
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Chop the Tomatoes",
+        "instructionText": "Rinse the tomatoes and chop them into small pieces. Keep their juices so they can form the base of the curry.",
+        "timerSeconds": 180,
+        "importantTip": "Ripe tomatoes give the curry a fuller flavor and reduce the need for extra sweetener."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Temper the Seeds",
+        "instructionText": "Heat the oil in a skillet over medium heat. Add the mustard seeds and cumin seeds. Once they begin to sizzle, add the pinch of asafoetida and stir briefly.",
+        "timerSeconds": 60,
+        "importantTip": "Have the tomatoes ready before tempering the spices, since mustard and cumin seeds can burn if left in hot oil too long."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Tomato Curry",
+        "instructionText": "Add the tomatoes, turmeric, ground coriander, chili powder, salt, and jaggery. Stir well and cook for 5 minutes until the tomatoes begin to break down.",
+        "timerSeconds": 300,
+        "importantTip": "Taste the tomato mixture before adding more jaggery. The goal is a balanced sweet-and-tangy flavor, not a sugary sauce."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Simmer Until Thick",
+        "instructionText": "Add the water and simmer uncovered for 7–8 minutes, stirring occasionally, until the tomatoes form a thick but spoonable curry.",
+        "timerSeconds": 480,
+        "importantTip": "Keep some texture in the tomato mixture. It does not need to become completely smooth."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Add the Sev and Serve",
+        "instructionText": "Turn off the heat and stir in most of the sev. Sprinkle the remaining sev and chopped cilantro on top, then serve immediately with roti or rice.",
+        "timerSeconds": 60,
+        "importantTip": "Sev softens quickly in the hot curry. Add it just before serving and reserve some for garnish if you want a crunchy contrast."
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_044",
+    "title": "Sichuan Ants Climbing a Tree",
+    "description": "A distinctive Sichuan home-style dish of slippery glass noodles tossed with savory ground pork, garlic, ginger, and fermented chili bean paste.",
+    "imageUrl": "assets/images/recipes/sichuan_ants_climbing_a_tree.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "Chinese",
+    "dietary": [],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Glass noodles (mung bean or sweet potato vermicelli)": "4 oz",
+      "Ground Pork": "6 oz",
+      "Doubanjiang (Chili Bean Paste)": "1 tbsp",
+      "Light soy sauce": "1 tbsp",
+      "Dark soy sauce": "1 tsp",
+      "Garlic": "2 cloves",
+      "Ginger": "1 tsp",
+      "Scallions": "2 scallions",
+      "Vegetable Oil": "1 tbsp",
+      "Chicken Broth": "1 cup",
+      "Sugar": "1/2 tsp",
+      "Water": "As needed"
+    },
+    "estimatedCost": 7.0,
+    "costPerServing": 3.5,
+    "estimatedRestaurantCost": 24.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 490,
+      "proteinGrams": 22,
+      "carbsGrams": 58,
+      "fatGrams": 18
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Soften the Glass Noodles",
+        "instructionText": "Place the dried glass noodles in a bowl and cover with warm water. Soak until flexible according to the package directions, usually around 10 minutes. Drain and set aside.",
+        "timerSeconds": 600,
+        "importantTip": "Soak rather than fully boil the noodles before stir-frying. They will finish cooking in the sauce and absorb its flavor."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Brown the Pork",
+        "instructionText": "Heat the vegetable oil in a skillet or wok over medium-high heat. Add the ground pork and break it into small crumbles. Cook for 5–6 minutes until browned and cooked through.",
+        "timerSeconds": 360,
+        "importantTip": "Break the pork into small pieces so it can cling to the noodles, creating the characteristic appearance that gives this dish its name."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Build the Sichuan Flavor Base",
+        "instructionText": "Add the minced garlic, ginger, and the white parts of the sliced scallions. Cook for 30–60 seconds. Stir in the doubanjiang and cook for another minute until fragrant.",
+        "timerSeconds": 120,
+        "importantTip": "Doubanjiang is salty and spicy, so start with the stated amount and adjust the soy sauce later rather than adding extra salt immediately."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add the Sauce",
+        "instructionText": "Pour in the chicken broth, light soy sauce, dark soy sauce, and sugar. Stir to combine and bring the mixture to a gentle simmer.",
+        "timerSeconds": 180,
+        "importantTip": "Scrape the bottom of the pan to release the browned pork and aromatic paste into the broth."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Simmer the Noodles",
+        "instructionText": "Add the drained glass noodles and toss carefully to coat. Simmer for 3–5 minutes, stirring frequently, until the noodles are tender and most of the liquid has been absorbed. Add a splash of water or broth if they become dry before softening.",
+        "timerSeconds": 300,
+        "importantTip": "Glass noodles absorb liquid quickly and continue to thicken after cooking. Stop while they are glossy and slightly saucy instead of letting the pan become completely dry."
+      },
+      {
+        "stepNumber": 6,
+        "title": "Garnish and Serve",
+        "instructionText": "Turn off the heat and scatter the green parts of the scallions over the noodles. Toss once more and serve immediately.",
+        "timerSeconds": 30,
+        "importantTip": "Serve promptly for the best slippery texture; the noodles will continue absorbing sauce as they stand."
+      }
+    ],
+    "allergens": [
+      "Soy",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_045",
+    "title": "Chinese Tomato and Egg Stir-Fry",
+    "description": "A simple Chinese home-style dish combining soft scrambled eggs with juicy tomatoes, scallions, and a light savory sauce, served over rice.",
+    "imageUrl": "assets/images/recipes/chinese_tomato_and_egg_stir-fry.jpg",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 8,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Chinese",
+    "dietary": [
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Eggs": "4 large",
+      "Tomatoes": "3 medium",
+      "Scallions": "2 scallions",
+      "Vegetable Oil": "1 1/2 tbsp",
+      "Light soy sauce": "1 tsp",
+      "Sugar": "1/2 tsp",
+      "Salt": "1/4 tsp",
+      "White Pepper": "1 pinch",
+      "Water": "2 tbsp",
+      "Rice": "2 cups"
+    },
+    "estimatedCost": 4.5,
+    "costPerServing": 2.25,
+    "estimatedRestaurantCost": 20.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 390,
+      "proteinGrams": 17,
+      "carbsGrams": 48,
+      "fatGrams": 15
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Eggs and Tomatoes",
+        "instructionText": "Beat the eggs in a bowl with the water, a pinch of salt, and the white pepper. Cut the tomatoes into wedges and slice the scallions, keeping the white and green parts separate.",
+        "timerSeconds": 180,
+        "importantTip": "Adding a little water to the eggs helps create a softer scramble. Beat until the yolks and whites are fully combined."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Softly Scramble the Eggs",
+        "instructionText": "Heat half the oil in a skillet over medium-high heat. Pour in the eggs and gently push the setting edges toward the center. Remove them while they are just set but still soft, then transfer to a plate.",
+        "timerSeconds": 120,
+        "importantTip": "Take the eggs out before they become dry. They will return to the pan later and finish cooking with the tomatoes."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Tomatoes",
+        "instructionText": "Add the remaining oil to the skillet. Add the white parts of the scallions and cook for 20 seconds. Add the tomatoes, soy sauce, sugar, and remaining salt. Cook for 3–4 minutes, stirring gently, until the tomatoes soften and release their juices.",
+        "timerSeconds": 240,
+        "importantTip": "Let the tomatoes release their natural juices before adding the eggs. This creates a light sauce without needing much additional liquid."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Combine the Eggs and Tomatoes",
+        "instructionText": "Return the eggs to the skillet and gently fold them through the tomato mixture. Cook for 30–60 seconds until warmed through, then turn off the heat.",
+        "timerSeconds": 60,
+        "importantTip": "Fold gently rather than stirring aggressively so the eggs remain in soft, tender curds."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Garnish and Serve",
+        "instructionText": "Sprinkle the green parts of the scallions over the dish. Divide the Rice between two bowls and spoon the tomato and egg mixture over the top.",
+        "timerSeconds": 60,
+        "importantTip": "Serve immediately while the tomato juices are still warm and plentiful; they make a flavorful sauce for the rice."
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Soy",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_046",
+    "title": "Hearty Chicken, White Bean & Vegetable Soup",
+    "description": "A practical one-pot meal with chicken, white beans, carrots, celery, tomatoes, and greens; designed for repeatable weeknight cooking and leftovers.",
+    "imageUrl": "assets/images/recipes/chicken_and_white_bean_soup.jpg",
+    "cookTimeMinutes": 35,
+    "activePrepTimeMinutes": 15,
+    "servings": 4,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Chicken thigh": "12 oz",
+      "Cannellini Beans": "1 can",
+      "Carrots": "2 medium",
+      "Celery": "2 ribs",
+      "Yellow onion": "1 medium",
+      "Garlic": "3 cloves",
+      "Chicken Broth": "5 cups",
+      "Diced Tomatoes": "1 can",
+      "Spinach": "2 cups",
+      "Olive Oil": "1 tbsp",
+      "Dried Thyme": "1 tsp",
+      "Black pepper": "1/4 tsp",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 11.0,
+    "costPerServing": 2.75,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 390,
+      "proteinGrams": 32,
+      "carbsGrams": 36,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Soften the Aromatics",
+        "instructionText": "Heat olive oil in a large pot over medium heat. Add onion, carrots, and celery; cook for 5–6 minutes, stirring, until the onion begins to soften. Add garlic and thyme and cook for 30 seconds.",
+        "timerSeconds": 360,
+        "importantTip": "Keep the vegetables sizzling gently rather than browning heavily; this builds a sweet soup base."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Brown the Chicken",
+        "instructionText": "Add the chicken pieces and stir for 3–4 minutes until the outside turns opaque. The chicken will finish cooking in the broth.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Bring the Soup to a Boil",
+        "instructionText": "Add the broth, diced tomatoes, and rinsed cannellini beans. Stir and raise the heat until the liquid reaches a boil.",
+        "timerSeconds": 240,
+        "importantTip": "A boil has large, active bubbles across the surface; stay nearby so the pot does not boil over."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Simmer Until Tender",
+        "instructionText": "Reduce the heat to low, cover partially, and simmer gently for 18–22 minutes, until the vegetables are tender and the chicken reaches 165°F (74°C). Stir once or twice.",
+        "timerSeconds": 1200,
+        "importantTip": "After the boil, aim for small occasional bubbles, not a vigorous rolling boil."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Finish with Greens",
+        "instructionText": "Stir in the spinach until wilted. Taste, season with salt and pepper, and serve. Refrigerate leftovers promptly.",
+        "timerSeconds": 120,
+        "importantTip": "The soup thickens after resting; add a splash of broth or water when reheating if needed."
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_047",
+    "title": "Pan-Seared Chicken with Garlic Green Beans & Brown Rice",
+    "description": "A simple, balanced staple that teaches steady skillet heat: browned chicken, crisp-tender green beans, and brown rice with lemon and garlic.",
+    "imageUrl": "assets/images/recipes/pan_seared_chicken_with_garlic_green_beans_and_brown_rice.jpg",
+    "cookTimeMinutes": 40,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Chicken breast": "2 small",
+      "Brown Rice": "3/4 cup",
+      "Green Beans": "8 oz",
+      "Olive Oil": "1 tbsp",
+      "Garlic": "2 cloves",
+      "Lemon": "1/2 lemon",
+      "Paprika": "1/2 tsp",
+      "Black pepper": "1/4 tsp",
+      "Salt": "To taste",
+      "Water": "1 1/2 cups"
+    },
+    "estimatedCost": 7.2,
+    "costPerServing": 3.6,
+    "estimatedRestaurantCost": 19.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 500,
+      "proteinGrams": 43,
+      "carbsGrams": 48,
+      "fatGrams": 13
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Start the Rice",
+        "instructionText": "Rinse the brown rice. Combine it with the measured water in a saucepan, bring to a boil, then cover and reduce to low. Simmer according to the package directions, usually 30–40 minutes; use precooked rice if following the short cook-time estimate.",
+        "timerSeconds": 1800,
+        "importantTip": "Brown rice takes longer than white rice, so start it first or use batch-cooked rice from the refrigerator."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Prepare the Chicken",
+        "instructionText": "Pat the chicken dry. Season both sides with paprika, salt, and pepper. If the breasts are thick, gently pound them to an even thickness so they cook at the same rate.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Sear Over Medium Heat",
+        "instructionText": "Heat half the olive oil in a skillet over medium heat. Add the chicken and cook without moving it for 5–7 minutes, then flip and cook another 4–6 minutes, adjusting the heat if the surface gets too dark.",
+        "timerSeconds": 720,
+        "importantTip": "A steady sizzle is right. If the oil smokes or the outside burns before the center cooks, lower the heat."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Check Doneness and Rest",
+        "instructionText": "Check the thickest part of each breast with a food thermometer; it should reach 165°F (74°C). Transfer to a clean plate and rest for 3 minutes.",
+        "timerSeconds": 180,
+        "importantTip": "Do not rely on color alone to judge chicken safety."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Cook the Green Beans",
+        "instructionText": "Add the remaining oil and green beans to the same skillet. Cook for 4–6 minutes, stirring occasionally, until bright green and tender-crisp. Add garlic for the final 30 seconds, then add lemon juice. Serve with rice and chicken.",
+        "timerSeconds": 360,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_048",
+    "title": "Sheet-Pan Chicken Thighs with Potatoes & Vegetables",
+    "description": "A repeatable oven-roasted dinner with juicy chicken thighs, browned potatoes, carrots, and broccoli, all cooked on one pan.",
+    "imageUrl": "assets/images/recipes/sheet_pan_chicken_thighs_with_potatoes_and_vegetables.jpg",
+    "cookTimeMinutes": 35,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Chicken thigh": "2 pieces",
+      "Potatoes": "12 oz",
+      "Carrots": "2 medium",
+      "Broccoli": "2 cups",
+      "Olive Oil": "1 1/2 tbsp",
+      "Garlic Powder": "1 tsp",
+      "Dried Oregano": "1 tsp",
+      "Lemon": "1/2 lemon",
+      "Black pepper": "1/4 tsp",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 8.8,
+    "costPerServing": 4.4,
+    "estimatedRestaurantCost": 20.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 520,
+      "proteinGrams": 38,
+      "carbsGrams": 48,
+      "fatGrams": 19
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Heat the Oven",
+        "instructionText": "Preheat the oven to 425°F (220°C). Line a rimmed baking sheet with parchment or lightly oil it.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Give the Potatoes a Head Start",
+        "instructionText": "Toss the potatoes and carrots with half the olive oil, garlic powder, oregano, salt, and pepper. Spread them out on the pan and roast for 12 minutes.",
+        "timerSeconds": 720,
+        "importantTip": "Cut vegetables to similar sizes so they roast evenly; crowding the pan causes steaming instead of browning."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Season the Chicken and Broccoli",
+        "instructionText": "Pat the chicken thighs dry. Toss the broccoli with the remaining oil and add it to the pan. Place the chicken thighs among the vegetables and season all sides.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Roast Until Cooked Through",
+        "instructionText": "Return the pan to the oven and roast for 20–25 minutes, turning the vegetables once, until the potatoes are tender and the thickest part of each thigh reaches 165°F (74°C).",
+        "timerSeconds": 1500,
+        "importantTip": "If the vegetables finish first, remove them while the chicken continues cooking; pan size and piece thickness affect timing."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Finish and Serve",
+        "instructionText": "Rest the chicken for 3 minutes. Squeeze lemon over the chicken and vegetables and serve directly from the pan.",
+        "timerSeconds": 180,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_049",
+    "title": "Classic Tuna Melt on Whole-Grain Bread",
+    "description": "A protein-rich lunch sandwich with lemony tuna, crunchy celery, and melted cheddar on toasted whole-grain bread.",
+    "imageUrl": "assets/images/recipes/classic_tuna_melt_on_whole-grain_bread.jpg",
+    "cookTimeMinutes": 8,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy",
+      "Budget",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Canned Tuna": "1 can",
+      "Greek Yogurt": "2 tbsp",
+      "Celery": "1 rib",
+      "Dijon Mustard": "1 tsp",
+      "Lemon Juice": "1 tsp",
+      "Whole-Grain Bread": "4 slices",
+      "Cheddar Cheese": "2 slices",
+      "Spinach": "1 handful",
+      "Black pepper": "To taste"
+    },
+    "estimatedCost": 4.8,
+    "costPerServing": 2.4,
+    "estimatedRestaurantCost": 14.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 390,
+      "proteinGrams": 31,
+      "carbsGrams": 38,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Mix the Tuna",
+        "instructionText": "Flake the drained tuna in a bowl. Stir in Greek yogurt, celery, Dijon mustard, lemon juice, and black pepper.",
+        "timerSeconds": 120,
+        "importantTip": "Drain tuna well so the filling does not make the bread soggy."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Build the Sandwiches",
+        "instructionText": "Divide the tuna mixture between two slices of bread. Add spinach and cheddar, then top with the remaining bread slices.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Toast in a Skillet",
+        "instructionText": "Heat a nonstick skillet over medium-low heat. Toast sandwiches for 3–4 minutes per side, pressing lightly, until the bread is golden and the cheese has melted.",
+        "timerSeconds": 480,
+        "importantTip": "Medium-low heat gives the cheese time to melt before the bread becomes too dark."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Slice and Serve",
+        "instructionText": "Let the sandwiches rest for 1 minute, slice, and serve warm.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Fish",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_050",
+    "title": "Turkey Burgers with Roasted Sweet-Potato Wedges",
+    "description": "Homemade turkey patties and oven-roasted sweet-potato wedges make a satisfying alternative to takeout burgers and fries.",
+    "imageUrl": "assets/images/recipes/turkey_burgers_with_roasted_sweet_potato_wedges.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Lean Ground Turkey": "12 oz",
+      "Whole-Wheat Burger Buns": "2 pieces",
+      "Sweet Potato": "1 large",
+      "Lettuce": "2 leaves",
+      "Tomatoes": "1 small",
+      "Yellow onion": "1/4",
+      "Olive Oil": "1 tbsp",
+      "Garlic Powder": "1/2 tsp",
+      "Smoked Paprika": "1/2 tsp",
+      "Black pepper": "1/4 tsp",
+      "Salt": "To taste",
+      "Dijon Mustard": "2 tsp"
+    },
+    "estimatedCost": 7.5,
+    "costPerServing": 3.75,
+    "estimatedRestaurantCost": 17.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 560,
+      "proteinGrams": 38,
+      "carbsGrams": 59,
+      "fatGrams": 19
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Roast the Sweet Potato",
+        "instructionText": "Heat the oven to 425°F (220°C). Toss sweet-potato wedges with half the olive oil, paprika, garlic powder, salt, and pepper. Spread in one layer and roast for 22–28 minutes, flipping halfway.",
+        "timerSeconds": 1500,
+        "importantTip": "Give the wedges space; overlapping pieces soften instead of browning."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Shape the Patties",
+        "instructionText": "Gently mix the ground turkey with a pinch of salt and pepper. Form two even patties slightly wider than the buns; avoid packing the meat tightly.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Burgers",
+        "instructionText": "Heat the remaining oil in a skillet over medium heat. Cook patties for about 5–6 minutes per side, until the center reaches 165°F (74°C).",
+        "timerSeconds": 720,
+        "importantTip": "Ground turkey must reach 165°F; a thermometer is more reliable than timing alone."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Assemble and Serve",
+        "instructionText": "Toast the buns if desired. Spread with Dijon, add lettuce, tomato, onion, and a turkey patty. Serve with sweet-potato wedges.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_051",
+    "title": "Weeknight Turkey Meatloaf with Green Beans",
+    "description": "A lighter, small-batch meatloaf served with green beans; easy to portion for dinner and leftovers without making a large casserole.",
+    "imageUrl": "assets/images/recipes/weeknight_turkey_meatloaf_with_green_beans.jpg",
+    "cookTimeMinutes": 30,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "American",
+    "dietary": [],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Lean Ground Turkey": "12 oz",
+      "Rolled Oats": "1/3 cup",
+      "Eggs": "1 large",
+      "Yellow onion": "1/2 small",
+      "Garlic Powder": "1/2 tsp",
+      "Ketchup": "2 tbsp",
+      "Worcestershire Sauce": "1 tsp",
+      "Green Beans": "8 oz",
+      "Olive Oil": "2 tsp",
+      "Black pepper": "1/4 tsp",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 6.9,
+    "costPerServing": 3.45,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 430,
+      "proteinGrams": 36,
+      "carbsGrams": 31,
+      "fatGrams": 18
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Preheat and Mix",
+        "instructionText": "Heat the oven to 400°F (205°C). In a bowl, gently combine turkey, oats, egg, grated onion, garlic powder, Worcestershire sauce, pepper, and a little salt.",
+        "timerSeconds": 240,
+        "importantTip": "Mix only until combined; overmixing can make meatloaf dense."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Shape and Glaze",
+        "instructionText": "Shape the mixture into a compact small loaf on a lined baking tray. Spread ketchup over the top.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Bake the Meatloaf",
+        "instructionText": "Bake for 25–30 minutes, until the center reaches 165°F (74°C). If using a thermometer, insert it into the thickest part.",
+        "timerSeconds": 1800,
+        "importantTip": "Ground turkey should reach 165°F for food safety."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Cook the Green Beans",
+        "instructionText": "During the last 10–12 minutes of baking, toss the green beans with olive oil and a pinch of salt. Roast them on the same tray if space allows, or sauté in a skillet for 6–8 minutes until tender-crisp.",
+        "timerSeconds": 480,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Rest and Serve",
+        "instructionText": "Rest the meatloaf for 5 minutes before slicing. Serve with the green beans and refrigerate leftovers promptly.",
+        "timerSeconds": 300,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Wheat",
+      "Fish"
+    ]
+  },
+  {
+    "recipeId": "rec_052",
+    "title": "Tuscan White Bean & Spinach Toasts",
+    "description": "Crisp whole-grain toast topped with warm cannellini beans, tomatoes, spinach, garlic, and a little Parmesan for a quick, hearty lunch.",
+    "imageUrl": "assets/images/recipes/tuscan_white_bean_and_spinach_toasts.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 8,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "Italian",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Budget",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Whole-Grain Bread": "4 pieces",
+      "Cannellini Beans": "1 can",
+      "Cherry Tomatoes": "1 cup",
+      "Spinach": "2 cups",
+      "Garlic": "2 cloves",
+      "Olive Oil": "1 tbsp",
+      "Parmesan cheese": "2 tbsp",
+      "Dried Oregano": "1/2 tsp",
+      "Black pepper": "To taste",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 4.5,
+    "costPerServing": 2.25,
+    "estimatedRestaurantCost": 13.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 370,
+      "proteinGrams": 17,
+      "carbsGrams": 55,
+      "fatGrams": 10
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Toast the Bread",
+        "instructionText": "Toast the bread until crisp and golden. Keep warm while you prepare the topping.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Warm Garlic and Tomatoes",
+        "instructionText": "Heat olive oil in a skillet over medium heat. Add garlic and cook for 30 seconds, then add tomatoes and oregano. Cook for 3–4 minutes until the tomatoes begin to soften.",
+        "timerSeconds": 240,
+        "importantTip": "Keep the garlic moving so it becomes fragrant without turning bitter."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add Beans and Spinach",
+        "instructionText": "Stir in the rinsed beans with 2 tablespoons of water. Warm for 2–3 minutes, lightly crushing a few beans to make the topping hold together. Fold in spinach until wilted.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Top and Serve",
+        "instructionText": "Season to taste, spoon the mixture over toast, and finish with Parmesan and black pepper.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_053",
+    "title": "Italian Chicken Sausage & Pepper Sandwiches",
+    "description": "A colorful skillet of chicken sausage, bell peppers, and onions tucked into whole-grain rolls for a straightforward Italian-American meal.",
+    "imageUrl": "assets/images/recipes/italian_chicken_sausage_and_pepper_sandwiches.jpg",
+    "cookTimeMinutes": 18,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "Italian",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Fully Cooked Chicken Sausage": "2 links",
+      "Whole-Grain Rolls": "2 pieces",
+      "Red Bell Pepper": "1 pepper",
+      "Bell Pepper": "1/2 pepper",
+      "Yellow onion": "1/2 onion",
+      "Olive Oil": "2 tsp",
+      "Garlic": "2 cloves",
+      "Dried Oregano": "1/2 tsp",
+      "Red Wine Vinegar": "1 tsp",
+      "Black pepper": "To taste"
+    },
+    "estimatedCost": 6.8,
+    "costPerServing": 3.4,
+    "estimatedRestaurantCost": 16.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 450,
+      "proteinGrams": 25,
+      "carbsGrams": 49,
+      "fatGrams": 17
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Slice the Ingredients",
+        "instructionText": "Slice the sausage into coins. Cut the peppers and onion into similar-size strips so they soften at about the same rate.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Brown the Sausage",
+        "instructionText": "Heat the olive oil in a large skillet over medium heat. Add sausage and cook for 3–4 minutes, turning until browned. Transfer to a plate if the skillet is crowded.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Soften the Peppers and Onion",
+        "instructionText": "Add peppers and onion to the skillet. Cook for 6–8 minutes, stirring occasionally, until softened with some browned edges. Add garlic and oregano for the final minute.",
+        "timerSeconds": 480,
+        "importantTip": "If the vegetables brown too quickly while still firm, lower the heat and add a spoonful of water."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Finish and Fill the Rolls",
+        "instructionText": "Return sausage to the skillet, stir in red wine vinegar and black pepper, and heat through. Spoon into rolls and serve.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_054",
+    "title": "Chicken Piccata with Lemon-Caper Pan Sauce",
+    "description": "A classic Italian-American skillet dish that builds a bright sauce from browned chicken, lemon, capers, and broth; ideal for practicing pan control.",
+    "imageUrl": "assets/images/recipes/chicken_piccata_with_lemon-caper_pan_sauce.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "Italian",
+    "dietary": [],
+    "tags": [],
+    "ingredients": {
+      "Chicken breast": "2 small",
+      "Wheat flour": "3 tbsp",
+      "Olive Oil": "1 tbsp",
+      "Butter": "1 tbsp",
+      "Chicken Broth": "1/2 cup",
+      "Lemon Juice": "2 tbsp",
+      "Capers": "1 tbsp",
+      "Garlic": "1 clove",
+      "Fresh Parsley": "1 tbsp",
+      "Black pepper": "1/4 tsp",
+      "Salt": "To taste",
+      "Pasta": "6 oz"
+    },
+    "estimatedCost": 8.8,
+    "costPerServing": 4.4,
+    "estimatedRestaurantCost": 24.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 440,
+      "proteinGrams": 39,
+      "carbsGrams": 38,
+      "fatGrams": 15
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Make Even Cutlets",
+        "instructionText": "Bring a pot of salted water to a boil and cook the whole-wheat spaghetti according to the package directions. While it cooks, pound the chicken breasts to an even 1/2-inch thickness if needed, then season both sides with salt and pepper; lightly dredge in flour and shake off excess.",
+        "timerSeconds": 300,
+        "importantTip": "Even thickness helps the chicken cook before the thin edges dry out."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Sear the Chicken",
+        "instructionText": "Heat olive oil in a skillet over medium-high heat. Add chicken in one layer and cook for 3–4 minutes per side until golden and 165°F (74°C) inside. Transfer to a clean plate.",
+        "timerSeconds": 480,
+        "importantTip": "Do not crowd the pan. Sear in batches if needed so the chicken browns instead of steaming."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Build the Pan Sauce",
+        "instructionText": "Lower heat to medium. Add garlic and cook for 20–30 seconds. Pour in broth and lemon juice, scraping up the browned bits. Stir in capers and simmer for 2–3 minutes until slightly reduced.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Finish the Sauce",
+        "instructionText": "Turn heat to low and swirl in butter until the sauce looks glossy. Stir in parsley, then return chicken and any juices to the pan for 1 minute to warm through.",
+        "timerSeconds": 120,
+        "importantTip": "Keep the sauce at a gentle simmer when adding butter; hard boiling can make the sauce greasy."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Serve",
+        "instructionText": "Serve the chicken and lemon-caper pan sauce over the drained whole-wheat spaghetti, with vegetables on the side.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_055",
+    "title": "Baked Eggplant Parmesan",
+    "description": "Crisp oven-baked eggplant layered with tomato sauce, mozzarella, and Parmesan; a satisfying Italian meat-free dinner.",
+    "imageUrl": "assets/images/recipes/baked_eggplant_parmesan.jpg",
+    "cookTimeMinutes": 35,
+    "activePrepTimeMinutes": 20,
+    "servings": 2,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "Italian",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [],
+    "ingredients": {
+      "Eggplant": "1 medium",
+      "Eggs": "1 large",
+      "Panko Breadcrumbs": "3/4 cup",
+      "Parmesan cheese": "1/4 cup",
+      "Mozzarella cheese": "3/4 cup",
+      "Marinara Sauce": "1 1/2 cups",
+      "Olive Oil": "1 tbsp",
+      "Dried Oregano": "1/2 tsp",
+      "Black pepper": "To taste",
+      "Salt": "To taste",
+      "Pasta": "4 oz"
+    },
+    "estimatedCost": 7.8,
+    "costPerServing": 3.9,
+    "estimatedRestaurantCost": 19.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 470,
+      "proteinGrams": 25,
+      "carbsGrams": 52,
+      "fatGrams": 19
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Heat the Oven and Prep Eggplant",
+        "instructionText": "Heat the oven to 425°F (220°C). Lightly salt the eggplant rounds and set aside for 10 minutes, then blot moisture from the surfaces with paper towels.",
+        "timerSeconds": 600,
+        "importantTip": "Blotting the surface helps the coating crisp rather than steam."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Bread the Eggplant",
+        "instructionText": "Mix panko, Parmesan, oregano, and black pepper in a shallow dish. Dip each eggplant slice in beaten egg, then press into the breadcrumb mixture to coat both sides.",
+        "timerSeconds": 360,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Bake Until Golden",
+        "instructionText": "Arrange the slices on an oiled or parchment-lined sheet pan. Lightly brush or spray the tops with olive oil and bake for 18–22 minutes, flipping once, until golden and tender.",
+        "timerSeconds": 1260,
+        "importantTip": "Leave gaps between slices so hot air can circulate and the coating browns."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Layer with Sauce and Cheese",
+        "instructionText": "Spread a little marinara in a small baking dish. Add half the eggplant, some sauce, and mozzarella; repeat with the remaining eggplant, sauce, and cheese.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Bake and Rest",
+        "instructionText": "Bake for 10–12 minutes until the sauce bubbles and the cheese melts. Rest 5 minutes before serving; add cooked whole-wheat spaghetti if desired.",
+        "timerSeconds": 720,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Eggs",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_056",
+    "title": "Vegetable Egg Fried Rice",
+    "description": "A flexible one-pan meal using chilled rice, eggs, peas, carrots, and scallions; a practical way to use leftovers instead of ordering takeout.",
+    "imageUrl": "assets/images/recipes/vegetable_egg_fried_rice.jpg",
+    "cookTimeMinutes": 10,
+    "activePrepTimeMinutes": 8,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "Chinese",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy",
+      "Budget",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Rice": "3 cups",
+      "Eggs": "2 large",
+      "Frozen Peas and Carrots": "1 cup",
+      "Scallions": "2 scallions",
+      "Soy sauce": "1 1/2 tbsp",
+      "Sesame Oil": "1 tsp",
+      "Vegetable Oil": "2 tsp",
+      "Garlic": "1 clove",
+      "White Pepper": "1 pinch"
+    },
+    "estimatedCost": 3.8,
+    "costPerServing": 1.9,
+    "estimatedRestaurantCost": 13.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 420,
+      "proteinGrams": 14,
+      "carbsGrams": 63,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Rice",
+        "instructionText": "Break up chilled rice clumps with clean fingers or a fork. Have the vegetables, beaten eggs, and sauce ready beside the stove.",
+        "timerSeconds": 120,
+        "importantTip": "Cold, relatively dry rice fries better than freshly cooked wet rice."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Scramble the Eggs",
+        "instructionText": "Heat half the neutral oil in a large skillet or wok over medium-high heat. Add the beaten eggs and stir until softly set. Transfer to a plate.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Fry the Vegetables and Rice",
+        "instructionText": "Add the remaining neutral oil. Cook the peas and carrots for 2 minutes, add garlic and white pepper for 20 seconds, then add rice. Spread it out and let it fry briefly before stirring.",
+        "timerSeconds": 240,
+        "importantTip": "A hot pan and short pauses help rice fry instead of turning mushy; work in batches if the pan is small."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Season and Combine",
+        "instructionText": "Return the eggs to the pan. Add soy sauce around the edge of the hot pan and toss with the scallions and sesame oil until everything is hot. Serve immediately.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Soy",
+      "Sesame",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_057",
+    "title": "Beef & Broccoli Stir-Fry",
+    "description": "A takeout-inspired skillet dinner with thinly sliced beef and broccoli in a savory garlic-ginger sauce, served over rice rather than as a bowl.",
+    "imageUrl": "assets/images/recipes/beef_and_broccoli_stir_fry.jpg",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Chinese",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Flank Steak": "10 oz",
+      "Broccoli": "3 cups",
+      "Brown Rice": "2 cups",
+      "Soy sauce": "2 tbsp",
+      "Water": "3 tbsp",
+      "Cornstarch": "2 tsp",
+      "Ginger": "1 tsp",
+      "Garlic": "2 cloves",
+      "Vegetable Oil": "1 tbsp",
+      "Rice Vinegar": "1 tsp",
+      "Honey": "1 tsp"
+    },
+    "estimatedCost": 9.2,
+    "costPerServing": 4.6,
+    "estimatedRestaurantCost": 20.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 480,
+      "proteinGrams": 35,
+      "carbsGrams": 52,
+      "fatGrams": 14
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Mix the Sauce and Slice the Beef",
+        "instructionText": "Whisk soy sauce, water, cornstarch, rice vinegar, honey, ginger, and garlic in a small bowl. Slice beef thinly across the grain and pat it dry.",
+        "timerSeconds": 240,
+        "importantTip": "Thin slices across the grain stay more tender and cook quickly."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Cook the Broccoli",
+        "instructionText": "Heat a skillet or wok over medium-high heat. Add a splash of water and the broccoli; cover for 2–3 minutes until bright green, then uncover and let excess water evaporate. Transfer to a plate.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Sear the Beef",
+        "instructionText": "Add oil to the hot skillet. Spread beef in a single layer and sear without moving for about 1 minute, then toss and cook until just browned.",
+        "timerSeconds": 180,
+        "importantTip": "Avoid overcrowding; batches brown more effectively than a packed pan."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Thicken the Sauce",
+        "instructionText": "Return broccoli to the pan. Stir the sauce again and pour it in; toss for 1–2 minutes until glossy and the beef is cooked to your preferred safe doneness.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Serve",
+        "instructionText": "Serve the stir-fry alongside warm brown rice. Refrigerate leftovers promptly.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Soy",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_058",
+    "title": "Ginger-Scallion Steamed Cod with Bok Choy",
+    "description": "A light Chinese-style fish dinner with ginger, scallions, and tender bok choy; the gentle steaming keeps the fish moist without heavy sauce.",
+    "imageUrl": "assets/images/recipes/ginger-scallion_steamed_cod_with_bok_choy.jpg",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Chinese",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Cod Fillets": "2 pieces",
+      "Baby Bok Choy": "4 small",
+      "Ginger": "1 tbsp",
+      "Scallions": "3 scallions",
+      "Soy sauce": "1 tbsp",
+      "Sesame Oil": "1 tsp",
+      "Vegetable Oil": "1 tsp",
+      "Rice": "2 cups",
+      "Water": "As needed"
+    },
+    "estimatedCost": 9.8,
+    "costPerServing": 4.9,
+    "estimatedRestaurantCost": 22.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 370,
+      "proteinGrams": 34,
+      "carbsGrams": 42,
+      "fatGrams": 8
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Steamer",
+        "instructionText": "Set a steamer basket over a pot of gently simmering water. The water should stay below the basket. Pat the cod dry and place it on a heat-safe plate that fits inside.",
+        "timerSeconds": 180,
+        "importantTip": "Use a plate with a rim to catch the fish juices."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Add Ginger and Steam",
+        "instructionText": "Scatter ginger over the fish. Cover and steam for 7–10 minutes, depending on thickness, until the fish is opaque and flakes easily; fish should reach 145°F (63°C).",
+        "timerSeconds": 600,
+        "importantTip": "Keep the water at a steady simmer rather than a vigorous boil that can splash into the plate."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Bok Choy",
+        "instructionText": "While the fish steams, heat neutral oil in a skillet over medium-high heat. Add bok choy cut-side down and cook for 2 minutes, then add 2 tablespoons water and cover for another 2–3 minutes until tender-crisp.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Season and Serve",
+        "instructionText": "Drizzle the fish with soy sauce and sesame oil. Top with scallions and serve beside bok choy and rice.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Soy",
+      "Fish",
+      "Sesame",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_059",
+    "title": "Pork & Cabbage Potstickers",
+    "description": "Pan-seared then steam-finished dumplings filled with pork, cabbage, ginger, and scallions; a more involved Chinese cooking project with a crisp base.",
+    "imageUrl": "assets/images/recipes/pork_and_cabbage_potstickers.jpg",
+    "cookTimeMinutes": 20,
+    "activePrepTimeMinutes": 30,
+    "servings": 3,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "Chinese",
+    "dietary": [],
+    "tags": [],
+    "ingredients": {
+      "Round Dumpling Wrappers": "24 wrappers",
+      "Ground Pork": "8 oz",
+      "Napa Cabbage": "1 1/2 cups",
+      "Scallions": "3 scallions",
+      "Ginger": "1 tsp",
+      "Garlic": "2 cloves",
+      "Soy sauce": "1 tbsp",
+      "Sesame Oil": "1 tsp",
+      "Vegetable Oil": "1 tbsp",
+      "Water": "1/3 cup",
+      "Rice Vinegar": "2 tbsp"
+    },
+    "estimatedCost": 8.5,
+    "costPerServing": 2.83,
+    "estimatedRestaurantCost": 21.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 440,
+      "proteinGrams": 22,
+      "carbsGrams": 51,
+      "fatGrams": 16
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Make the Filling",
+        "instructionText": "Squeeze excess moisture from the chopped cabbage. Mix cabbage, pork, scallions, ginger, garlic, soy sauce, and sesame oil until evenly combined.",
+        "timerSeconds": 300,
+        "importantTip": "Removing extra cabbage moisture makes the filling easier to seal."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Fill and Seal",
+        "instructionText": "Place about 1 teaspoon of filling in the center of each wrapper. Moisten half the edge with water, fold over, and press firmly to seal, pleating if comfortable. Keep unused wrappers covered.",
+        "timerSeconds": 900,
+        "importantTip": "Do not overfill the wrappers or the seams may open while cooking."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Sear the Bottoms",
+        "instructionText": "Heat neutral oil in a nonstick skillet over medium heat. Arrange dumplings flat-side down with a little space between them. Cook for 2–3 minutes until the bottoms turn golden.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Steam Through",
+        "instructionText": "Carefully add 1/3 cup water and immediately cover the skillet. Steam for 5–7 minutes, until the filling reaches 160°F (71°C) for ground pork and most water has evaporated.",
+        "timerSeconds": 420,
+        "importantTip": "Keep your face and hands clear when adding water to hot oil; it will sizzle and steam."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Crisp and Serve",
+        "instructionText": "Remove the lid and cook 1–2 minutes more to re-crisp the bottoms. Serve hot with rice vinegar; refrigerate leftovers promptly.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Soy",
+      "Sesame",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_060",
+    "title": "Chicken Fajitas with Peppers & Onions",
+    "description": "A skillet of seasoned chicken strips, peppers, and onions served in warm tortillas; a reusable dinner that also makes excellent leftovers.",
+    "imageUrl": "assets/images/recipes/chicken_fajitas_with_peppers_and_onions.jpg",
+    "cookTimeMinutes": 18,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Mexican",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Chicken breast": "12 oz",
+      "Corn tortillas": "6 small",
+      "Red Bell Pepper": "1 pepper",
+      "Bell Pepper": "1 pepper",
+      "Yellow onion": "1/2 onion",
+      "Olive Oil": "1 tbsp",
+      "Lime": "1 lime",
+      "Ground Cumin": "1 tsp",
+      "Chili Powder": "1 tsp",
+      "Garlic Powder": "1/2 tsp",
+      "Salsa": "1/2 cup",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 7.6,
+    "costPerServing": 3.8,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 450,
+      "proteinGrams": 37,
+      "carbsGrams": 48,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Season the Chicken",
+        "instructionText": "Toss chicken strips with cumin, chili powder, garlic powder, half the lime juice, and a pinch of salt.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Sear the Chicken",
+        "instructionText": "Heat half the oil in a large skillet over medium-high heat. Cook chicken strips in a single layer until browned and cooked through to 165°F (74°C), about 5–7 minutes. Transfer to a plate.",
+        "timerSeconds": 420,
+        "importantTip": "Cook in batches if needed; crowded chicken releases liquid and will steam rather than brown."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Peppers and Onion",
+        "instructionText": "Add remaining oil, peppers, and onion. Cook for 5–7 minutes, stirring occasionally, until softened with browned edges.",
+        "timerSeconds": 420,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Combine and Serve",
+        "instructionText": "Return chicken to the skillet, add the remaining lime juice, and toss. Warm corn tortillas in a dry skillet and serve with salsa.",
+        "timerSeconds": 180,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_061",
+    "title": "Black Bean & Sweet Potato Enchiladas",
+    "description": "Soft corn tortillas filled with black beans and roasted sweet potato, covered with enchilada sauce and baked with a modest layer of cheese.",
+    "imageUrl": "assets/images/recipes/black_bean_and_sweet_potato_enchiladas.jpg",
+    "cookTimeMinutes": 40,
+    "activePrepTimeMinutes": 18,
+    "servings": 3,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Mexican",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Sweet Potato": "1 large",
+      "Black Beans": "1 can",
+      "Corn tortillas": "8 small",
+      "Red Enchilada Sauce": "1 1/2 cups",
+      "Cheddar Cheese": "3/4 cup",
+      "Yellow onion": "1/2 onion",
+      "Olive Oil": "2 tsp",
+      "Ground Cumin": "1 tsp",
+      "Smoked Paprika": "1/2 tsp",
+      "Cilantro": "2 tbsp",
+      "Lime": "1/2 lime"
+    },
+    "estimatedCost": 7.5,
+    "costPerServing": 2.5,
+    "estimatedRestaurantCost": 19.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 440,
+      "proteinGrams": 17,
+      "carbsGrams": 67,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Roast the Sweet Potato",
+        "instructionText": "Heat the oven to 425°F (220°C). Toss diced sweet potato and onion with olive oil, cumin, and paprika. Roast for 18–20 minutes until tender.",
+        "timerSeconds": 1200,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Make the Filling",
+        "instructionText": "Stir roasted sweet potato and onion together with black beans and half the cheese. Warm the tortillas briefly so they bend without cracking.",
+        "timerSeconds": 180,
+        "importantTip": "If corn tortillas crack, wrap them in a damp paper towel and microwave for 20–30 seconds."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Fill and Arrange",
+        "instructionText": "Spread a thin layer of enchilada sauce in a baking dish. Fill each tortilla with the bean mixture, roll it up, and arrange seam-side down in the dish.",
+        "timerSeconds": 420,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Bake",
+        "instructionText": "Pour the remaining sauce over the enchiladas and sprinkle with the remaining cheese. Bake at 400°F (205°C) for 15–18 minutes until bubbling.",
+        "timerSeconds": 1080,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Finish and Serve",
+        "instructionText": "Rest for 5 minutes, then top with cilantro and serve with lime wedges.",
+        "timerSeconds": 300,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_062",
+    "title": "Chicken Tinga Tostadas",
+    "description": "Crisp corn tostadas topped with smoky tomato-chipotle chicken, shredded lettuce, and avocado for a flavorful non-bowl Mexican lunch or dinner.",
+    "imageUrl": "assets/images/recipes/chicken_tinga_tostadas.jpg",
+    "cookTimeMinutes": 20,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Lunch",
+    "cuisine": "Mexican",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Cooked chicken breast": "2 cups",
+      "Corn Tostada Shells": "4 shells",
+      "Diced Tomatoes": "1 can",
+      "Yellow onion": "1/2 onion",
+      "Garlic": "2 cloves",
+      "Chipotle Pepper in Adobo": "1 pepper",
+      "Olive Oil": "2 tsp",
+      "Dried Oregano": "1/2 tsp",
+      "Ground Cumin": "1/2 tsp",
+      "Lettuce": "1 cup",
+      "Avocado": "1/2 avocado",
+      "Lime": "1/2 lime"
+    },
+    "estimatedCost": 7.8,
+    "costPerServing": 3.9,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 430,
+      "proteinGrams": 34,
+      "carbsGrams": 39,
+      "fatGrams": 17
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Cook the Onion and Garlic",
+        "instructionText": "Heat olive oil in a skillet over medium heat. Add onion and cook for 4–5 minutes until softened. Add garlic, oregano, cumin, and chipotle; stir for 30 seconds.",
+        "timerSeconds": 330,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Simmer the Tomato Sauce",
+        "instructionText": "Add the tomatoes and chipotle sauce. Bring to a gentle simmer and cook for 5–7 minutes, stirring and breaking up larger tomato pieces.",
+        "timerSeconds": 420,
+        "importantTip": "Taste before adding extra chipotle; adobo sauce can be quite spicy and salty."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Shred and Warm the Chicken",
+        "instructionText": "Stir in the cooked shredded chicken and 2–3 tablespoons water. Simmer for 4–5 minutes until hot and coated in the sauce.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Assemble the Tostadas",
+        "instructionText": "Divide the chicken across the tostada shells. Top with lettuce, avocado, and lime juice, then serve immediately so the shells stay crisp.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_063",
+    "title": "Mexican-Style Stuffed Poblano Peppers",
+    "description": "Roasted poblano peppers filled with seasoned beef, brown rice, corn, and tomatoes, finished with a little cheese for a complete plated meal.",
+    "imageUrl": "assets/images/recipes/mexican_style_stuffed_poblano_peppers.jpg",
+    "cookTimeMinutes": 30,
+    "activePrepTimeMinutes": 18,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Mexican",
+    "dietary": [],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Poblano Peppers": "2 large",
+      "Lean Ground Beef": "8 oz",
+      "Brown Rice": "1 cup",
+      "Corn": "1/2 cup",
+      "Diced Tomatoes": "1/2 cup",
+      "Monterey Jack Cheese": "1/3 cup",
+      "Yellow onion": "1/2 onion",
+      "Olive Oil": "1 tsp",
+      "Ground Cumin": "1 tsp",
+      "Chili Powder": "1 tsp",
+      "Garlic": "1 clove",
+      "Cilantro": "1 tbsp"
+    },
+    "estimatedCost": 8.2,
+    "costPerServing": 4.1,
+    "estimatedRestaurantCost": 20.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 490,
+      "proteinGrams": 31,
+      "carbsGrams": 43,
+      "fatGrams": 20
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Roast the Poblanos",
+        "instructionText": "Heat the oven to 425°F (220°C). Place poblanos on a baking tray and roast for 10–12 minutes, turning once, until softened and lightly blistered. Let cool enough to handle.",
+        "timerSeconds": 720,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Cook the Beef Filling",
+        "instructionText": "Meanwhile, heat oil in a skillet over medium heat. Cook the onion for 3 minutes, add garlic and ground beef, and break it up as it browns. Cook until the beef reaches 160°F (71°C) or the package-safe temperature.",
+        "timerSeconds": 480,
+        "importantTip": "Drain excess fat if needed, but leave a little for flavor."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Season and Finish the Filling",
+        "instructionText": "Stir in cumin, chili powder, tomatoes, corn, and cooked rice. Simmer for 2–3 minutes until combined, then mix in half the cheese.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Fill and Bake",
+        "instructionText": "Carefully slit each poblano lengthwise and remove seeds if desired. Spoon in the filling, top with remaining cheese, and bake for 10–12 minutes until hot and melted.",
+        "timerSeconds": 720,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Garnish and Serve",
+        "instructionText": "Rest for 2 minutes and sprinkle with cilantro before serving.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_064",
+    "title": "Red Lentil Dal with Spinach & Brown Rice",
+    "description": "A comforting, inexpensive Indian lentil dish with spinach and warm spices, served with brown rice; easy to batch-cook for several meals.",
+    "imageUrl": "assets/images/recipes/red_lentil_dal_with_spinach_and_brown_rice.jpg",
+    "cookTimeMinutes": 40,
+    "activePrepTimeMinutes": 10,
+    "servings": 3,
+    "difficultyTier": "1",
+    "mealType": "Dinner",
+    "cuisine": "Indian",
+    "dietary": [
+      "Vegan",
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly",
+      "Budget"
+    ],
+    "ingredients": {
+      "Red Lentils": "1 cup",
+      "Brown Rice": "3/4 cup",
+      "Yellow onion": "1 small",
+      "Diced Tomatoes": "1 cup",
+      "Spinach": "2 cups",
+      "Garlic": "3 cloves",
+      "Ginger": "1 tsp",
+      "Ground Cumin": "1 tsp",
+      "Turmeric": "1/2 tsp",
+      "Vegetable Oil": "1 tbsp",
+      "Water or Low-Sodium Vegetable Broth": "3 cups",
+      "Salt": "To taste",
+      "Lemon Juice": "1 tbsp"
+    },
+    "estimatedCost": 5.4,
+    "costPerServing": 1.8,
+    "estimatedRestaurantCost": 15.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 430,
+      "proteinGrams": 19,
+      "carbsGrams": 72,
+      "fatGrams": 8
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Start the Rice",
+        "instructionText": "Cook the brown rice according to package directions. Keep covered while you make the dal.",
+        "timerSeconds": 1800,
+        "importantTip": "Starting rice first lets the dal finish close to the same time."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Cook the Aromatics",
+        "instructionText": "Heat oil in a saucepan over medium heat. Add onion and cook for 4–5 minutes. Stir in garlic, ginger, cumin, and turmeric and cook for 30 seconds.",
+        "timerSeconds": 330,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Simmer the Lentils",
+        "instructionText": "Add rinsed lentils, tomatoes, and broth or water. Bring to a boil, then reduce heat and simmer for 18–22 minutes, stirring occasionally, until the lentils are soft.",
+        "timerSeconds": 1260,
+        "importantTip": "If the dal becomes thicker than you like, add a little water; keep it at a gentle simmer to avoid sticking."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add Spinach and Season",
+        "instructionText": "Stir in spinach until wilted. Add salt and lemon juice to taste, then simmer for another minute.",
+        "timerSeconds": 90,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Serve",
+        "instructionText": "Spoon the dal alongside brown rice. Cool leftovers quickly and refrigerate in shallow containers.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": []
+  },
+  {
+    "recipeId": "rec_065",
+    "title": "Chana Masala with Whole-Wheat Naan",
+    "description": "Chickpeas simmered in a spiced tomato-onion sauce make a filling Indian staple with fiber and plant protein; serve with whole-wheat naan.",
+    "imageUrl": "assets/images/recipes/chana_masala_with_whole-wheat_naan.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Indian",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Canned Chickpeas": "2 cans",
+      "Crushed Tomatoes": "1 can",
+      "Yellow onion": "1 medium",
+      "Garlic": "3 cloves",
+      "Ginger": "1 tbsp",
+      "Olive Oil": "1 tbsp",
+      "Garam Masala": "1 1/2 tsp",
+      "Ground Cumin": "1 tsp",
+      "Ground Coriander": "1 tsp",
+      "Chili Powder": "1/4 tsp",
+      "Water": "1/2 cup",
+      "Cilantro": "2 tbsp",
+      "Whole-Wheat Naan": "2 small",
+      "Lemon Juice": "1 tbsp"
+    },
+    "estimatedCost": 6.0,
+    "costPerServing": 3.0,
+    "estimatedRestaurantCost": 16.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 520,
+      "proteinGrams": 20,
+      "carbsGrams": 86,
+      "fatGrams": 11
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Soften the Onion",
+        "instructionText": "Heat oil in a skillet or saucepan over medium heat. Cook onion for 5–6 minutes until soft and lightly golden.",
+        "timerSeconds": 360,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Bloom the Spices",
+        "instructionText": "Add garlic and ginger and stir for 30 seconds. Add garam masala, cumin, coriander, and optional chili powder; stir briefly until fragrant.",
+        "timerSeconds": 90,
+        "importantTip": "Spices bloom quickly in oil; if they begin to scorch, add the tomatoes immediately."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Simmer the Chickpeas",
+        "instructionText": "Stir in tomatoes, chickpeas, and water. Bring to a gentle boil, then lower the heat and simmer for 18–20 minutes, stirring occasionally. Lightly mash a few chickpeas to thicken the sauce.",
+        "timerSeconds": 1200,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Finish the Sauce",
+        "instructionText": "Stir in lemon juice and cilantro. Taste and adjust seasoning.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Warm Naan and Serve",
+        "instructionText": "Warm the naan according to package directions and serve with the chana masala.",
+        "timerSeconds": 180,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Wheat",
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_066",
+    "title": "Chicken Tikka Skillet with Cucumber Raita",
+    "description": "A weeknight-friendly take on chicken tikka using a yogurt-and-spice marinade, a hot skillet, and cooling cucumber raita.",
+    "imageUrl": "assets/images/recipes/chicken_tikka_skillet_with_cucumber_raita.jpg",
+    "cookTimeMinutes": 18,
+    "activePrepTimeMinutes": 20,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Indian",
+    "dietary": [],
+    "tags": [],
+    "ingredients": {
+      "Chicken thigh": "12 oz",
+      "Greek Yogurt": "1/2 cup",
+      "Lemon Juice": "1 tbsp",
+      "Garlic": "2 cloves",
+      "Ginger": "1 tsp",
+      "Garam Masala": "1 tsp",
+      "Paprika": "1 tsp",
+      "Turmeric": "1/4 tsp",
+      "Cucumber": "1/2 cucumber",
+      "Fresh Mint": "1 tbsp",
+      "Olive Oil": "2 tsp",
+      "Basmati Rice": "2 cups",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 8.4,
+    "costPerServing": 4.2,
+    "estimatedRestaurantCost": 21.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 500,
+      "proteinGrams": 39,
+      "carbsGrams": 48,
+      "fatGrams": 15
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Mix the Marinade",
+        "instructionText": "Combine half the yogurt with lemon juice, garlic, ginger, garam masala, paprika, turmeric, and salt. Toss with chicken and marinate for at least 10 minutes while you prepare the sides.",
+        "timerSeconds": 600,
+        "importantTip": "A longer refrigerated marinade adds flavor, but keep raw chicken chilled and discard leftover marinade."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Make the Raita",
+        "instructionText": "Mix the remaining yogurt with grated cucumber, mint, and a pinch of salt. Refrigerate until serving.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Sear the Chicken",
+        "instructionText": "Heat oil in a large skillet over medium-high heat. Lift chicken from the marinade, let excess drip off, and cook in a single layer for 8–10 minutes, turning until browned and the center reaches 165°F (74°C).",
+        "timerSeconds": 600,
+        "importantTip": "Cook in batches if the pan is crowded; yogurt marinade can brown quickly, so reduce heat if it darkens too fast."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Serve",
+        "instructionText": "Serve the chicken with basmati rice and cucumber raita on the side.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_067",
+    "title": "Vegetable Biryani",
+    "description": "A layered basmati rice dish fragrant with warm spices, vegetables, herbs, and yogurt; a more advanced Indian meal focused on timing and even rice cooking.",
+    "imageUrl": "assets/images/recipes/vegetable_biryani.jpg",
+    "cookTimeMinutes": 45,
+    "activePrepTimeMinutes": 25,
+    "servings": 3,
+    "difficultyTier": "3",
+    "mealType": "Dinner",
+    "cuisine": "Indian",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [],
+    "ingredients": {
+      "Basmati Rice": "1 1/2 cups",
+      "Mixed Vegetables": "2 cups",
+      "Yellow onion": "1 large",
+      "Plain Yogurt": "1/3 cup",
+      "Ginger-Garlic Paste": "1 tbsp",
+      "Garam Masala": "1 tsp",
+      "Ground Cumin": "1/2 tsp",
+      "Turmeric": "1/4 tsp",
+      "Cinnamon Stick": "1 small",
+      "Bay Leaf": "1 leaf",
+      "Olive Oil": "1 tbsp",
+      "Water": "2 1/4 cups",
+      "Cilantro": "2 tbsp",
+      "Fresh Mint": "1 tbsp",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 8.6,
+    "costPerServing": 2.87,
+    "estimatedRestaurantCost": 22.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 440,
+      "proteinGrams": 12,
+      "carbsGrams": 77,
+      "fatGrams": 10
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Rinse and Partially Cook the Rice",
+        "instructionText": "Rinse basmati rice several times until the water is less cloudy. Boil in plenty of salted water for 5–6 minutes until the grains are about three-quarters cooked; drain well.",
+        "timerSeconds": 360,
+        "importantTip": "The rice should still have a firm center because it finishes steaming with the vegetables."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Brown the Onion",
+        "instructionText": "Heat oil in a heavy pot over medium heat. Add onion and cook for 8–10 minutes, stirring often, until golden brown. Remove a spoonful for garnish if desired.",
+        "timerSeconds": 600,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Vegetables and Spices",
+        "instructionText": "Add ginger-garlic paste, garam masala, cumin, turmeric, cinnamon, and bay leaf. Stir for 30 seconds, then add vegetables and cook for 3–4 minutes. Lower heat and stir in yogurt.",
+        "timerSeconds": 270,
+        "importantTip": "Turn the heat down before adding yogurt to reduce curdling; stir continuously."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Layer and Steam",
+        "instructionText": "Spread the partially cooked rice over the vegetables. Sprinkle with cilantro, mint, and reserved onion. Add 2 1/4 cups water around the edge, cover tightly, and cook on low for 18–22 minutes until rice is tender.",
+        "timerSeconds": 1320,
+        "importantTip": "Keep the lid on so steam stays trapped; open only near the end to check the rice."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Rest and Fluff",
+        "instructionText": "Turn off the heat and let the covered pot rest for 5 minutes. Remove the cinnamon and bay leaf, then gently fluff and serve.",
+        "timerSeconds": 300,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk"
+    ]
+  },
+  {
+    "recipeId": "rec_068",
+    "title": "Tuna Onigiri with Edamame",
+    "description": "Japanese rice balls filled with seasoned tuna and paired with edamame make a portable lunch that is different from another grain bowl.",
+    "imageUrl": "assets/images/recipes/tuna_onigiri_with_edamame.jpg",
+    "cookTimeMinutes": 35,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Lunch",
+    "cuisine": "Japanese",
+    "dietary": [],
+    "tags": [
+      "Budget",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Japanese Short-Grain Rice": "1 cup",
+      "Water": "1 1/4 cups",
+      "Canned Tuna": "1 can",
+      "Mayonnaise": "1 tbsp",
+      "Soy sauce": "1 tsp",
+      "Nori Sheets": "2 pieces",
+      "Shelled Edamame": "1 cup",
+      "Rice Vinegar": "1 tsp",
+      "Salt": "1 pinch"
+    },
+    "estimatedCost": 4.9,
+    "costPerServing": 2.45,
+    "estimatedRestaurantCost": 16.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 430,
+      "proteinGrams": 25,
+      "carbsGrams": 62,
+      "fatGrams": 9
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Cook the Rice",
+        "instructionText": "Rinse the rice until the water runs mostly clear. Cook with measured water according to the package directions. Let it rest covered for 10 minutes after cooking.",
+        "timerSeconds": 1500,
+        "importantTip": "Use short-grain rice; its natural stickiness helps the rice balls hold their shape."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Mix the Tuna Filling",
+        "instructionText": "Combine drained tuna, mayonnaise, soy sauce, and rice vinegar. Break up large pieces so the filling is easy to portion.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Edamame",
+        "instructionText": "Boil or microwave edamame according to the package directions until hot; drain and lightly salt.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Shape the Onigiri",
+        "instructionText": "Wet clean hands with water and a little salt. Flatten a scoop of warm rice in your palm, add a small spoonful of tuna filling, cover with rice, and shape into a triangle or ball. Repeat, keeping the filling enclosed.",
+        "timerSeconds": 600,
+        "importantTip": "Keep hands damp so rice does not stick. Do not overfill or the rice balls may split."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Wrap and Serve",
+        "instructionText": "Add a strip of nori to each onigiri and serve with edamame. Keep chilled if packing for later and follow food-safety guidance for cooked rice and tuna.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Soy",
+      "Fish",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_069",
+    "title": "Oven-Baked Chicken Katsu with Cabbage",
+    "description": "Crunchy panko-coated chicken cutlets baked instead of deep-fried, served with shredded cabbage and a little tonkatsu sauce.",
+    "imageUrl": "assets/images/recipes/oven-baked_chicken_katsu_with_cabbage.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 15,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Japanese",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Chicken breast": "2 small",
+      "Wheat flour": "3 tbsp",
+      "Eggs": "1 large",
+      "Panko Breadcrumbs": "1 cup",
+      "Vegetable Oil": "1 tbsp",
+      "Green Cabbage": "2 cups",
+      "Tonkatsu Sauce": "2 tbsp",
+      "Rice": "2 cups",
+      "Black pepper": "To taste",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 7.8,
+    "costPerServing": 3.9,
+    "estimatedRestaurantCost": 19.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 500,
+      "proteinGrams": 42,
+      "carbsGrams": 55,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Heat the Oven",
+        "instructionText": "Heat the oven to 425°F (220°C). Place a wire rack on a baking sheet if available; lightly brush the rack or tray with oil.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Set Up the Coating",
+        "instructionText": "Put flour in one shallow dish, beaten egg in a second, and panko mixed with a little salt and pepper in a third. Pat chicken dry and flatten to an even thickness.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Bread the Chicken",
+        "instructionText": "Coat each cutlet in flour, then egg, then panko, pressing gently so crumbs adhere. Drizzle or brush the outside lightly with oil.",
+        "timerSeconds": 360,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Bake Until Crisp",
+        "instructionText": "Arrange chicken on the rack or tray with space between pieces. Bake for 8–10 minutes, flip, and bake another 8–10 minutes until golden and the center reaches 165°F (74°C).",
+        "timerSeconds": 1200,
+        "importantTip": "If cutlets are thicker than 1/2 inch, they may need extra time; verify the temperature."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Slice and Serve",
+        "instructionText": "Rest chicken for 2 minutes, slice into strips, and serve with cabbage, tonkatsu sauce, and rice.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Wheat",
+      "Soy"
+    ]
+  },
+  {
+    "recipeId": "rec_070",
+    "title": "Vegetable Yaki Udon",
+    "description": "Japanese stir-fried udon noodles with tofu and crisp-tender vegetables, finished with a savory ginger-soy sauce.",
+    "imageUrl": "assets/images/recipes/vegetable_yaki_udon.jpg",
+    "cookTimeMinutes": 12,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Lunch",
+    "cuisine": "Japanese",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Udon Noodles": "2 portions",
+      "Extra Firm Tofu": "8 oz",
+      "Green Cabbage": "2 cups",
+      "Carrots": "1 medium",
+      "Scallions": "2 scallions",
+      "Soy sauce": "1 1/2 tbsp",
+      "Mirin": "1 tbsp",
+      "Ginger": "1 tsp",
+      "Vegetable Oil": "1 tbsp",
+      "Sesame Oil": "1 tsp",
+      "Water": "2 tbsp"
+    },
+    "estimatedCost": 6.4,
+    "costPerServing": 3.2,
+    "estimatedRestaurantCost": 17.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 490,
+      "proteinGrams": 22,
+      "carbsGrams": 68,
+      "fatGrams": 14
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Noodles and Sauce",
+        "instructionText": "Loosen udon noodles according to the package directions. Whisk soy sauce, mirin, ginger, and water together in a small bowl.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Brown the Tofu",
+        "instructionText": "Heat neutral oil in a large skillet over medium-high heat. Add tofu cubes and cook for 4–5 minutes, turning until lightly golden. Transfer to a plate.",
+        "timerSeconds": 300,
+        "importantTip": "Pat the tofu dry first for better browning."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Stir-Fry the Vegetables",
+        "instructionText": "Add cabbage and carrot to the skillet. Stir-fry for 3–4 minutes until just softened but still crisp. Add a splash of water if the pan gets too dry.",
+        "timerSeconds": 240,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Toss with Noodles and Sauce",
+        "instructionText": "Add udon and tofu back to the pan. Pour in the sauce and toss for 2–3 minutes until the noodles are hot and coated. Turn off the heat and finish with sesame oil and scallions.",
+        "timerSeconds": 180,
+        "importantTip": "Use tongs to separate the noodles gently so they do not break."
+      },
+      {
+        "stepNumber": 5,
+        "title": "Serve",
+        "instructionText": "Divide onto plates and serve immediately.",
+        "timerSeconds": 30,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Soy",
+      "Sesame",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_071",
+    "title": "Japanese Okonomiyaki Cabbage Pancakes",
+    "description": "Savory Japanese cabbage pancakes with scallions and thin pork slices, cooked until crisp outside and tender inside; a fun, technique-focused meal.",
+    "imageUrl": "assets/images/recipes/japanese_okonomiyaki_cabbage_pancakes.jpg",
+    "cookTimeMinutes": 18,
+    "activePrepTimeMinutes": 18,
+    "servings": 2,
+    "difficultyTier": "3",
+    "mealType": "Lunch",
+    "cuisine": "Japanese",
+    "dietary": [],
+    "tags": [],
+    "ingredients": {
+      "Green Cabbage": "3 cups",
+      "Wheat flour": "3/4 cup",
+      "Eggs": "2 large",
+      "Water": "1/3 cup",
+      "Scallions": "3 scallions",
+      "Thinly Sliced Pork": "6 oz",
+      "Vegetable Oil": "2 tsp",
+      "Okonomiyaki Sauce": "2 tbsp",
+      "Mayonnaise": "1 tbsp",
+      "Nori Flakes": "1 tsp"
+    },
+    "estimatedCost": 7.3,
+    "costPerServing": 3.65,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 470,
+      "proteinGrams": 27,
+      "carbsGrams": 44,
+      "fatGrams": 20
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Make the Batter",
+        "instructionText": "Whisk flour, eggs, and water in a large bowl until just combined. Fold in shredded cabbage and most of the scallions; the mixture should be thick and packed with cabbage.",
+        "timerSeconds": 240,
+        "importantTip": "Do not overmix the batter; a few small lumps are fine."
+      },
+      {
+        "stepNumber": 2,
+        "title": "Shape the Pancakes",
+        "instructionText": "Heat half the oil in a nonstick skillet over medium heat. Divide the cabbage mixture into two thick pancakes and gently flatten them with a spatula.",
+        "timerSeconds": 180,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add Pork and Cook Slowly",
+        "instructionText": "Arrange half the pork slices over each pancake. Cover and cook for 5–6 minutes, until the bottom is golden and the pancake begins to set.",
+        "timerSeconds": 360,
+        "importantTip": "Moderate heat is important: too high and the outside will burn before the cabbage and egg cook through."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Flip and Finish",
+        "instructionText": "Carefully flip each pancake. Cover and cook another 5–7 minutes until cooked through and the pork reaches 145°F (63°C) with a suitable rest, or the package's recommended safe temperature.",
+        "timerSeconds": 420,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Sauce and Serve",
+        "instructionText": "Drizzle with okonomiyaki sauce and optional mayonnaise. Top with remaining scallions and nori flakes, then serve hot.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Wheat",
+      "Soy"
+    ]
+  },
+  {
+    "recipeId": "rec_072",
+    "title": "Greek Chicken Souvlaki Pitas with Tzatziki",
+    "description": "Lemon-oregano chicken, crunchy vegetables, and cucumber-yogurt sauce tucked into pita bread for a satisfying Mediterranean lunch or dinner.",
+    "imageUrl": "assets/images/recipes/greek_chicken_souvlaki_pitas_with_tzatziki.jpg",
+    "cookTimeMinutes": 15,
+    "activePrepTimeMinutes": 20,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Lunch",
+    "cuisine": "Mediterranean",
+    "dietary": [],
+    "tags": [
+      "Quick & Easy"
+    ],
+    "ingredients": {
+      "Chicken thigh": "12 oz",
+      "Whole-Wheat Pita Bread": "2 large",
+      "Greek Yogurt": "1/2 cup",
+      "Cucumber": "1/2 cucumber",
+      "Tomatoes": "1 medium",
+      "Red Onion": "1/4",
+      "Lemon Juice": "2 tbsp",
+      "Olive Oil": "2 tsp",
+      "Garlic": "1 clove",
+      "Dried Oregano": "1 tsp",
+      "Dill": "1 tsp",
+      "Black pepper": "To taste",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 8.5,
+    "costPerServing": 4.25,
+    "estimatedRestaurantCost": 18.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 490,
+      "proteinGrams": 39,
+      "carbsGrams": 48,
+      "fatGrams": 16
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Season the Chicken",
+        "instructionText": "Toss chicken with olive oil, half the lemon juice, oregano, garlic, salt, and pepper. Let it sit while you make the sauce.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Make Tzatziki",
+        "instructionText": "Mix Greek yogurt with grated cucumber, dill, remaining lemon juice, and a pinch of salt. Refrigerate until serving.",
+        "timerSeconds": 180,
+        "importantTip": "Squeeze the cucumber dry so the yogurt sauce stays thick."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook the Chicken",
+        "instructionText": "Heat a skillet or grill pan over medium-high heat. Cook chicken strips in a single layer for 5–7 minutes, turning until browned and the thickest pieces reach 165°F (74°C).",
+        "timerSeconds": 420,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Warm the Pitas",
+        "instructionText": "Warm pitas in a dry skillet or low oven until flexible. Avoid drying them out.",
+        "timerSeconds": 60,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Assemble",
+        "instructionText": "Fill each pita with chicken, tomato, red onion, and tzatziki. Serve any extra vegetables on the side.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_073",
+    "title": "Baked Falafel & Tahini Pita Wraps",
+    "description": "Oven-baked chickpea falafel tucked into pita with lettuce, tomato, and lemon-tahini sauce; a fiber-rich vegetarian lunch without a grain bowl.",
+    "imageUrl": "assets/images/recipes/baked_falafel_and_tahini_pita_wraps.jpg",
+    "cookTimeMinutes": 25,
+    "activePrepTimeMinutes": 20,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Lunch",
+    "cuisine": "Mediterranean",
+    "dietary": [
+      "Vegan",
+      "Vegetarian"
+    ],
+    "tags": [
+      "Budget"
+    ],
+    "ingredients": {
+      "Canned Chickpeas": "1 can",
+      "Yellow onion": "1/4 small",
+      "Garlic": "2 cloves",
+      "Fresh Parsley": "1/2 cup",
+      "Ground Cumin": "1 tsp",
+      "Ground Coriander": "1/2 tsp",
+      "Wheat flour": "2 tbsp",
+      "Olive Oil": "1 tbsp",
+      "Whole-Wheat Pita Bread": "2 large",
+      "Lettuce": "1 cup",
+      "Tomatoes": "1 medium",
+      "Tahini": "2 tbsp",
+      "Lemon Juice": "1 tbsp",
+      "Water": "1–2 tbsp",
+      "Salt": "To taste"
+    },
+    "estimatedCost": 5.7,
+    "costPerServing": 2.85,
+    "estimatedRestaurantCost": 16.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 480,
+      "proteinGrams": 18,
+      "carbsGrams": 68,
+      "fatGrams": 16
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Heat the Oven",
+        "instructionText": "Heat the oven to 425°F (220°C). Line a baking sheet with parchment and lightly brush with oil.",
+        "timerSeconds": 300,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Pulse the Falafel Mixture",
+        "instructionText": "Pulse chickpeas, onion, garlic, parsley, cumin, coriander, flour, and salt in a food processor until finely chopped but not completely smooth. Form into 8 small patties.",
+        "timerSeconds": 360,
+        "importantTip": "Dry the chickpeas thoroughly first. A wet mixture will be difficult to shape and may crumble."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Bake the Falafel",
+        "instructionText": "Brush the patties with olive oil and bake for 20–25 minutes, flipping halfway, until browned and firm.",
+        "timerSeconds": 1500,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 4,
+        "title": "Mix the Tahini Sauce",
+        "instructionText": "Whisk tahini with lemon juice and enough water to make a pourable sauce. Season to taste.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Wrap and Serve",
+        "instructionText": "Fill warm pitas with lettuce, tomato, falafel, and tahini sauce. Serve immediately.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Sesame",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_074",
+    "title": "Shakshuka with Whole-Wheat Toast",
+    "description": "Eggs gently cooked in a spiced tomato and pepper skillet make a comforting Mediterranean-style breakfast or light dinner with whole-wheat toast.",
+    "imageUrl": "assets/images/recipes/shakshuka_with_whole-wheat_toast.jpg",
+    "cookTimeMinutes": 18,
+    "activePrepTimeMinutes": 10,
+    "servings": 2,
+    "difficultyTier": "1",
+    "mealType": "Breakfast",
+    "cuisine": "Mediterranean",
+    "dietary": [
+      "Vegetarian"
+    ],
+    "tags": [
+      "Budget",
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Eggs": "4 large",
+      "Crushed Tomatoes": "1 can",
+      "Red Bell Pepper": "1 pepper",
+      "Yellow onion": "1/2 onion",
+      "Garlic": "2 cloves",
+      "Olive Oil": "2 tsp",
+      "Ground Cumin": "1/2 tsp",
+      "Smoked Paprika": "1 tsp",
+      "Red Pepper Flakes": "1 pinch",
+      "Fresh Parsley": "1 tbsp",
+      "Whole-Wheat Bread": "4 slices",
+      "Salt": "To taste",
+      "Black pepper": "To taste"
+    },
+    "estimatedCost": 4.6,
+    "costPerServing": 2.3,
+    "estimatedRestaurantCost": 15.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 360,
+      "proteinGrams": 20,
+      "carbsGrams": 43,
+      "fatGrams": 12
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Soften the Vegetables",
+        "instructionText": "Heat olive oil in a skillet over medium heat. Add onion and bell pepper and cook for 5–6 minutes until soft. Stir in garlic, cumin, paprika, and optional chili flakes for 30 seconds.",
+        "timerSeconds": 390,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Simmer the Tomato Sauce",
+        "instructionText": "Add crushed tomatoes, salt, and pepper. Bring to a gentle simmer and cook for 6–8 minutes until slightly thickened.",
+        "timerSeconds": 480,
+        "importantTip": "Keep the sauce bubbling gently; a very high boil can splatter and reduce it too fast."
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add the Eggs",
+        "instructionText": "Make four small wells in the sauce and crack an egg into each. Cover and cook over low heat for 5–8 minutes, until the whites are set and the yolks are cooked to your preference.",
+        "timerSeconds": 480,
+        "importantTip": "For fully cooked eggs, continue until both whites and yolks are firm."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Toast and Finish",
+        "instructionText": "Toast the whole-wheat bread. Sprinkle parsley over the shakshuka and serve straight from the skillet with toast.",
+        "timerSeconds": 120,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Eggs",
+      "Wheat"
+    ]
+  },
+  {
+    "recipeId": "rec_075",
+    "title": "Mediterranean Baked Cod with Tomatoes, Olives & Potatoes",
+    "description": "Flaky cod baked with cherry tomatoes, olives, lemon, and potatoes for a balanced one-pan dinner with bright Mediterranean flavors.",
+    "imageUrl": "assets/images/recipes/mediterranean_baked_cod.jpg",
+    "cookTimeMinutes": 30,
+    "activePrepTimeMinutes": 12,
+    "servings": 2,
+    "difficultyTier": "2",
+    "mealType": "Dinner",
+    "cuisine": "Mediterranean",
+    "dietary": [
+      "Gluten-Free"
+    ],
+    "tags": [
+      "Beginner Friendly"
+    ],
+    "ingredients": {
+      "Cod Fillets": "2 pieces",
+      "Potatoes": "12 oz",
+      "Cherry Tomatoes": "1 cup",
+      "Kalamata Olives": "1/4 cup",
+      "Red Onion": "1/2 onion",
+      "Olive Oil": "1 tbsp",
+      "Garlic": "2 cloves",
+      "Lemon": "1/2 lemon",
+      "Dried Oregano": "1 tsp",
+      "Black pepper": "1/4 tsp",
+      "Salt": "To taste",
+      "Fresh Parsley": "1 tbsp"
+    },
+    "estimatedCost": 9.8,
+    "costPerServing": 4.9,
+    "estimatedRestaurantCost": 23.0,
+    "startCookingButtonLabel": "Start Cooking",
+    "nutritionStats": {
+      "calories": 430,
+      "proteinGrams": 34,
+      "carbsGrams": 42,
+      "fatGrams": 14
+    },
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Preheat and Start the Potatoes",
+        "instructionText": "Heat the oven to 425°F (220°C). Toss potatoes and red onion with half the olive oil, oregano, garlic, salt, and pepper. Roast on a sheet pan for 15 minutes.",
+        "timerSeconds": 900,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 2,
+        "title": "Add the Vegetables",
+        "instructionText": "Add cherry tomatoes, olives, and lemon slices to the tray; toss gently around the potatoes.",
+        "timerSeconds": 120,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 3,
+        "title": "Season the Cod",
+        "instructionText": "Pat the cod dry and place it on the tray among the vegetables. Drizzle with the remaining olive oil and season lightly.",
+        "timerSeconds": 120,
+        "importantTip": "Leave space around the fish so the vegetables continue to roast rather than steam."
+      },
+      {
+        "stepNumber": 4,
+        "title": "Bake Until the Fish Flakes",
+        "instructionText": "Return the tray to the oven for 10–14 minutes, depending on thickness, until the cod is opaque and flakes easily or reaches 145°F (63°C), and the potatoes are tender.",
+        "timerSeconds": 840,
+        "importantTip": null
+      },
+      {
+        "stepNumber": 5,
+        "title": "Finish and Serve",
+        "instructionText": "Sprinkle with parsley and spoon the pan juices over the fish and vegetables. Serve warm.",
+        "timerSeconds": 60,
+        "importantTip": null
+      }
+    ],
+    "allergens": [
+      "Fish"
     ]
   }
 ]

@@ -12,3 +12,6 @@ export 'skill_model.dart';
 export 'skill_step_model.dart';
 export 'xp_reward_snapshot_model.dart';
 export 'badge_model.dart';
+export 'profile_title_model.dart';
+export 'essentials_model.dart';
+export 'cooking_preferences_model.dart';

@@ -69,9 +69,12 @@ class BadgeEvaluatorService {
       case 'streak':
         return profile.currentStreak;
 
+      case 'level':
+        return profile.currentLevel;
       case 'milestone':
       default:
         return profile.totalTimesCooked;
+
     }
   }
 

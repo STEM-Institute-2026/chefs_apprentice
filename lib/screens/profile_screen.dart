@@ -5,25 +5,214 @@ import '../constants/app_transitions.dart';
 import './widgets/header_and_app_bar.dart';
 import '../services/history_service.dart';
 import 'badges_screen.dart';
+import  'onboarding_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final UserProfileModel profile;
+  const ProfileScreen({super.key});
 
-  const ProfileScreen({
-    super.key,
-    required this.profile,
-  });
+  // Default list of titles without IDs
+  static const List<ProfileTitleModel> _allTitles = [
+    ProfileTitleModel(name: 'Novice Cook', requiredLevel: 1),
+    ProfileTitleModel(name: 'Line Cook', requiredLevel: 3),
+    ProfileTitleModel(name: 'Sous Chef', requiredLevel: 6),
+    ProfileTitleModel(name: 'Head Chef', requiredLevel: 10),
+    ProfileTitleModel(name: 'Master Connoisseur', requiredLevel: 15),
+  ];
+
+
+  void _showTitleSelectionSheet(BuildContext context, UserProfileModel profile) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.creamBackground,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Handlebar indicator
+              Center(
+                child: Container(
+                  width: 50,
+                  height: 6,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade400,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const Text(
+                'Select Chef Title',
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.oliveSecondary,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Flexible(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: _allTitles.length,
+                  separatorBuilder: (context, index) => const SizedBox(height: 10),
+                  itemBuilder: (context, index) {
+                    final title = _allTitles[index];
+                    final isUnlocked = title.isUnlocked(profile.currentLevel);
+                    final isSelected = (profile.equippedTitle) == title.name;
+
+                    // Active item styled as a dark green pill container
+                    if (isSelected) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.oliveSecondary,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                          leading: const CircleAvatar(
+                            backgroundColor: AppColors.creamBackground,
+                            child: Icon(
+                              Icons.stars,
+                              color: AppColors.terracottaAccent,
+                            ),
+                          ),
+                          title: Text(
+                            title.name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.creamBackground,
+                            ),
+                          ),
+                          subtitle: const Text(
+                            'Currently Active',
+                            style: TextStyle(
+                              color: AppColors.creamBackground,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          trailing: const Icon(
+                            Icons.check_circle,
+                            color: AppColors.creamBackground,
+                          ),
+                        ),
+                      );
+                    }
+
+                    // Default unselected titles list tile
+                    return ListTile(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      leading: Icon(
+                        isUnlocked ? Icons.military_tech : Icons.lock_outline_rounded,
+                        color: isUnlocked ? AppColors.terracottaAccent : Colors.grey,
+                      ),
+                      title: Text(
+                        title.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: isUnlocked ? Colors.black87 : Colors.grey.shade600,
+                        ),
+                      ),
+                      subtitle: isUnlocked
+                          ? Text(
+                              'Unlocked',
+                              style: TextStyle(color: Colors.grey.shade600),
+                            )
+                          : Text(
+                              'Locked: Reach Level ${title.requiredLevel}',
+                              style: TextStyle(color: AppColors.terracottaAccent.withValues(alpha: 0.8)),
+                            ),
+                      onTap: () async {
+                        if (isUnlocked) {
+                          await HistoryService.updateEquippedTitle(title.name);
+                          if (context.mounted) Navigator.pop(context);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Reach Level ${title.requiredLevel} to unlock "${title.name}"'),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showAvatarSelectionSheet(BuildContext context) {
+  final Map<String, IconData> availableAvatars = IconMapper.icons;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.creamBackground,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Select Avatar',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.oliveSecondary),
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: availableAvatars.entries.map((entry) {
+                  final String key = entry.key;
+                  final IconData iconData = entry.value;
+
+                  return GestureDetector(
+                    onTap: () async {
+                      await HistoryService.updateAvatar(key);
+                      if (context.mounted) Navigator.pop(context);
+                    },
+                    child: CircleAvatar(
+                      radius: 28,
+                      backgroundColor: AppColors.terracottaAccent.withValues(alpha: 0.1),
+                      child: Icon(
+                        iconData,
+                        color: AppColors.terracottaAccent,
+                        size: 28,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Single top-level listener wrapping the screen content
     return ValueListenableBuilder<UserProfileModel>(
       valueListenable: HistoryService.userProfileNotifier,
       builder: (context, currentProfile, child) {
-        // Fallback to the passed profile parameter if currentProfile is not emitted yet
         final activeProfile = currentProfile;
         final double progressFraction =
             (activeProfile.currentXp / activeProfile.maxXp).clamp(0.0, 1.0);
+
+        // Resolve the avatar icon string key using IconMapper
+        final IconData currentIcon = IconMapper.getIcon(activeProfile.avatarKey);
 
         return Scaffold(
           backgroundColor: AppColors.creamBackground,
@@ -74,8 +263,60 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-          actions: [],
-        ),
+            
+          actions: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OnboardingScreen(isEditing: true),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.terracottaAccent.withValues(alpha: 0.90),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: AppColors.creamBackground.withValues(alpha: 0.35),
+                        width: 1.2,
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.tune_rounded,
+                          color: AppColors.creamBackground,
+                          size: 16,
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          'Preferences',
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.creamBackground,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+
+          ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
             child: Column(
@@ -97,34 +338,106 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        radius: 36,
-                        backgroundColor: activeProfile.avatarColorHex != null
-                            ? Color(activeProfile.avatarColorHex!)
-                            : AppColors.creamBackground,
-                        backgroundImage: activeProfile.avatarUrl != null
-                            ? NetworkImage(activeProfile.avatarUrl!)
-                            : null,
-                        child: activeProfile.avatarUrl == null
-                            ? const Icon(
-                                Icons.person,
-                                size: 50,
+                      // Interactive Avatar with Edit Overlay
+                      GestureDetector(
+                        onTap: () => _showAvatarSelectionSheet(context),
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
+                              radius: 36,
+                              backgroundColor: activeProfile.avatarColorHex != null
+                                  ? Color(activeProfile.avatarColorHex!)
+                                  : AppColors.creamBackground,
+                              child: Icon(
+                                currentIcon,
+                                size: 40,
                                 color: AppColors.terracottaAccent,
-                              )
-                            : null,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.terracottaAccent,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.edit,
+                                  size: 12,
+                                  color: AppColors.creamBackground,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(width: 30),
+                      const SizedBox(width: 20),
                       Expanded(
-                        child: Text(
-                          "Hello, Chef ${activeProfile.userName}!",
-                          softWrap: true,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.creamBackground,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Hello, Chef ${activeProfile.userName}!",
+                              softWrap: true,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.creamBackground,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            // Title Selector Button
+                            InkWell(
+                              borderRadius: BorderRadius.circular(12),
+                              onTap: () => _showTitleSelectionSheet(context, activeProfile),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.creamBackground.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: AppColors.creamBackground.withValues(alpha: 0.4),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.military_tech_rounded,
+                                      size: 16,
+                                      color: AppColors.creamBackground,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Flexible(
+                                      child: Text(
+                                        'Title: ${activeProfile.equippedTitle}',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.creamBackground,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 2),
+                                    const Icon(
+                                      Icons.arrow_drop_down,
+                                      size: 18,
+                                      color: AppColors.creamBackground,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -189,7 +502,9 @@ class ProfileScreen extends StatelessWidget {
                 // 3. Dynamic Stats Bar
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 18.0, horizontal: 12.0),
+                    vertical: 18.0,
+                    horizontal: 12.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -203,7 +518,6 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      // Unique Recipes Tried
                       Expanded(
                         child: Column(
                           children: [
@@ -233,15 +547,11 @@ class ProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
-                      // Divider Line
                       Container(
                         height: 48,
                         width: 1,
                         color: Colors.grey.shade300,
                       ),
-
-                      // Total Times Cooked
                       Expanded(
                         child: Column(
                           children: [
@@ -276,11 +586,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // 4. Streak Card (Receives activeProfile directly)
+                // 4. Streak Card Widget
                 StreakCard(profile: activeProfile),
                 const SizedBox(height: 16),
 
-                // 5. Cooked History Screen Button
+                // 5. Cooked History Button
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.oliveSecondary,
@@ -310,7 +620,8 @@ class ProfileScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 8),
-                
+
+                // 6. Sign Out Button
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.terracottaAccent,
@@ -322,7 +633,6 @@ class ProfileScreen extends StatelessWidget {
                     elevation: 0,
                   ),
                   onPressed: () async {
-                    // 1. Show custom-styled confirmation dialog
                     final shouldLogout = await showDialog<bool>(
                       context: context,
                       builder: (context) => Dialog(
@@ -335,7 +645,6 @@ class ProfileScreen extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // Icon Header
                               Container(
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
@@ -349,8 +658,6 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 16),
-
-                              // Title
                               const Text(
                                 'Sign Out',
                                 style: TextStyle(
@@ -360,8 +667,6 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-
-                              // Message
                               const Text(
                                 'Are you sure you want to sign out of Chef\'s Apprentice?',
                                 textAlign: TextAlign.center,
@@ -371,11 +676,8 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 24),
-
-                              // Action Buttons Row
                               Row(
                                 children: [
-                                  // Cancel Button
                                   Expanded(
                                     child: TextButton(
                                       style: TextButton.styleFrom(
@@ -396,8 +698,6 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(width: 12),
-
-                                  // Confirm Sign Out Button
                                   Expanded(
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
@@ -427,7 +727,6 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     );
 
-                    // 2. Trigger Firebase sign-out if confirmed
                     if (shouldLogout == true) {
                       await HistoryService.logout();
                     }
@@ -477,7 +776,6 @@ class StreakCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // HEADER ROW: STREAK COUNT & GOAL
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -509,10 +807,7 @@ class StreakCard extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 16),
-
-          // 7-DAY CALENDAR ROW
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(7, (index) {
@@ -552,7 +847,6 @@ class StreakCard extends StatelessWidget {
     );
   }
 
-  // HELPER METHOD TO CALCULATE WEEKLY STATUS
   List<bool> _calculateWeeklyStatus(List<CookedHistoryModel>? meals) {
     if (meals == null || meals.isEmpty) {
       return List<bool>.filled(7, false);

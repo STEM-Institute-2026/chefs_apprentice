@@ -51,20 +51,43 @@ class RecipeDetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Chip(
-                      label: Text(
-                        "${recipe.difficultyTier} Difficulty",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        Chip(
+                          label: Text(
+                            "Tier ${recipe.difficultyTier} Difficulty",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          backgroundColor: AppColors.terracottaAccent,
                         ),
-                      ),
-                      backgroundColor: AppColors.terracottaAccent,
+                        Chip(
+                          avatar: const Icon(
+                            Icons.warning_amber_rounded,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                          label: Text(
+                            recipe.allergens.isEmpty
+                                ? "No Listed Allergens"
+                                : "Allergies: ${recipe.allergens.join(', ')}",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          backgroundColor: AppColors.terracottaAccent,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 12),
                     Text(
                       recipe.description,
-                      style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
+                      style: kBodyTextStyle.copyWith(fontSize: 16,color: AppColors.oliveSecondary),
                     ),
                   ],
                 ),
@@ -176,31 +199,40 @@ class IngredientListSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0), // Reduced side padding to give more room
       child: Column(
         children: [
           for (var entry in ingredients.entries)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Column(
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        entry.key,
-                        style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
+                      // Allows long ingredient names to wrap to the next line safely
+                      Expanded(
+                        child: Text(
+                          entry.key,
+                          style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
+                        ),
                       ),
+                      const SizedBox(width: 16),
+                      // Keeps the amount right-aligned
                       Text(
                         entry.value,
-                        style: kBodyTextStyle.copyWith(color: AppColors.oliveSecondary),
+                        style: kBodyTextStyle.copyWith(
+                          color: AppColors.oliveSecondary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 5),
                   const Divider(
                     height: 1,
-                    thickness: 2,
+                    thickness: 1,
                     color: AppColors.oliveSecondary,
                   ),
                 ],

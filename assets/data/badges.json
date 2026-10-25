@@ -5,7 +5,7 @@
     "description": "Cook traditional Italian recipes to master classic pasta and sauce techniques. Earned by finishing the Italian Cuisine module.",
     "category": "cuisine",
     "iconPath": "assets/images/badges/badge_italian.PNG",
-    "targetValues": [1, 2],
+    "targetValues": [2, 5],
     "targetDescription": "Module Recipes Completed",
     "targetModuleId": "cuisine_italian"
   },
@@ -15,9 +15,39 @@
     "description": "Master bold charred chilies, citrus marinades, and fresh salsa preparation. Earned by finishing the Mexican Cuisine module.",
     "category": "cuisine",
     "iconPath": "assets/images/badges/badge_mexican.PNG",
-    "targetValues": [1, 2],
+    "targetValues": [2, 4],
     "targetDescription": "Module Recipes Completed",
     "targetModuleId": "cuisine_mexican"
+  },
+  {
+    "id": "chinese_cuisine_master",
+    "title": "Wok & Flavor Master",
+    "description": "Master traditional Chinese cooking techniques, from high-heat stir-frying to aromatic sauces and balanced seasoning. Earned by finishing the Chinese Cuisine module.",
+    "category": "cuisine",
+    "iconPath": "assets/images/badges/badge_chinese.webp",
+    "targetValues": [2, 4],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "cuisine_chinese"
+  },
+  {
+    "id": "indian_cuisine_master",
+    "title": "Spice & Curry Artisan",
+    "description": "Explore the art of Indian cooking through spice tempering, layered curry bases, and aromatic spice blends. Earned by finishing the Indian Cuisine module.",
+    "category": "cuisine",
+    "iconPath": "assets/images/badges/badge_indian.jpg",
+    "targetValues": [2, 4],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "cuisine_indian"
+  },
+  {
+    "id": "american_cuisine_master",
+    "title": "American Comfort Food Champion",
+    "description": "Master classic American cooking techniques, from grilling and searing to smoky barbecue and hearty comfort food. Earned by finishing the American Cuisine module.",
+    "category": "cuisine",
+    "iconPath": "assets/images/badges/badge_american.jpg",
+    "targetValues": [2, 6],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "cuisine_american"
   },
   {
     "id": "knife_skills_master",
@@ -25,19 +55,49 @@
     "description": "Complete practice recipes focused on precision knife skills and prep work. Earned by finishing the Knife Skills module.",
     "category": "skill",
     "iconPath": "assets/images/badges/badge_knife_skills.PNG",
-    "targetValues": [1, 2],
+    "targetValues": [2, 5],
     "targetDescription": "Module Recipes Completed",
     "targetModuleId": "module_knife_mastery"
   },
   {
     "id": "heat_control_master",
     "title": "Flame Tamer",
-    "description": "Master boiling, simmering, and temperature management across practice recipes. Earned by finishing the Heat & Pan Control module.",
+    "description": "Master pan control and flame management across practice recipes. Earned by finishing the Heat & Pan Control module.",
     "category": "skill",
     "iconPath": "assets/images/badges/badge_heat_control.PNG",
-    "targetValues": [1],
+    "targetValues": [2, 6],
     "targetDescription": "Module Recipes Completed",
     "targetModuleId": "module_heat_control"
+  },
+  {
+    "id": "boiling_simmering_master",
+    "title": "Simmering Specialist",
+    "description": "Master liquid temperature control, from rolling boils to gentle simmering, and learn to cook pasta, grains, and soups with the right texture. Earned by finishing the Boiling & Simmering module.",
+    "category": "skill",
+    "iconPath": "assets/images/badges/badge_simmering_specialist.jpg",
+    "targetValues": [2, 4],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "module_boiling_simmering"
+  },
+  {
+    "id": "mixing_whisking_master",
+    "title": "Whisk Taker",
+    "description": "Master the art of mixing, whisking, folding, and combining ingredients to achieve smooth mixtures and the right consistency. Earned by finishing the Mixing & Whisking module.",
+    "category": "skill",
+    "iconPath": "assets/images/badges/badge_whisk_taker.jpg",
+    "targetValues": [2, 6],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "module_mixing_whisking"
+  },
+  {
+    "id": "oven_roasting_baking_master",
+    "title": "Oven Virtuoso",
+    "description": "Master oven cooking fundamentals, from preparing baking trays to roasting ingredients evenly and achieving the right doneness. Earned by finishing the Oven Roasting & Baking module.",
+    "category": "skill",
+    "iconPath": "assets/images/badges/badge_oven_virtuoso.jpg",
+    "targetValues": [2, 5],
+    "targetDescription": "Module Recipes Completed",
+    "targetModuleId": "module_oven_roasting_baking"
   },
   {
     "id": "total_meals_cooked",
@@ -57,6 +117,16 @@
     "iconPath": "assets/images/badges/badge_cooking_streak.PNG",
     "targetValues": [3, 7, 14, 30],
     "targetDescription": "Consecutive Days Cooking",
+    "targetModuleId": null
+  },
+  {
+    "id": "current_level",
+    "title": "Dedicated Grinder",
+    "description": "Advance through the levels of culinary expertise. Earned by reaching higher levels in your cooking journey.",
+    "category": "level",
+    "iconPath": "assets/images/badges/badge_current_level.jpg",
+    "targetValues": [2, 5, 10],
+    "targetDescription": "Current Level",
     "targetModuleId": null
   }
 ]
